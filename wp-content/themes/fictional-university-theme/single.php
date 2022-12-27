@@ -1,4 +1,5 @@
 <?php
+// this file use for single post
 
 // get all post
 while (have_posts()) {
@@ -8,14 +9,10 @@ while (have_posts()) {
     <!-- HTML mode -->
 
     <h2>
-        <!-- get the permanent link -->
-        <a href="<?php echo get_permalink(); ?>">
-            <!-- get and print the title of current post -->
-            <?php the_title() ?>
-        </a>
+        <!-- get and print the title of current post -->
+        <?php the_title() ?>
     </h2>
     <!-- get and print the content of current post -->
     <?php the_content() ?>
-    <hr>
 <?php
 }
