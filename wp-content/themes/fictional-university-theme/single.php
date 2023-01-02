@@ -1,4 +1,6 @@
 <?php
+
+get_header();
 // this file use for single post
 
 // get all post
@@ -16,3 +18,5 @@ while (have_posts()) {
     <?php the_content() ?>
 <?php
 }
+
+get_footer();

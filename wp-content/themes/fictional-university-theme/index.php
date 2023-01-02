@@ -1,4 +1,5 @@
-<?php
+<?php 
+get_header();
 
 // get all post
 while (have_posts()) {
@@ -19,3 +20,5 @@ while (have_posts()) {
     <hr>
 <?php
 }
+
+get_footer();
