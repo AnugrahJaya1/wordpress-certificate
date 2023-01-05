@@ -3,6 +3,8 @@
 <html <?php language_attributes(); ?>>
 
 <head>
+    <!-- tell browser what char type used -->
+    <meta charset="<?php bloginfo("charset");?>">
     <!-- make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
