@@ -31,13 +31,6 @@
                             "theme_location" => "header-menu-location" // in functions.php
                         ]);
                     ?>
-                    <!-- <ul>
-                        <li><a href="<?php // echo site_url('/about-us') ?>">About Us</a></li>
-                        <li><a href="<?php // echo site_url('/programs') ?>">Programs</a></li>
-                        <li><a href="<?php // echo site_url('/events') ?>">Events</a></li>
-                        <li><a href="<?php // echo site_url('/campuses') ?>">Campuses</a></li>
-                        <li><a href="<?php // echo site_url('/blog') ?>">Blog</a></li>
-                    </ul> -->
                 </nav>
                 <div class="site-header__util">
                     <a href="#" class="btn btn--small btn--orange float-left push-right">Login</a>
