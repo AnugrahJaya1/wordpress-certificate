@@ -4,7 +4,7 @@
 
 <head>
     <!-- tell browser what char type used -->
-    <meta charset="<?php bloginfo("charset");?>">
+    <meta charset="<?php bloginfo("charset"); ?>">
     <!-- make website responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
@@ -13,7 +13,8 @@
     ?>
 </head>
 
-<body>
+<!-- add different body class -->
+<body <?php body_class() ?>>
     <header class="site-header">
         <div class="container">
             <h1 class="school-logo-text float-left">
