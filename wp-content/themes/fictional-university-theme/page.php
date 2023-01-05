@@ -81,7 +81,8 @@ while (have_posts()) {
                         // add arguments to show related pages
                         [
                             "title_li" => NULL, // hide pages title
-                            "child_of" => $find_children_of
+                            "child_of" => $find_children_of,
+                            "sort_column" => "menu_order"
                         ]
                     );
                     ?>
