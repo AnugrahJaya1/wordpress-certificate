@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- add language attribute -->
+<html <?php language_attributes(); ?>>
 
 <head>
     <!-- make website responsive -->
