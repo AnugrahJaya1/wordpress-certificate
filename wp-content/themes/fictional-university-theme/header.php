@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <!-- make website responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
     // load css and js
     wp_head();
