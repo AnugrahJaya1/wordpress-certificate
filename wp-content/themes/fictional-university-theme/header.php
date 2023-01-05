@@ -14,6 +14,7 @@
 </head>
 
 <!-- add different body class -->
+
 <body <?php body_class() ?>>
     <header class="site-header">
         <div class="container">
@@ -24,13 +25,12 @@
             <i class="site-header__menu-trigger fa fa-bars" aria-hidden="true"></i>
             <div class="site-header__menu group">
                 <nav class="main-navigation">
-                    <ul>
-                        <li><a href="<?php echo site_url('/about-us') ?>">About Us</a></li>
-                        <li><a href="<?php echo site_url('/programs') ?>">Programs</a></li>
-                        <li><a href="<?php echo site_url('/events') ?>">Events</a></li>
-                        <li><a href="<?php echo site_url('/campuses') ?>">Campuses</a></li>
-                        <li><a href="<?php echo site_url('/blog') ?>">Blog</a></li>
-                    </ul>
+                    <?php
+                        // show admin nav menu
+                        wp_nav_menu([
+                            "theme_location" => "header-menu-location" // in functions.php
+                        ]);
+                    ?>
                 </nav>
                 <div class="site-header__util">
                     <a href="#" class="btn btn--small btn--orange float-left push-right">Login</a>
