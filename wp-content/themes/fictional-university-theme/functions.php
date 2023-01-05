@@ -24,6 +24,9 @@ add_action("wp_enqueue_scripts", "university_files");
 function university_features(){
     // setup title in header
     add_theme_support("title-tag");
+
+    // add menu 
+    register_nav_menu("header-menu-location", "Header Menu Location");// location/slug, name
 }
 
 add_action("after_setup_theme", "university_features");
