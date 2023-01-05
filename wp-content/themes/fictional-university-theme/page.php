@@ -25,6 +25,7 @@ while (have_posts()) {
         </div>
     </div>
 
+
     <div class="container container--narrow page-section">
         <?php
         $id = get_the_ID(); // get id of current page
@@ -54,31 +55,39 @@ while (have_posts()) {
 
         <?php } ?>
 
-        <div class="page-links">
-            <h2 class="page-links__title">
-                <a href="<?php echo get_permalink($parent_id); ?>">
-                    <?php echo get_the_title($parent_id) ?>
-                </a>
-            </h2>
-            <ul class="min-list">
-                <?php
-                if ($parent_id) {
-                    $find_children_of = $parent_id;
-                } else {
-                    $find_children_of = get_the_ID(); //get current page id
-                }
+        <?php
+        $child_of_page = get_pages([
+            'child_of' => get_the_ID()
+        ]);
+        // show only if have parent or in parent page
+        if ($parent_id || $child_of_page) {
+        ?>
+            <div class="page-links">
+                <h2 class="page-links__title">
+                    <a href="<?php echo get_permalink($parent_id); ?>">
+                        <?php echo get_the_title($parent_id) ?>
+                    </a>
+                </h2>
+                <ul class="min-list">
+                    <?php
+                    if ($parent_id) {
+                        $find_children_of = $parent_id;
+                    } else {
+                        $find_children_of = get_the_ID(); //get current page id
+                    }
 
-                // get all list of pages
-                wp_list_pages(
-                    // add arguments to show related pages
-                    [
-                        "title_li" => NULL, // hide pages title
-                        "child_of" => $find_children_of
-                    ]
-                );
-                ?>
-            </ul>
-        </div>
+                    // get all list of pages
+                    wp_list_pages(
+                        // add arguments to show related pages
+                        [
+                            "title_li" => NULL, // hide pages title
+                            "child_of" => $find_children_of
+                        ]
+                    );
+                    ?>
+                </ul>
+            </div>
+        <?php } ?>
 
         <div class="generic-content">
             <?php
