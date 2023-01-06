@@ -28,7 +28,20 @@ get_header();
             </h2>
 
             <div class="metabox">
-                <p>Posted by <?php ?> on <?php ?> in <?php ?></p>
+                <p>Posted by
+                    <?php
+                    // show author as link
+                    the_author_posts_link();
+                    ?> on
+                    <?php
+                    // show the date
+                    the_date();
+                    ?> in
+                    <?php
+                    // show category as list
+                    echo get_the_category_list(", ");
+                    ?>
+                </p>
             </div>
 
             <div class="generic-content">
