@@ -59,6 +59,8 @@ get_header();
         </div>
     <?php
     }
+    //  add pagination
+    echo paginate_links();
     ?>
 </div>
 
