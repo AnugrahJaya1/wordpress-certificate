@@ -37,8 +37,12 @@ get_header();
                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                         </h5>
                         <p><?php
-                            // word, length
-                            echo wp_trim_words(get_the_content(), 18);
+                            if (has_excerpt()) {
+                                the_excerpt();
+                            } else {
+                                // word, length
+                                echo wp_trim_words(get_the_content(), 18);
+                            }
                             ?>
                             <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a>
                         </p>
@@ -83,8 +87,12 @@ get_header();
                         </h5>
                         <p>
                             <?php
-                            // word, length
-                            echo wp_trim_words(get_the_content(), 18);
+                            if (has_excerpt()) {
+                                the_excerpt();
+                            } else {
+                                // word, length
+                                echo wp_trim_words(get_the_content(), 18);
+                            }
                             ?>
                             <a href="<?php the_permalink(); ?>" class="nu gray">Read more</a>
                         </p>
