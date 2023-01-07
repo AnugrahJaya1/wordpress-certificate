@@ -22,38 +22,20 @@ get_header();
         // get post
         the_post(); // keep track what post we use
     ?>
-        <div class="post-item">
-            <h2 class="headline headline--medium headline--post-title">
-                <a href="<?php the_permalink(); ?>">
-                    <?php the_title(); ?>
-                </a>
-            </h2>
-
-            <div class="metabox">
-                <p>Posted by
-                    <?php
-                    // show author as link
-                    the_author_posts_link();
-                    ?> on
-                    <?php
-                    // show the date
-                    the_date();
-                    ?> in
-                    <?php
-                    // show category as list
-                    echo get_the_category_list(", ");
+        <div class="event-summary">
+            <a class="event-summary__date t-center" href="#">
+                <span class="event-summary__month"><?php the_time("M"); ?></span>
+                <span class="event-summary__day"><?php the_time("d"); ?></span>
+            </a>
+            <div class="event-summary__content">
+                <h5 class="event-summary__title headline headline--tiny">
+                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                </h5>
+                <p><?php
+                    // word, length
+                    echo wp_trim_words(get_the_content(), 18);
                     ?>
-                </p>
-            </div>
-
-            <div class="generic-content">
-                <?php
-                the_excerpt(); // show some of content
-                ?>
-                <p>
-                    <a class="btn btn--blue" href="<?php the_permalink(); ?>">
-                        Continue reading &raquo;
-                    </a>
+                    <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a>
                 </p>
             </div>
         </div>
