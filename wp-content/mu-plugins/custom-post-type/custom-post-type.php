@@ -58,7 +58,6 @@ class Custom_Post_Type
                     "title",
                     "editor",
                     "excerpt", // add excerpt support,
-                    "custom-fields", // add custom fields -> edit event -> references -> panels
                 ],
                 "rewrite" => [
                     "slug" => "events" // rewrite slug
