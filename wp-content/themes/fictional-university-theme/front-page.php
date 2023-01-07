@@ -38,7 +38,7 @@ get_header();
                         </h5>
                         <p><?php
                             if (has_excerpt()) {
-                                the_excerpt();
+                               echo get_the_excerpt();
                             } else {
                                 // word, length
                                 echo wp_trim_words(get_the_content(), 18);
@@ -88,7 +88,7 @@ get_header();
                         <p>
                             <?php
                             if (has_excerpt()) {
-                                the_excerpt();
+                                echo get_the_excerpt();
                             } else {
                                 // word, length
                                 echo wp_trim_words(get_the_content(), 18);
