@@ -18,6 +18,7 @@ get_header();
             <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
             <?php
+            // need update re-save permalink
             // get events post
             $home_page_events = new WP_Query([
                 "posts_per_page" => 2, // show only 2 post
