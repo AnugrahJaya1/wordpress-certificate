@@ -37,8 +37,12 @@ get_header();
                             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                         </h5>
                         <p><?php
-                            // word, length
-                            echo wp_trim_words(get_the_content(), 18);
+                            if (has_excerpt()) {
+                               echo get_the_excerpt();
+                            } else {
+                                // word, length
+                                echo wp_trim_words(get_the_content(), 18);
+                            }
                             ?>
                             <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a>
                         </p>
@@ -50,7 +54,7 @@ get_header();
             wp_reset_postdata();
             ?>
 
-            <p class="t-center no-margin"><a href="<?php echo site_url("/event") ?>" class="btn btn--blue">View All Events</a></p>
+            <p class="t-center no-margin"><a href="<?php echo get_post_type_archive_link("event") ?>" class="btn btn--blue">View All Events</a></p>
         </div>
     </div>
     <div class="full-width-split__two">
@@ -83,8 +87,12 @@ get_header();
                         </h5>
                         <p>
                             <?php
-                            // word, length
-                            echo wp_trim_words(get_the_content(), 18);
+                            if (has_excerpt()) {
+                                echo get_the_excerpt();
+                            } else {
+                                // word, length
+                                echo wp_trim_words(get_the_content(), 18);
+                            }
                             ?>
                             <a href="<?php the_permalink(); ?>" class="nu gray">Read more</a>
                         </p>
