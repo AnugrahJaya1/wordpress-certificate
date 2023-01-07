@@ -29,6 +29,8 @@ class Custom_Post_Type
     function __construct()
     {
         add_action("init", [$this, "event_post_type"]);
+
+        add_action("init", [$this, "program_post_type"]);
     }
 
     /**
@@ -73,6 +75,34 @@ class Custom_Post_Type
                     "singular_name" => "Event" // Text of singular event
                 ],
                 "menu_icon" => "dashicons-calendar"
+            ]); // name of post type, argument
+        }
+    }
+
+    function program_post_type()
+    {
+        // add custom post type
+        {
+            // add event post type
+            register_post_type("program", [
+                "supports" => [
+                    "title",
+                    "editor",
+                ],
+                "rewrite" => [
+                    "slug" => "programs" // rewrite slug
+                ],
+                "has_archive" => true, // show archive event in event page
+                "public" => true, // show in admin nav bar
+                'show_in_rest' => true,
+                "labels" => [
+                    "name" => "Programs", // name showed in admin nav bar
+                    "add_new_item" => "Add New Program", // Text when add new item
+                    "edit_item" => "Edit Program", // Text when edit item
+                    "all_items" => "All Programs", // Text of all Programs
+                    "singular_name" => "Program" // Text of singular Program
+                ],
+                "menu_icon" => "dashicons-awards"
             ]); // name of post type, argument
         }
     }
