@@ -15,24 +15,53 @@ function university_files()
 
     // js
     //nickname, location, dependency (if no have dependency -> NULL), version number, load before closing body tag
-    wp_enqueue_script("university_main_script", get_theme_file_uri("/build/index.js"), ["jquery"], "1.0", true ); 
+    wp_enqueue_script("university_main_script", get_theme_file_uri("/build/index.js"), ["jquery"], "1.0", true);
 }
 
 // load css and js script
 add_action("wp_enqueue_scripts", "university_files");
 
-function university_features(){
+function university_features()
+{
     // setup title in header
     add_theme_support("title-tag");
 
     // add header menu
-    register_nav_menu("header-menu-location", "Header Menu Location");// location/slug, name
+    register_nav_menu("header-menu-location", "Header Menu Location"); // location/slug, name
 
     // add footer menu 1 
-    register_nav_menu("footer-menu-location-one", "Footer Menu Location One");// location/slug, name
+    register_nav_menu("footer-menu-location-one", "Footer Menu Location One"); // location/slug, name
 
     // add footer menu 2
-    register_nav_menu("footer-menu-location-two", "Footer Menu Location Two");// location/slug, name
+    register_nav_menu("footer-menu-location-two", "Footer Menu Location Two"); // location/slug, name
 }
 
 add_action("after_setup_theme", "university_features");
+
+function university_adjust_queries($query)
+{
+    // adjust events page queries
+    if (
+        !is_admin() && //if not in admin/dashboard
+        is_post_type_archive("event") &&
+        $query->is_main_query() // manipulate base queries
+    ) {
+        $today = date("Ymd");
+
+        $query->set("meta_key", "event_date"); // set by meta_key
+        $query->set("orderby", "meta_value_num"); // set by orderby
+        $query->set("order", "ASC"); // set by order ASC/DESC
+        $query->set("meta_query", [
+            // only get upcoming event not the past
+            [
+                // greater than today
+                "key" => "event_date", // custom field
+                "compare" => ">=",
+                "value" => $today, // YYYYmmdd
+                "type" => "numeric"
+            ]
+        ]); 
+    }
+}
+
+add_action("pre_get_posts", "university_adjust_queries");
