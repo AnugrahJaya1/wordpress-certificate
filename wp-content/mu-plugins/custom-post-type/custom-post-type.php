@@ -55,6 +55,7 @@ class Custom_Post_Type
             // add event post type
             register_post_type("event", [
                 "public" => true, // show in admin nav bar
+                'show_in_rest' => true,
                 "labels" => [
                     "name" => "Events", // name showed in admin nav bar
                     "add_new_item" => "Add New Event", // Text when add new item
