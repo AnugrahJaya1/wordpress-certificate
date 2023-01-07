@@ -18,9 +18,28 @@ get_header();
 <!-- content -->
 <div class="container container--narrow page-section">
     <?php
-    while (have_posts()) {
+    $today = date("Ymd");
+
+    $past_events = new WP_Query([
+        "post_type" => "event",
+        "orderby" => "meta_value_num", // default -> post date, reverse alphabet. meta_value -> get meta value,
+        "meta_key" => "event_date",
+        "meta_query" => [
+            // only get upcoming event not the past
+            [
+                // greater than today
+                "key" => "event_date", // custom field
+                "compare" => "<",
+                "value" => $today, // YYYYmmdd
+                "type" => "numeric"
+            ]
+        ],
+        "order" => "ASC", // default DESC
+    ]);
+
+    while ($past_events->have_posts()) {
         // get post
-        the_post(); // keep track what post we use
+        $past_events->the_post(); // keep track what post we use
     ?>
         <div class="event-summary">
             <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">

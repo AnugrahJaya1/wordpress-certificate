@@ -24,7 +24,7 @@ get_header();
             // by default order by publish date/post date
             // get events post
             $home_page_events = new WP_Query([
-                "posts_per_page" => -1, // show only 2 post
+                "posts_per_page" => 2, // show only 2 post
                 "post_type" => "event",
                 "orderby" => "meta_value_num", // default -> post date, reverse alphabet. meta_value -> get meta value,
                 "meta_key" => "event_date",
