@@ -5,11 +5,11 @@ get_header();
     <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/library-hero.jpg') ?>)"></div>
     <div class="page-banner__content container container--narrow">
         <h1 class="page-banner__title">
-            All Events
+            Past Events
         </h1>
         <div class="page-banner__intro">
             <p>
-                See what is going on in our world.
+                A recap of our past events.
             </p>
         </div>
     </div>
@@ -18,9 +18,29 @@ get_header();
 <!-- content -->
 <div class="container container--narrow page-section">
     <?php
-    while (have_posts()) {
+    $today = date("Ymd");
+
+    $past_events = new WP_Query([
+        "paged" => get_query_var("paged",1), // get query var 
+        "post_type" => "event",
+        "orderby" => "meta_value_num", // default -> post date, reverse alphabet. meta_value -> get meta value,
+        "meta_key" => "event_date",
+        "meta_query" => [
+            // only get upcoming event not the past
+            [
+                // greater than today
+                "key" => "event_date", // custom field
+                "compare" => "<",
+                "value" => $today, // YYYYmmdd
+                "type" => "numeric"
+            ]
+        ],
+        "order" => "ASC", // default DESC
+    ]);
+
+    while ($past_events->have_posts()) {
         // get post
-        the_post(); // keep track what post we use
+        $past_events->the_post(); // keep track what post we use
     ?>
         <div class="event-summary">
             <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
@@ -52,13 +72,11 @@ get_header();
     <?php
     }
     //  add pagination
-    echo paginate_links();
+    // only work if using default query
+    echo paginate_links([
+        "total" => $past_events->max_num_pages,
+    ]);
     ?>
-
-    <hr class="section-break">
-    <p>Looking for a recap of past events?
-        <a href="<?php echo site_url("/past-events"); ?>">Check out our past events archive.</a>
-    </p>
 </div>
 
 <?php
