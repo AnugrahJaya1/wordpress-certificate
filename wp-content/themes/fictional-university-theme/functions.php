@@ -36,3 +36,17 @@ function university_features(){
 }
 
 add_action("after_setup_theme", "university_features");
+
+// add custom post type
+function university_post_types(){
+    // add event post type
+    register_post_type("event", [
+        "public" => true, // show in admin nav bar
+        "labels" => [
+            "name" => "Events"
+        ],
+        "menu_icon" => "dashicons-calendar"
+    ]); // name of post type, argument
+}
+
+add_action("init","university_post_types");
