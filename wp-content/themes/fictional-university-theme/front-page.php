@@ -18,6 +18,8 @@ get_header();
             <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
 
             <?php
+            $today = date("Ymd");
+
             // need update re-save permalink
             // by default order by publish date/post date
             // get events post
@@ -26,6 +28,16 @@ get_header();
                 "post_type" => "event",
                 "orderby" => "meta_value_num", // default -> post date, reverse alphabet. meta_value -> get meta value,
                 "meta_key" => "event_date",
+                "meta_query" => [
+                    // only get upcoming event not the past
+                    [
+                        // greater than today
+                        "key" => "event_date", // custom field
+                        "compare" => ">=",
+                        "value" => $today, // YYYYmmdd
+                        "type" => "numeric"
+                    ]
+                ],
                 "order" => "ASC", // default DESC
             ]);
             while ($home_page_events->have_posts()) {
@@ -41,7 +53,7 @@ get_header();
                             ?>
                         </span>
                         <span class="event-summary__day">
-                            <?php 
+                            <?php
                             echo $event_date->format("d");
                             ?>
                         </span>
