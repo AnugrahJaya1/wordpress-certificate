@@ -38,6 +38,7 @@ function university_features()
 
 add_action("after_setup_theme", "university_features");
 
+// manipulate query
 function university_adjust_queries($query)
 {
     // adjust events page queries
@@ -60,7 +61,17 @@ function university_adjust_queries($query)
                 "value" => $today, // YYYYmmdd
                 "type" => "numeric"
             ]
-        ]); 
+        ]);
+    }
+
+    if (
+        !is_admin() && //if not in admin/dashboard
+        is_post_type_archive("program") &&
+        $query->is_main_query() // manipulate base queries
+    ) {
+        $query->set("orderby", "title"); // set by orderby
+        $query->set("order", "ASC"); // set by order ASC/DESC
+        $query->set("posts_per_page", -1); // show all
     }
 }
 
