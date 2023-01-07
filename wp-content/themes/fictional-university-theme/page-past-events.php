@@ -21,6 +21,7 @@ get_header();
     $today = date("Ymd");
 
     $past_events = new WP_Query([
+        "paged" => get_query_var("paged",1), // get query var 
         "post_type" => "event",
         "orderby" => "meta_value_num", // default -> post date, reverse alphabet. meta_value -> get meta value,
         "meta_key" => "event_date",
@@ -71,7 +72,10 @@ get_header();
     <?php
     }
     //  add pagination
-    echo paginate_links();
+    // only work if using default query
+    echo paginate_links([
+        "total" => $past_events->max_num_pages,
+    ]);
     ?>
 </div>
 
