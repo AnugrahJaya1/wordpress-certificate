@@ -62,7 +62,7 @@ while (have_posts()) {
                 foreach ($related_programs as $program) {
                 ?>
                     <li>
-                        <a href="<?php get_the_permalink($program) ?>">
+                        <a href="<?php echo get_the_permalink($program) ?>">
                             <?php
                             echo get_the_title($program);
                             ?>
