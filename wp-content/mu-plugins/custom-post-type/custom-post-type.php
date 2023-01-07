@@ -57,6 +57,10 @@ class Custom_Post_Type
                 "public" => true, // show in admin nav bar
                 "labels" => [
                     "name" => "Events", // name showed in admin nav bar
+                    "add_new_item" => "Add New Event", // Text when add new item
+                    "edit_item" => "Edit Event", // Text when edit item
+                    "all_items" => "All Events", // Text of all events
+                    "singular_name" => "Event" // Text of singular event
                 ],
                 "menu_icon" => "dashicons-calendar"
             ]); // name of post type, argument
