@@ -54,6 +54,11 @@ class Custom_Post_Type
         {
             // add event post type
             register_post_type("event", [
+                "supports" => [
+                    "title",
+                    "editor",
+                    "excerpt" // add excerpt support
+                ],
                 "rewrite" => [
                     "slug" => "events" // rewrite slug
                 ],
