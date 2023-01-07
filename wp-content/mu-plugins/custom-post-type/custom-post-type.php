@@ -54,6 +54,10 @@ class Custom_Post_Type
         {
             // add event post type
             register_post_type("event", [
+                "rewrite" => [
+                    "slug" => "events" // rewrite slug
+                ],
+                "has_archive" => true, // show archive event in event page
                 "public" => true, // show in admin nav bar
                 'show_in_rest' => true,
                 "labels" => [
