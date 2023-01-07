@@ -23,9 +23,19 @@ get_header();
         the_post(); // keep track what post we use
     ?>
         <div class="event-summary">
-            <a class="event-summary__date t-center" href="#">
-                <span class="event-summary__month"><?php the_time("M"); ?></span>
-                <span class="event-summary__day"><?php the_time("d"); ?></span>
+            <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
+                <span class="event-summary__month">
+                    <?php
+                    // convert string to date
+                    $event_date = new DateTime(get_field("event_date"));
+                    echo $event_date->format("M");
+                    ?>
+                </span>
+                <span class="event-summary__day">
+                    <?php
+                    echo $event_date->format("d");
+                    ?>
+                </span>
             </a>
             <div class="event-summary__content">
                 <h5 class="event-summary__title headline headline--tiny">
