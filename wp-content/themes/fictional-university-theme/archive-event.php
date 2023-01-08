@@ -13,35 +13,9 @@ page_banner([
     while (have_posts()) {
         // get post
         the_post(); // keep track what post we use
-    ?>
-        <div class="event-summary">
-            <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
-                <span class="event-summary__month">
-                    <?php
-                    // convert string to date
-                    $event_date = new DateTime(get_field("event_date"));
-                    echo $event_date->format("M");
-                    ?>
-                </span>
-                <span class="event-summary__day">
-                    <?php
-                    echo $event_date->format("d");
-                    ?>
-                </span>
-            </a>
-            <div class="event-summary__content">
-                <h5 class="event-summary__title headline headline--tiny">
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                </h5>
-                <p><?php
-                    // word, length
-                    echo wp_trim_words(get_the_content(), 18);
-                    ?>
-                    <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a>
-                </p>
-            </div>
-        </div>
-    <?php
+        
+        // load .php file with html content
+        get_template_part("template-parts/content", get_post_type()); // slug/location, -file name
     }
     //  add pagination
     echo paginate_links();
