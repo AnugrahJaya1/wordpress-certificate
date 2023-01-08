@@ -40,7 +40,7 @@ while (have_posts()) {
         ?>
             <hr class="section-break">
             <h2 class="headline headline--medium">
-                Related Program(s)
+                Subject(s) Taught
             </h2>
             <ul class="link-list min-list">
                 <?php
