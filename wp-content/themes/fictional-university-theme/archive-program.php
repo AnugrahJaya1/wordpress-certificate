@@ -1,20 +1,11 @@
 <?php
 get_header();
+page_banner([
+    "title" => "All Programs",
+    "subtitle" => "There is something for everyone. Have a look a round.",
+    "background_image_url" => get_theme_file_uri('/images/library-hero.jpg')
+]);
 ?>
-<div class="page-banner">
-    <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('/images/library-hero.jpg') ?>)"></div>
-    <div class="page-banner__content container container--narrow">
-        <h1 class="page-banner__title">
-            All Programs
-        </h1>
-        <div class="page-banner__intro">
-            <p>
-                There is something for everyone. Have a look a round.
-            </p>
-        </div>
-    </div>
-</div>
-
 <!-- content -->
 <div class="container container--narrow page-section">
     <ul class="link-list min-list">
