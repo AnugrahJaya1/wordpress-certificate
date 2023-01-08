@@ -57,11 +57,11 @@ while (have_posts()) {
         ?>
                 <li class="professor-card__list-item">
                     <a class="professor-card" href="<?php the_permalink(); ?>">
-                        <img class="professor-card__image" src="<?php the_post_thumbnail_url("professor-landscape");?>" alt="">
+                        <img class="professor-card__image" src="<?php the_post_thumbnail_url("professor-landscape"); ?>" alt="">
                         <span class="professor-card__name"><?php the_title(); ?></span>
                     </a>
                 </li>
-            <?php
+        <?php
             }
             echo "</ul>";
         }
@@ -102,39 +102,9 @@ while (have_posts()) {
             echo "<h2 class='headline headline--medium'>Upcoming " . get_the_title() . " Events</h2>";
             while ($home_page_events->have_posts()) {
                 $home_page_events->the_post();
-            ?>
-                <div class="event-summary">
-                    <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
-                        <span class="event-summary__month">
-                            <?php
-                            // convert string to date
-                            $event_date = new DateTime(get_field("event_date"));
-                            echo $event_date->format("M");
-                            ?>
-                        </span>
-                        <span class="event-summary__day">
-                            <?php
-                            echo $event_date->format("d");
-                            ?>
-                        </span>
-                    </a>
-                    <div class="event-summary__content">
-                        <h5 class="event-summary__title headline headline--tiny">
-                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h5>
-                        <p><?php
-                            if (has_excerpt()) {
-                                echo get_the_excerpt();
-                            } else {
-                                // word, length
-                                echo wp_trim_words(get_the_content(), 18);
-                            }
-                            ?>
-                            <a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a>
-                        </p>
-                    </div>
-                </div>
-        <?php
+                
+                // load .php file with html content
+                get_template_part("template-parts/content", get_post_type()); // slug/location, -file name
             }
         }
         // reset our custom queries
