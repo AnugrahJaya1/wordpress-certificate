@@ -30,7 +30,7 @@ while (have_posts()) {
                 <div class="one-third">
                     <?php
                     // show thumbnail
-                    the_post_thumbnail();
+                    the_post_thumbnail("professor-portrait");
                     ?>
                 </div>
 
