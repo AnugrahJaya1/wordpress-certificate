@@ -26,9 +26,20 @@ while (have_posts()) {
 
     <div class="container container--narrow page-section">
         <div class="generic-content">
-            <?php
-            the_content();
-            ?>
+            <div class="row group">
+                <div class="one-third">
+                    <?php
+                    // show thumbnail
+                    the_post_thumbnail();
+                    ?>
+                </div>
+
+                <div class="two-third">
+                    <?php
+                    the_content();
+                    ?>
+                </div>
+            </div>
         </div>
 
 
