@@ -47,6 +47,39 @@ while (have_posts()) {
         </div>
 
         <?php
+        // professor
+        $related_professors = new WP_Query([
+            "posts_per_page" => -1, // show only 2 post
+            "post_type" => "professor",
+            "orderby" => "title", // default -> post date, reverse alphabet. meta_value -> get meta value,
+            "meta_query" => [
+                [
+                    "key" => "related_program", // custom field
+                    "compare" => "LIKE",
+                    "value" => '"' . get_the_ID() . '"', // search "ID"
+                ]
+            ],
+            "order" => "ASC", // default DESC
+        ]);
+
+        if ($related_professors->have_posts()) {
+            echo "<hr class='section-break'>";
+            echo "<h2 class='headline headline--medium'>" . get_the_title() . " Professors</h2>";
+            while ($related_professors->have_posts()) {
+                $related_professors->the_post();
+        ?>
+                <li class="">
+                    <a href="<?php the_permalink(); ?>">
+                        <?php the_title(); ?>
+                    </a>
+                </li>
+            <?php
+            }
+        }
+        // reset our custom queries
+        wp_reset_postdata();
+
+
         $today = date("Ymd");
 
         // need update re-save permalink
@@ -80,7 +113,7 @@ while (have_posts()) {
             echo "<h2 class='headline headline--medium'>Upcoming " . get_the_title() . " Events</h2>";
             while ($home_page_events->have_posts()) {
                 $home_page_events->the_post();
-        ?>
+            ?>
                 <div class="event-summary">
                     <a class="event-summary__date t-center" href="<?php the_permalink(); ?>">
                         <span class="event-summary__month">
