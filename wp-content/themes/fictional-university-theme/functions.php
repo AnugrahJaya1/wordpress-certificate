@@ -26,6 +26,13 @@ function university_features()
     // setup title in header
     add_theme_support("title-tag");
 
+    // add post thumbnails
+    add_theme_support("post-thumbnails"); // by default add to post post_type/blog
+
+    // resize size
+    add_image_size("professor-landscape", 400, 260, true); // nickname, w, h, crop? (false)
+    add_image_size("professor-portrait", 480, 650, true); // nickname, w, h, crop? (false)
+
     // add header menu
     register_nav_menu("header-menu-location", "Header Menu Location"); // location/slug, name
 

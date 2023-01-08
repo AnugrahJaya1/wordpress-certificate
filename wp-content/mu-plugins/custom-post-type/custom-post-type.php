@@ -118,6 +118,7 @@ class Custom_Post_Type
                 "supports" => [
                     "title",
                     "editor",
+                    "thumbnail"
                 ],
                 "public" => true, // show in admin nav bar
                 'show_in_rest' => true,
