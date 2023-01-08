@@ -14,7 +14,7 @@ while (have_posts()) {
             <?php  
             $page_banner_image = get_field("page_banner_background_image");
 
-            echo $page_banner_image["url"];
+            echo $page_banner_image["sizes"]["page-banner"];
             ?>
             )"></div>
         <div class="page-banner__content container container--narrow">
