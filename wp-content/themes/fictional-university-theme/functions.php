@@ -26,6 +26,9 @@ function university_features()
     // setup title in header
     add_theme_support("title-tag");
 
+    // add post thumbnails
+    add_theme_support("post-thumbnails"); // by default add to post post_type/blog
+
     // add header menu
     register_nav_menu("header-menu-location", "Header Menu Location"); // location/slug, name
 
