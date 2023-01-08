@@ -32,6 +32,7 @@ function university_features()
     // resize size
     add_image_size("professor-landscape", 400, 260, true); // nickname, w, h, crop? (false)
     add_image_size("professor-portrait", 480, 650, true); // nickname, w, h, crop? (false)
+    add_image_size("page-banner", 1500, 350, true); // nickname, w, h, crop? (false)
 
     // add header menu
     register_nav_menu("header-menu-location", "Header Menu Location"); // location/slug, name
