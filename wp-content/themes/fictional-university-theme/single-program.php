@@ -61,7 +61,7 @@ while (have_posts()) {
                         <span class="professor-card__name"><?php the_title(); ?></span>
                     </a>
                 </li>
-        <?php
+            <?php
             }
             echo "</ul>";
         }
@@ -102,13 +102,38 @@ while (have_posts()) {
             echo "<h2 class='headline headline--medium'>Upcoming " . get_the_title() . " Events</h2>";
             while ($home_page_events->have_posts()) {
                 $home_page_events->the_post();
-                
+
                 // load .php file with html content
                 get_template_part("template-parts/content", get_post_type()); // slug/location, -file name
             }
         }
         // reset our custom queries
         wp_reset_postdata();
+
+        
+
+        // campuses
+        $related_campuses = get_field("related_campuses");
+
+        if ($related_campuses) {
+            echo "<hr class='section-break'>";
+
+            echo "<h2 class='headline headline--medium'>" . get_the_title() . " is Available At These Campuses: </h2>";
+
+            echo "<ul class='min-list link-list'>";
+            foreach ($related_campuses as $campus) {
+            ?>
+                <li>
+                    <a href="<?php get_the_permalink($campus) ?>">
+                        <?php
+                        echo get_the_title($campus);
+                        ?>
+                    </a>
+                </li>
+        <?php
+            }
+            echo "</ul>";
+        }
         ?>
     </div>
 <?php
