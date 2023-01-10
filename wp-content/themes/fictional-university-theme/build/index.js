@@ -216,9 +216,15 @@ class Search {
   // 3. methods
   open_overlay() {
     this.search_overlay.addClass("search-overlay--active");
+
+    // remove ability to scroll
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
   }
   close_overlay() {
     this.search_overlay.removeClass("search-overlay--active");
+
+    // add ability to scroll
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);

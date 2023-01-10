@@ -22,10 +22,16 @@ class Search {
     // 3. methods
     open_overlay() {
         this.search_overlay.addClass("search-overlay--active");
+
+        // remove ability to scroll
+        $("body").addClass("body-no-scroll");
     }
 
     close_overlay() {
         this.search_overlay.removeClass("search-overlay--active");
+        
+        // add ability to scroll
+        $("body").removeClass("body-no-scroll");
     }
 }
 
