@@ -29,8 +29,6 @@ page_banner([
             </div>
         <?php
         }
-        //  add pagination
-        echo paginate_links();
         ?>
     </div>
 </div>
