@@ -18,7 +18,14 @@ page_banner([
             $lng = empty($map_location["lng"]) ? "107.6491" : $map_location["lng"];
         ?>
             <div class="marker" data-lat="<?php echo $lat ?>" data-lng="<?php echo $lng ?>">
-
+                <h3>
+                    <a href="<?php the_permalink(); ?>">
+                        <?php echo the_title(); ?>
+                    </a>
+                </h3>
+                <?php
+                echo $map_location["address"];
+                ?>
             </div>
         <?php
         }
