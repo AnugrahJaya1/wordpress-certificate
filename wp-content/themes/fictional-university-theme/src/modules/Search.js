@@ -41,12 +41,17 @@ class Search {
         if (this.search_field.val() != this.previous_value) {
             clearTimeout(this.typing_timer); //value that we want to clear
 
-            if (!this.is_spinner_visible) {
-                this.is_spinner_visible = true;
-                this.results_div.html("<div class='spinner-loader'></div>");
-            }
+            if (this.search_field.val()) {
+                if (!this.is_spinner_visible) {
+                    this.is_spinner_visible = true;
+                    this.results_div.html("<div class='spinner-loader'></div>");
+                }
 
-            this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+                this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+            } else { //blank
+                this.results_div.html("");
+                this.is_spinner_visible = false;
+            }
         }
         this.previous_value = this.search_field.val();
     }
