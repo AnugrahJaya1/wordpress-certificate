@@ -1,5 +1,6 @@
 <?php
 
+define("GOOGLE_KEY", "AIzaSyDLL3JqFUUcV2JBrYAjPXj-fOBzDWwJvU0");
 
 function university_files()
 {
@@ -16,6 +17,9 @@ function university_files()
     // js
     //nickname, location, dependency (if no have dependency -> NULL), version number, load before closing body tag
     wp_enqueue_script("university_main_script", get_theme_file_uri("/build/index.js"), ["jquery"], "1.0", true);
+
+    // google js
+    wp_enqueue_script("google-map", "//maps.googleapis.com/maps/api/js?key=".GOOGLE_KEY, NULL, "1.0", true);
 }
 
 // load css and js script
@@ -128,7 +132,7 @@ function page_banner($args = NULL)
 }
 
 function university_map_key($api){
-    $api["key"] = "AIzaSyDLL3JqFUUcV2JBrYAjPXj-fOBzDWwJvU0";
+    $api["key"] = GOOGLE_KEY;
     return $api;
 }
 
