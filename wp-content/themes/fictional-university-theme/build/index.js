@@ -252,7 +252,8 @@ class Search {
   }
   key_press_dispatcher(e) {
     let key_code = e.keyCode;
-    if (key_code == 83 && !this.is_overlay_open) {
+    if (key_code == 83 && this.is_overlay_open && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus") // not in input or textare
+    ) {
       // s
       this.open_overlay();
     }

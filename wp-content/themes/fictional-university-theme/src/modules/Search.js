@@ -63,7 +63,11 @@ class Search {
 
     key_press_dispatcher(e) {
         let key_code = e.keyCode;
-        if (key_code == 83 && !this.is_overlay_open) {// s
+        if (
+            key_code == 83 &&
+            this.is_overlay_open &&
+            !$("input, textarea").is(":focus") // not in input or textare
+        ) {// s
             this.open_overlay();
         }
 
