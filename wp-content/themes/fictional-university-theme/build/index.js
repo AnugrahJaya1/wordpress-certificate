@@ -204,6 +204,9 @@ class Search {
     this.close_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
     this.search_overlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
     this.events();
+
+    // state overlay
+    this.is_overlay_open = false;
   }
 
   // 2. events
@@ -217,27 +220,31 @@ class Search {
   }
 
   // 3. methods
+
+  key_press_dispatcher(e) {
+    let key_code = e.keyCode;
+    if (key_code == 83 && !this.is_overlay_open) {
+      // s
+      this.open_overlay();
+    }
+    if (key_code == 27 && this.is_overlay_open) {
+      //esc
+      this.close_overlay();
+    }
+  }
   open_overlay() {
     this.search_overlay.addClass("search-overlay--active");
 
     // remove ability to scroll
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
-  }
-  key_press_dispatcher(e) {
-    let key_code = e.keyCode;
-    if (key_code == 83) {
-      // s
-      this.open_overlay();
-    } else if (key_code == 27) {
-      //esc
-      this.close_overlay();
-    }
+    this.is_overlay_open = true;
   }
   close_overlay() {
     this.search_overlay.removeClass("search-overlay--active");
 
     // add ability to scroll
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
+    this.is_overlay_open = false;
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
