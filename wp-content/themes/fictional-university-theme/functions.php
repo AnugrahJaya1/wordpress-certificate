@@ -126,3 +126,11 @@ function page_banner($args = NULL)
     </div>
 <?php
 }
+
+function university_map_key($api){
+    $api["key"] = "AIzaSyDLL3JqFUUcV2JBrYAjPXj-fOBzDWwJvU0";
+    return $api;
+}
+
+// add google api key
+add_filter("acf/fields/google_map/api", "university_map_key");
