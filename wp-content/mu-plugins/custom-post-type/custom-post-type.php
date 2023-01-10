@@ -33,6 +33,8 @@ class Custom_Post_Type
         add_action("init", [$this, "program_post_type"]);
 
         add_action("init", [$this, "professor_post_type"]);
+
+        add_action("init", [$this, "campus_post_type"]);
     }
 
     /**
@@ -130,6 +132,34 @@ class Custom_Post_Type
                     "singular_name" => "Professor" // Text of singular Program
                 ],
                 "menu_icon" => "dashicons-welcome-learn-more"
+            ]); // name of post type, argument
+        }
+    }
+
+    function campus_post_type()
+    {
+        // add custom post type
+        {
+            // add event post type
+            register_post_type("Campus", [
+                "supports" => [
+                    "title",
+                    "editor",
+                    "excerpt"
+                ],
+                "rewrite" => [
+                    "slug" => "campuses" // rewrite slug
+                ],
+                "public" => true, // show in admin nav bar
+                'show_in_rest' => true,
+                "labels" => [
+                    "name" => "Campuses", // name showed in admin nav bar
+                    "add_new_item" => "Add New Campus", // Text when add new item
+                    "edit_item" => "Edit Campus", // Text when edit item
+                    "all_items" => "All Campuses", // Text of all Campuses
+                    "singular_name" => "Campus" // Text of singular Program
+                ],
+                "menu_icon" => "dashicons-location-alt"
             ]); // name of post type, argument
         }
     }
