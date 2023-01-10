@@ -14,6 +14,7 @@ class Search {
         this.results_div = $("#search-overlay__results");
 
         this.typing_timer;
+        this.previous_value;
 
         // state overlay
         this.is_overlay_open = false;
@@ -29,27 +30,30 @@ class Search {
         this.close_button.on("click", this.close_overlay.bind(this));// event, function
 
         // add keyup event (once call)
-        $(document).on("keyup", this.key_press_dispatcher.bind(this));// event, function
+        $(document).on("keydown", this.key_press_dispatcher.bind(this));// event, function
 
         // add countdown after user type
-        this.search_field.on("keydown", this.typing_logic.bind(this));
+        this.search_field.on("keyup", this.typing_logic.bind(this));
     }
 
     // 3. methods
     typing_logic() {
-        clearTimeout(this.typing_timer); //value that we want to clear
+        if (this.search_field.val() != this.previous_value) {
+            clearTimeout(this.typing_timer); //value that we want to clear
 
-        if (!this.is_spinner_visible) {
-            this.is_spinner_visible = true;
-            this.results_div.html("<div class='spinner-loader'></div>");
+            if (!this.is_spinner_visible) {
+                this.is_spinner_visible = true;
+                this.results_div.html("<div class='spinner-loader'></div>");
+            }
+
+            this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
         }
-
-        this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+        this.previous_value = this.search_field.val();
     }
 
     get_results() {
         this.is_spinner_visible = false;
-        this.results_div.html("");
+        this.results_div.html("Results here..");
     }
 
     key_press_dispatcher(e) {
