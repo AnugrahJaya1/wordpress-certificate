@@ -75,7 +75,8 @@ function university_adjust_queries($query)
             ]
         ]);
     }
-
+    
+    // program
     if (
         !is_admin() && //if not in admin/dashboard
         is_post_type_archive("program") &&
@@ -83,6 +84,15 @@ function university_adjust_queries($query)
     ) {
         $query->set("orderby", "title"); // set by orderby
         $query->set("order", "ASC"); // set by order ASC/DESC
+        $query->set("posts_per_page", -1); // show all
+    }
+
+    // campus
+    if (
+        !is_admin() && //if not in admin/dashboard
+        is_post_type_archive("campus") &&
+        $query->is_main_query() // manipulate base queries
+    ) {
         $query->set("posts_per_page", -1); // show all
     }
 }
