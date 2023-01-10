@@ -211,6 +211,9 @@ class Search {
     this.open_button.on("click", this.open_overlay.bind(this)); // event, function
 
     this.close_button.on("click", this.close_overlay.bind(this)); // event, function
+
+    // add keyup event (once call)
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keyup", this.key_press_dispatcher.bind(this)); // event, function
   }
 
   // 3. methods
@@ -219,6 +222,16 @@ class Search {
 
     // remove ability to scroll
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+  }
+  key_press_dispatcher(e) {
+    let key_code = e.keyCode;
+    if (key_code == 83) {
+      // s
+      this.open_overlay();
+    } else if (key_code == 27) {
+      //esc
+      this.close_overlay();
+    }
   }
   close_overlay() {
     this.search_overlay.removeClass("search-overlay--active");
