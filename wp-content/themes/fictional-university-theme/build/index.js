@@ -203,10 +203,12 @@ class Search {
 
     this.close_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
     this.search_overlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
-    this.events();
+    this.search_field = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
+    this.typing_timer;
 
     // state overlay
     this.is_overlay_open = false;
+    this.events();
   }
 
   // 2. events
@@ -217,9 +219,18 @@ class Search {
 
     // add keyup event (once call)
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keyup", this.key_press_dispatcher.bind(this)); // event, function
+
+    // add countdown after user type
+    this.search_field.on("keydown", this.typing_logic.bind(this));
   }
 
   // 3. methods
+  typing_logic() {
+    clearTimeout(this.typing_timer); //value that we want to clear
+    this.typing_timer = setTimeout(function () {
+      console.log("timeout");
+    }, 2000); //function, milisec
+  }
 
   key_press_dispatcher(e) {
     let key_code = e.keyCode;
