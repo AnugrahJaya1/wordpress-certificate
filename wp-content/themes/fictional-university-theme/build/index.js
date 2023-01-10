@@ -193,9 +193,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
 class Search {
+  // 1. describe and create/initiate our object
   constructor() {
-    alert("HELLO");
+    this.open_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".js-search-trigger"); //jquery
+
+    this.close_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
+    this.search_overlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
+    this.events();
+  }
+
+  // 2. events
+  events() {
+    this.open_button.on("click", this.open_overlay.bind(this)); // event, function
+
+    this.close_button.on("click", this.close_overlay.bind(this)); // event, function
+  }
+
+  // 3. methods
+  open_overlay() {
+    this.search_overlay.addClass("search-overlay--active");
+  }
+  close_overlay() {
+    this.search_overlay.removeClass("search-overlay--active");
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
@@ -211,6 +234,16 @@ class Search {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "jquery":
+/*!*************************!*\
+  !*** external "jQuery" ***!
+  \*************************/
+/***/ ((module) => {
+
+module.exports = window["jQuery"];
 
 /***/ }),
 
@@ -4165,6 +4198,18 @@ var Glide = /*#__PURE__*/function (_Core) {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
