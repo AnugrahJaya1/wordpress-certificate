@@ -32,6 +32,22 @@ while (have_posts()) {
             ?>
         </div>
 
+        <div class="acf-map">
+            <?php
+            $map_location = get_field("map_location");
+            $lat = empty($map_location["lat"]) ? "6.9039" : $map_location["lat"];
+            $lng = empty($map_location["lng"]) ? "107.6491" : $map_location["lng"];
+            ?>
+            <div class="marker" data-lat="<?php echo $lat ?>" data-lng="<?php echo $lng ?>">
+                <h3>
+                    <?php echo the_title(); ?>
+                </h3>
+                <?php
+                echo $map_location["address"];
+                ?>
+            </div>
+        </div>
+
         <?php
         // professor
         $related_professors = new WP_Query([
