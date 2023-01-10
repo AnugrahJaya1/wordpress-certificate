@@ -11,10 +11,13 @@ class Search {
 
         this.search_field = $("#search-term");
 
+        this.results_div = $("#search-overlay__results");
+
         this.typing_timer;
 
         // state overlay
         this.is_overlay_open = false;
+        this.is_spinner_visible = false;
 
         this.events();
     }
@@ -35,9 +38,18 @@ class Search {
     // 3. methods
     typing_logic() {
         clearTimeout(this.typing_timer); //value that we want to clear
-        this.typing_timer = setTimeout(function () {
-            console.log("timeout")
-        }, 2000); //function, milisec
+
+        if (!this.is_spinner_visible) {
+            this.is_spinner_visible = true;
+            this.results_div.html("<div class='spinner-loader'></div>");
+        }
+
+        this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+    }
+
+    get_results() {
+        this.is_spinner_visible = false;
+        this.results_div.html("");
     }
 
     key_press_dispatcher(e) {
