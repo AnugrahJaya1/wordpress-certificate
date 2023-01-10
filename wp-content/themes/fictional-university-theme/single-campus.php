@@ -37,26 +37,28 @@ while (have_posts()) {
             $map_location = get_field("map_location");
             $lat = empty($map_location["lat"]) ? "6.9039" : $map_location["lat"];
             $lng = empty($map_location["lng"]) ? "107.6491" : $map_location["lng"];
+            $address = empty($map_location["address"]) ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit." : $map_location["address"];
             ?>
             <div class="marker" data-lat="<?php echo $lat ?>" data-lng="<?php echo $lng ?>">
                 <h3>
                     <?php echo the_title(); ?>
                 </h3>
                 <?php
-                echo $map_location["address"];
+                echo $address
                 ?>
             </div>
         </div>
 
+
         <?php
-        // professor
-        $related_professors = new WP_Query([
+        // program
+        $related_programs = new WP_Query([
             "posts_per_page" => -1, // show only 2 post
-            "post_type" => "professor",
+            "post_type" => "program",
             "orderby" => "title", // default -> post date, reverse alphabet. meta_value -> get meta value,
             "meta_query" => [
                 [
-                    "key" => "related_program", // custom field
+                    "key" => "related_campuses", // custom field
                     "compare" => "LIKE",
                     "value" => '"' . get_the_ID() . '"', // search "ID"
                 ]
@@ -64,17 +66,16 @@ while (have_posts()) {
             "order" => "ASC", // default DESC
         ]);
 
-        if ($related_professors->have_posts()) {
+        if ($related_programs->have_posts()) {
             echo "<hr class='section-break'>";
-            echo "<h2 class='headline headline--medium'>" . get_the_title() . " Professors</h2>";
-            echo "<ul class='professor-cards'>";
-            while ($related_professors->have_posts()) {
-                $related_professors->the_post();
+            echo "<h2 class='headline headline--medium'>Programs Available At This Campus</h2>";
+            echo "<ul class='min-list link-list'>";
+            while ($related_programs->have_posts()) {
+                $related_programs->the_post();
         ?>
-                <li class="professor-card__list-item">
-                    <a class="professor-card" href="<?php the_permalink(); ?>">
-                        <img class="professor-card__image" src="<?php the_post_thumbnail_url("professor-landscape"); ?>" alt="">
-                        <span class="professor-card__name"><?php the_title(); ?></span>
+                <li>
+                    <a href="<?php the_permalink(); ?>">
+                        <?php the_title(); ?>
                     </a>
                 </li>
         <?php
