@@ -10,6 +10,9 @@ class Search {
         this.search_overlay = $(".search-overlay");
 
         this.events();
+
+        // state overlay
+        this.is_overlay_open = false;
     }
 
     // 2. events
@@ -17,15 +20,40 @@ class Search {
         this.open_button.on("click", this.open_overlay.bind(this));// event, function
 
         this.close_button.on("click", this.close_overlay.bind(this));// event, function
+
+        // add keyup event (once call)
+        $(document).on("keyup", this.key_press_dispatcher.bind(this));// event, function
     }
 
     // 3. methods
+
+    key_press_dispatcher(e) {
+        let key_code = e.keyCode;
+        if (key_code == 83 && !this.is_overlay_open) {// s
+            this.open_overlay();
+        } 
+        
+        if (key_code == 27 && this.is_overlay_open) {//esc
+            this.close_overlay();
+        }
+    }
+
     open_overlay() {
         this.search_overlay.addClass("search-overlay--active");
+
+        // remove ability to scroll
+        $("body").addClass("body-no-scroll");
+
+        this.is_overlay_open = true;
     }
 
     close_overlay() {
         this.search_overlay.removeClass("search-overlay--active");
+
+        // add ability to scroll
+        $("body").removeClass("body-no-scroll");
+
+        this.is_overlay_open = false;
     }
 }
 
