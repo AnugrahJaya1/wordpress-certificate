@@ -109,9 +109,7 @@ while (have_posts()) {
         }
         // reset our custom queries
         wp_reset_postdata();
-
         
-
         // campuses
         $related_campuses = get_field("related_campuses");
 
