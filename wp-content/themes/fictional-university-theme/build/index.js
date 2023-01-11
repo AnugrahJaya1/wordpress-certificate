@@ -268,6 +268,9 @@ class Search {
                 ${combined_result.length ? "</ul>" : ""} <!--expression -->
                 `);
       this.is_spinner_visible = false;
+    }, () => {
+      // show error msg
+      this.results_div.html("<p>Unexpected error: please try again.</p>");
     });
   }
   key_press_dispatcher(e) {

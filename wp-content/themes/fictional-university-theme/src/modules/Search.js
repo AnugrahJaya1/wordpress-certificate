@@ -86,6 +86,8 @@ class Search {
                 `
             );
             this.is_spinner_visible = false;
+        }, () => { // show error msg
+            this.results_div.html("<p>Unexpected error: please try again.</p>");
         });
     }
 
