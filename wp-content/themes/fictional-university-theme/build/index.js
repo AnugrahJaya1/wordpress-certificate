@@ -247,13 +247,22 @@ class Search {
     this.previous_value = this.search_field.val();
   }
   get_results() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search=" + this.search_field.val(), function (data) {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search=" + this.search_field.val(), data => {
+      // arrow function
       // access all of json data
-      alert(data[0].title.rendered);
+      this.results_div.html(`
+                    <h2 class="search-overlay__section-title">General Information</h2>
+                    <ul class="link-list min-list">
+                        <!-- looping -->
+                        ${data.map(item => `
+                        <li>
+                            <a href="${item.link}">${item.title.rendered}</a>
+                        </li>`).join('')}
+                    </ul>
+                    `);
     }); //url, function
 
     // this.is_spinner_visible = false;
-    // this.results_div.html("Results here..");
   }
 
   key_press_dispatcher(e) {
