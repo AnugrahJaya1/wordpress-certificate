@@ -252,13 +252,13 @@ class Search {
       // access all of json data
       this.results_div.html(`
                     <h2 class="search-overlay__section-title">General Information</h2>
-                    <ul class="link-list min-list">
+                    ${data.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
                         <!-- looping -->
                         ${data.map(item => `
                         <li>
                             <a href="${item.link}">${item.title.rendered}</a>
                         </li>`).join('')}
-                    </ul>
+                    ${data.length ? "</ul>" : ""} <!--expression -->
                     `);
     }); //url, function
 
