@@ -3,6 +3,8 @@ import $ from "jquery"
 class Search {
     // 1. describe and create/initiate our object
     constructor() {
+        this.add_search_html();
+        
         this.open_button = $(".js-search-trigger");//jquery
 
         this.close_button = $(".search-overlay__close");
@@ -47,7 +49,7 @@ class Search {
                     this.results_div.html("<div class='spinner-loader'></div>");
                 }
 
-                this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+                this.typing_timer = setTimeout(this.get_results.bind(this), 750); //function, milisec
             } else { //blank
                 this.results_div.html("");
                 this.is_spinner_visible = false;
@@ -84,8 +86,8 @@ class Search {
         let key_code = e.keyCode;
         if (
             key_code == 83 &&
-            this.is_overlay_open &&
-            !$("input, textarea").is(":focus") // not in input or textare
+            !this.is_overlay_open &&
+            !$("input, textarea").is(":focus") // not in input or textarea
         ) {// s
             this.open_overlay();
         }
@@ -101,6 +103,12 @@ class Search {
         // remove ability to scroll
         $("body").addClass("body-no-scroll");
 
+        this.search_field.val("");
+
+        this.results_div.html("");
+
+        setTimeout(() => this.search_field.focus(), 300);
+
         this.is_overlay_open = true;
     }
 
@@ -111,6 +119,27 @@ class Search {
         $("body").removeClass("body-no-scroll");
 
         this.is_overlay_open = false;
+    }
+
+    add_search_html() {
+        $("body").append(
+            `
+            <div class="search-overlay">
+                <div class="search-overlay__top">
+                    <div class="container">
+                        <i class="fa fa-search search-overlay__icon" aria-hidden="true"></i>
+                        <input type="text" class="search-term" placeholder="What are you looking for?" id="search-term" autocomplete="off">
+                        <i class="fa fa-window-close search-overlay__close" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="container">
+                    <div id="search-overlay__results">
+                        
+                    </div>
+                </div>
+            </div>
+            `
+        );
     }
 }
 
