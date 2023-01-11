@@ -58,7 +58,7 @@ class Search {
 
     get_results() {
         $.getJSON(
-            "http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search=" + this.search_field.val()
+            university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()
             , data => { // arrow function
                 // access all of json data
                 this.results_div.html(

@@ -247,7 +247,7 @@ class Search {
     this.previous_value = this.search_field.val();
   }
   get_results() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search=" + this.search_field.val(), data => {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val(), data => {
       // arrow function
       // access all of json data
       this.results_div.html(`
