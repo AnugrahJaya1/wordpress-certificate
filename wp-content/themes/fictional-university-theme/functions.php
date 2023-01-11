@@ -19,7 +19,7 @@ function university_files()
     wp_enqueue_script("university_main_script", get_theme_file_uri("/build/index.js"), ["jquery"], "1.0", true);
 
     // google js
-    wp_enqueue_script("google-map", "//maps.googleapis.com/maps/api/js?key=".GOOGLE_KEY, NULL, "1.0", true);
+    wp_enqueue_script("google-map", "//maps.googleapis.com/maps/api/js?key=" . GOOGLE_KEY, NULL, "1.0", true);
 
     // output js data into html source
     wp_localize_script("university_main_script", "university_data", [
@@ -80,7 +80,7 @@ function university_adjust_queries($query)
             ]
         ]);
     }
-    
+
     // program
     if (
         !is_admin() && //if not in admin/dashboard
@@ -146,10 +146,24 @@ function page_banner($args = NULL)
 <?php
 }
 
-function university_map_key($api){
+function university_map_key($api)
+{
     $api["key"] = GOOGLE_KEY;
     return $api;
 }
 
 // add google api key
 add_filter("acf/fields/google_map/api", "university_map_key");
+
+// add custom field wp output
+
+function university_custom_rest()
+{
+    register_rest_field("post", "author_name", [
+        "get_callback" => function () {
+            return get_the_author();
+        }
+    ]); // post type, new field, array
+}
+
+add_action("rest_api_init", "university_custom_rest");

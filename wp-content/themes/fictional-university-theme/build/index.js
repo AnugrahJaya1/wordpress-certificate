@@ -263,7 +263,7 @@ class Search {
                     <!-- looping -->
                     ${combined_result.map(item => `
                     <li>
-                        <a href="${item.link}">${item.title.rendered}</a>
+                        <a href="${item.link}">${item.title.rendered}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
                     </li>`).join('')}
                 ${combined_result.length ? "</ul>" : ""} <!--expression -->
                 `);
