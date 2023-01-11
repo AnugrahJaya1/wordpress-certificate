@@ -4,7 +4,7 @@ class Search {
     // 1. describe and create/initiate our object
     constructor() {
         this.add_search_html();
-        
+
         this.open_button = $(".js-search-trigger");//jquery
 
         this.close_button = $(".search-overlay__close");
@@ -61,23 +61,30 @@ class Search {
     get_results() {
         $.getJSON(
             university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()
-            , data => { // arrow function
-                // access all of json data
-                this.results_div.html(
-                    `
-                    <h2 class="search-overlay__section-title">General Information</h2>
-                    ${data.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
-                        <!-- looping -->
-                        ${data.map(
-                        item => `
-                        <li>
-                            <a href="${item.link}">${item.title.rendered}</a>
-                        </li>`
-                    ).join('')}
-                    ${data.length ? "</ul>" : ""} <!--expression -->
-                    `
-                );
-                this.is_spinner_visible = false;
+            , posts => { // arrow function
+                $.getJSON(
+                    university_data.root_url + "/wp-json/wp/v2/pages?search=" + this.search_field.val()
+                    , pages => {
+                        var combined_result = posts.concat(pages);
+
+                        // access all of json data
+                        this.results_div.html(
+                            `
+                            <h2 class="search-overlay__section-title">General Information</h2>
+                            ${combined_result.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                                <!-- looping -->
+                                ${combined_result.map(
+                                item => `
+                                <li>
+                                    <a href="${item.link}">${item.title.rendered}</a>
+                                </li>`
+                                ).join('')}
+                            ${combined_result.length ? "</ul>" : ""} <!--expression -->
+                            `
+                        );
+                        this.is_spinner_visible = false;
+                    }
+                )
             }
         );//url, function
     }
