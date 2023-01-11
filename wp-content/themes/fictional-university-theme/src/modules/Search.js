@@ -49,7 +49,7 @@ class Search {
                     this.results_div.html("<div class='spinner-loader'></div>");
                 }
 
-                this.typing_timer = setTimeout(this.get_results.bind(this), 2000); //function, milisec
+                this.typing_timer = setTimeout(this.get_results.bind(this), 750); //function, milisec
             } else { //blank
                 this.results_div.html("");
                 this.is_spinner_visible = false;
@@ -86,8 +86,8 @@ class Search {
         let key_code = e.keyCode;
         if (
             key_code == 83 &&
-            this.is_overlay_open &&
-            !$("input, textarea").is(":focus") // not in input or textare
+            !this.is_overlay_open &&
+            !$("input, textarea").is(":focus") // not in input or textarea
         ) {// s
             this.open_overlay();
         }
@@ -102,6 +102,8 @@ class Search {
 
         // remove ability to scroll
         $("body").addClass("body-no-scroll");
+
+        setTimeout(() => this.search_field.focus(), 300);
 
         this.is_overlay_open = true;
     }
