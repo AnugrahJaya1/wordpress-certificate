@@ -260,9 +260,8 @@ class Search {
                         </li>`).join('')}
                     ${data.length ? "</ul>" : ""} <!--expression -->
                     `);
+      this.is_spinner_visible = false;
     }); //url, function
-
-    // this.is_spinner_visible = false;
   }
 
   key_press_dispatcher(e) {
