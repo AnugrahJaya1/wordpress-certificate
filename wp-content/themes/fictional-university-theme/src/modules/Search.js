@@ -57,8 +57,16 @@ class Search {
     }
 
     get_results() {
-        this.is_spinner_visible = false;
-        this.results_div.html("Results here..");
+        $.getJSON(
+            "http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search="+this.search_field.val()
+            , function (data) {
+                // access all of json data
+                alert(data[0].title.rendered);
+            }
+        );//url, function
+
+        // this.is_spinner_visible = false;
+        // this.results_div.html("Results here..");
     }
 
     key_press_dispatcher(e) {

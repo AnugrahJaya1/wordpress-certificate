@@ -247,9 +247,15 @@ class Search {
     this.previous_value = this.search_field.val();
   }
   get_results() {
-    this.is_spinner_visible = false;
-    this.results_div.html("Results here..");
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON("http://localhost/wordpress-certificate/wp-json/wp/v2/posts?search=" + this.search_field.val(), function (data) {
+      // access all of json data
+      alert(data[0].title.rendered);
+    }); //url, function
+
+    // this.is_spinner_visible = false;
+    // this.results_div.html("Results here..");
   }
+
   key_press_dispatcher(e) {
     let key_code = e.keyCode;
     if (key_code == 83 && this.is_overlay_open && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus") // not in input or textare
