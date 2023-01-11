@@ -20,6 +20,11 @@ function university_files()
 
     // google js
     wp_enqueue_script("google-map", "//maps.googleapis.com/maps/api/js?key=".GOOGLE_KEY, NULL, "1.0", true);
+
+    // output js data into html source
+    wp_localize_script("university_main_script", "university_data", [
+        "root_url" => get_site_url()
+    ]); // handle of name script, variable name, array of data
 }
 
 // load css and js script
