@@ -248,23 +248,31 @@ class Search {
     this.previous_value = this.search_field.val();
   }
   get_results() {
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val(), data => {
-      // arrow function
+    /**
+     * when -> many argument
+     * then -> get result from when argument (ordered)
+     */
+    // async
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().when(jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()), jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/pages?search=" + this.search_field.val())).then((posts, pages) => {
+      var combined_result = posts[0].concat(pages[0]); //idx 0 = data, 1,2,etc.. is information
+
       // access all of json data
       this.results_div.html(`
-                    <h2 class="search-overlay__section-title">General Information</h2>
-                    ${data.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
-                        <!-- looping -->
-                        ${data.map(item => `
-                        <li>
-                            <a href="${item.link}">${item.title.rendered}</a>
-                        </li>`).join('')}
-                    ${data.length ? "</ul>" : ""} <!--expression -->
-                    `);
+                <h2 class="search-overlay__section-title">General Information</h2>
+                ${combined_result.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                    <!-- looping -->
+                    ${combined_result.map(item => `
+                    <li>
+                        <a href="${item.link}">${item.title.rendered}</a>
+                    </li>`).join('')}
+                ${combined_result.length ? "</ul>" : ""} <!--expression -->
+                `);
       this.is_spinner_visible = false;
-    }); //url, function
+    }, () => {
+      // show error msg
+      this.results_div.html("<p>Unexpected error: please try again.</p>");
+    });
   }
-
   key_press_dispatcher(e) {
     let key_code = e.keyCode;
     if (key_code == 83 && !this.is_overlay_open && !jquery__WEBPACK_IMPORTED_MODULE_0___default()("input, textarea").is(":focus") // not in input or textarea

@@ -4,7 +4,7 @@ class Search {
     // 1. describe and create/initiate our object
     constructor() {
         this.add_search_html();
-        
+
         this.open_button = $(".js-search-trigger");//jquery
 
         this.close_button = $(".search-overlay__close");
@@ -59,27 +59,36 @@ class Search {
     }
 
     get_results() {
-        $.getJSON(
-            university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()
-            , data => { // arrow function
-                // access all of json data
-                this.results_div.html(
-                    `
-                    <h2 class="search-overlay__section-title">General Information</h2>
-                    ${data.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
-                        <!-- looping -->
-                        ${data.map(
-                        item => `
-                        <li>
-                            <a href="${item.link}">${item.title.rendered}</a>
-                        </li>`
-                    ).join('')}
-                    ${data.length ? "</ul>" : ""} <!--expression -->
-                    `
-                );
-                this.is_spinner_visible = false;
-            }
-        );//url, function
+        /**
+         * when -> many argument
+         * then -> get result from when argument (ordered)
+         */
+        // async
+        $.when(
+            $.getJSON(university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()),
+            $.getJSON(university_data.root_url + "/wp-json/wp/v2/pages?search=" + this.search_field.val())
+        ).then((posts, pages) => {
+            var combined_result = posts[0].concat(pages[0]); //idx 0 = data, 1,2,etc.. is information
+
+            // access all of json data
+            this.results_div.html(
+                `
+                <h2 class="search-overlay__section-title">General Information</h2>
+                ${combined_result.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                    <!-- looping -->
+                    ${combined_result.map(
+                    item => `
+                    <li>
+                        <a href="${item.link}">${item.title.rendered}</a>
+                    </li>`
+                ).join('')}
+                ${combined_result.length ? "</ul>" : ""} <!--expression -->
+                `
+            );
+            this.is_spinner_visible = false;
+        }, () => { // show error msg
+            this.results_div.html("<p>Unexpected error: please try again.</p>");
+        });
     }
 
     key_press_dispatcher(e) {
