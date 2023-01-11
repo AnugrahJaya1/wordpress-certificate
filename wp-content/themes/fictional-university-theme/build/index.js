@@ -282,6 +282,8 @@ class Search {
 
     // remove ability to scroll
     jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
+    this.search_field.val("");
+    this.results_div.html("");
     setTimeout(() => this.search_field.focus(), 300);
     this.is_overlay_open = true;
   }
