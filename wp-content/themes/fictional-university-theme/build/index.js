@@ -248,29 +248,68 @@ class Search {
     this.previous_value = this.search_field.val();
   }
   get_results() {
-    /**
-     * when -> many argument
-     * then -> get result from when argument (ordered)
-     */
-    // async
-    jquery__WEBPACK_IMPORTED_MODULE_0___default().when(jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/posts?search=" + this.search_field.val()), jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/wp/v2/pages?search=" + this.search_field.val())).then((posts, pages) => {
-      var combined_result = posts[0].concat(pages[0]); //idx 0 = data, 1,2,etc.. is information
-
-      // access all of json data
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().getJSON(university_data.root_url + "/wp-json/university/v1/search?term=" + this.search_field.val(), results => {
       this.results_div.html(`
-                <h2 class="search-overlay__section-title">General Information</h2>
-                ${combined_result.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
-                    <!-- looping -->
-                    ${combined_result.map(item => `
-                    <li>
-                        <a href="${item.link}">${item.title.rendered}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
-                    </li>`).join('')}
-                ${combined_result.length ? "</ul>" : ""} <!--expression -->
+                <div class="row">
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">General Information</h2>
+                        ${results.general_info.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                            <!-- looping -->
+                            ${results.general_info.map(item => `
+                            <li>
+                                <a href="${item.permalink}">${item.title}</a> ${item.post_type == "post" ? `by ${item.author_name}` : ""}
+                            </li>`).join('')}
+                        ${results.general_info.length ? "</ul>" : ""} <!--expression -->
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Programs</h2>
+                        ${results.programs.length ? '<ul class="link-list min-list">' : `<p>No programs match the search.
+                                <a href="${university_data.root_url}/programs">View all programs</a>
+                            </p>`} <!--expression -->
+                            <!-- looping -->
+                            ${results.programs.map(item => `
+                            <li>
+                                <a href="${item.permalink}">${item.title}</a>
+                            </li>`).join('')}
+                        ${results.programs.length ? "</ul>" : ""} <!--expression -->
+
+                        <h2 class="search-overlay__section-title">Professors</h2>
+                        ${results.professors.length ? '<ul class="link-list min-list">' : `<p>No professors match the search.
+                                <a href="${university_data.root_url}/professors">View all professors</a>
+                            </p>`}
+                            <!-- looping -->
+                            ${results.professors.map(item => `
+                            <li>
+                                <a href="${item.permalink}">${item.title}</a>
+                            </li>`).join('')}
+                        ${results.professors.length ? "</ul>" : ""} <!--expression -->
+                    </div>
+                    <div class="one-third">
+                        <h2 class="search-overlay__section-title">Campuses</h2>
+                        ${results.campuses.length ? '<ul class="link-list min-list">' : `<p>No campuses match the search.
+                                <a href="${university_data.root_url}/campuses">View all campuses</a>
+                            </p>`}
+                            <!-- looping -->
+                            ${results.campuses.map(item => `
+                            <li>
+                                <a href="${item.permalink}">${item.title}</a>
+                            </li>`).join('')}
+                        ${results.campuses.length ? "</ul>" : ""} <!--expression -->
+
+                        <h2 class="search-overlay__section-title">Events</h2>
+                        ${results.events.length ? '<ul class="link-list min-list">' : `<p>No events match the search.
+                                <a href="${university_data.root_url}/events">View all events</a>
+                            </p>`}
+                            <!-- looping -->
+                            ${results.events.map(item => `
+                            <li>
+                                <a href="${item.permalink}">${item.title}</a>
+                            </li>`).join('')}
+                        ${results.events.length ? "</ul>" : ""} <!--expression -->
+                    </div>
+                </div>
                 `);
       this.is_spinner_visible = false;
-    }, () => {
-      // show error msg
-      this.results_div.html("<p>Unexpected error: please try again.</p>");
     });
   }
   key_press_dispatcher(e) {
