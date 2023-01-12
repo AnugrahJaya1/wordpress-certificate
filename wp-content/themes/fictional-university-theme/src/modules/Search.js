@@ -129,7 +129,7 @@ class Search {
 
                         <h2 class="search-overlay__section-title">Events</h2>
                         ${results.events.length ? 
-                            '<ul class="link-list min-list">' : 
+                            "" : 
                             `<p>No events match the search.
                                 <a href="${university_data.root_url}/events">View all events</a>
                             </p>`
@@ -137,11 +137,27 @@ class Search {
                             <!-- looping -->
                             ${results.events.map(
                             item => `
-                            <li>
-                                <a href="${item.permalink}">${item.title}</a>
-                            </li>`
+                            <div class="event-summary">
+                                <a class="event-summary__date t-center" href="${item.permalink}">
+                                    <span class="event-summary__month">
+                                        ${item.month}
+                                    </span>
+                                    <span class="event-summary__day">
+                                        ${item.day}
+                                    </span>
+                                </a>
+                                <div class="event-summary__content">
+                                    <h5 class="event-summary__title headline headline--tiny">
+                                        <a href="<?php the_permalink(); ?>">${item.title}</a>
+                                    </h5>
+                                    <p>
+                                        ${item.description}
+                                        <a href="${item.permalink}" class="nu gray">Learn more</a>
+                                    </p>
+                                </div>
+                            </div>
+                            `
                         ).join('')}
-                        ${results.events.length ? "</ul>" : ""} <!--expression -->
                     </div>
                 </div>
                 `);
