@@ -45,6 +45,16 @@ function university_search_results(WP_REST_Request $request)
                 "image" => get_the_post_thumbnail_url(0, "professor_landscape"), //current post,size
             ]);
         } else if (get_post_type() == "program") {
+            $related_campuses = get_field("related_campuses");
+
+            if ($related_campuses) {
+                foreach ($related_campuses as $campus) {
+                    array_push($results["campuses"], [
+                        "title" => get_the_title($campus),
+                        "permalink" => get_the_permalink($campus)
+                    ]);
+                }
+            }
             array_push($results["programs"], [
                 "title" => get_the_title(),
                 "permalink" => get_the_permalink(),
@@ -102,7 +112,7 @@ function university_search_results(WP_REST_Request $request)
                     "permalink" => get_the_permalink(),
                     "image" => get_the_post_thumbnail_url(0, "professor_landscape"), //current post,size
                 ]);
-            } if (get_post_type() == "event") {
+            } else if (get_post_type() == "event") {
                 $event_date = new DateTime(get_field("event_date"));
                 $description = "";
                 if (has_excerpt()) {
@@ -123,6 +133,7 @@ function university_search_results(WP_REST_Request $request)
 
         $results["professors"] = array_values(array_unique($results["professors"], SORT_REGULAR)); //remove duplicate
         $results["events"] = array_values(array_unique($results["events"], SORT_REGULAR)); //remove duplicate
+        $results["campuses"] = array_values(array_unique($results["campuses"], SORT_REGULAR)); //remove duplicate
     }
 
     return $results;
