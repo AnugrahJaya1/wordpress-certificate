@@ -41,7 +41,8 @@ function university_search_results(WP_REST_Request $request)
         } else if (get_post_type() == "professor") {
             array_push($results["professors"], [
                 "title" => get_the_title(),
-                "permalink" => get_the_permalink()
+                "permalink" => get_the_permalink(),
+                "image" => get_the_post_thumbnail_url(0, "professor_landscape"),//current post,size
             ]);
         } else if (get_post_type() == "program") {
             array_push($results["programs"], [

@@ -94,17 +94,19 @@ class Search {
 
                         <h2 class="search-overlay__section-title">Professors</h2>
                         ${results.professors.length ? 
-                            '<ul class="link-list min-list">' : 
-                            `<p>No professors match the search.
-                                <a href="${university_data.root_url}/professors">View all professors</a>
-                            </p>`
+                            '<ul class="professor-cards">' : 
+                            `<p>No professors match the search.</p>`
                         }
                             <!-- looping -->
                             ${results.professors.map(
                             item => `
-                            <li>
-                                <a href="${item.permalink}">${item.title}</a>
-                            </li>`
+                            <li class="professor-card__list-item">
+                                <a class="professor-card" href="${item.permalink}">
+                                    <img class="professor-card__image" src="${item.image}" alt="">
+                                    <span class="professor-card__name">${item.title}</span>
+                                </a>
+                            </li>
+                            `
                         ).join('')}
                         ${results.professors.length ? "</ul>" : ""} <!--expression -->
                     </div>
