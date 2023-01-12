@@ -77,52 +77,73 @@ class Search {
                     </div>
                     <div class="one-third">
                         <h2 class="search-overlay__section-title">Programs</h2>
-                        ${results.programs.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                        ${results.programs.length ? 
+                            '<ul class="link-list min-list">' : 
+                            `<p>No programs match the search.
+                                <a href="${university_data.root_url}/programs">View all programs</a>
+                            </p>`
+                        } <!--expression -->
                             <!-- looping -->
                             ${results.programs.map(
                             item => `
                             <li>
-                                <a href="${item.permalink}">${item.title}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
+                                <a href="${item.permalink}">${item.title}</a>
                             </li>`
                         ).join('')}
                         ${results.programs.length ? "</ul>" : ""} <!--expression -->
 
                         <h2 class="search-overlay__section-title">Professors</h2>
-                        ${results.professors.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                        ${results.professors.length ? 
+                            '<ul class="link-list min-list">' : 
+                            `<p>No professors match the search.
+                                <a href="${university_data.root_url}/professors">View all professors</a>
+                            </p>`
+                        }
                             <!-- looping -->
                             ${results.professors.map(
                             item => `
                             <li>
-                                <a href="${item.permalink}">${item.title}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
+                                <a href="${item.permalink}">${item.title}</a>
                             </li>`
                         ).join('')}
                         ${results.professors.length ? "</ul>" : ""} <!--expression -->
                     </div>
                     <div class="one-third">
                         <h2 class="search-overlay__section-title">Campuses</h2>
-                        ${results.campuses.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                        ${results.campuses.length ? 
+                            '<ul class="link-list min-list">' : 
+                            `<p>No campuses match the search.
+                                <a href="${university_data.root_url}/campuses">View all campuses</a>
+                            </p>`
+                        }
                             <!-- looping -->
                             ${results.campuses.map(
                             item => `
                             <li>
-                                <a href="${item.permalink}">${item.title}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
+                                <a href="${item.permalink}">${item.title}</a>
                             </li>`
                         ).join('')}
                         ${results.campuses.length ? "</ul>" : ""} <!--expression -->
 
                         <h2 class="search-overlay__section-title">Events</h2>
-                        ${results.events.length ? '<ul class="link-list min-list">' : "<p>No general Information matches the search.</p>"} <!--expression -->
+                        ${results.events.length ? 
+                            '<ul class="link-list min-list">' : 
+                            `<p>No events match the search.
+                                <a href="${university_data.root_url}/events">View all events</a>
+                            </p>`
+                        }
                             <!-- looping -->
                             ${results.events.map(
                             item => `
                             <li>
-                                <a href="${item.permalink}">${item.title}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
+                                <a href="${item.permalink}">${item.title}</a>
                             </li>`
                         ).join('')}
                         ${results.events.length ? "</ul>" : ""} <!--expression -->
                     </div>
                 </div>
                 `);
+                this.is_spinner_visible = false;
             }
         );
     }
