@@ -14,7 +14,22 @@ function university_register_search()
 }
 
 function university_search_results(){
-    return "HALLO";
+    $professors = new WP_Query([
+        "post_type" => "professor"
+    ]);
+
+    $professor_results = [];
+
+    while($professors->have_posts()){
+        $professors->the_post();
+
+        array_push($professor_results, [
+            "title" => get_the_title(),
+            "permalink" => get_the_permalink()
+        ]);
+    }
+
+    return $professor_results;    
 }
 
 add_action("rest_api_init", "university_register_search");
