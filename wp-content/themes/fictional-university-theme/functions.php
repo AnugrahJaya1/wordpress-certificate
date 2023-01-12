@@ -1,5 +1,7 @@
 <?php
 
+require get_theme_file_path("/inc/search-route.php");
+
 define("GOOGLE_KEY", "AIzaSyDLL3JqFUUcV2JBrYAjPXj-fOBzDWwJvU0");
 
 function university_files()
