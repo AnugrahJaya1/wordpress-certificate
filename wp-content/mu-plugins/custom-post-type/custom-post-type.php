@@ -85,8 +85,7 @@ class Custom_Post_Type
         // add event post type
         register_post_type("program", [
             "supports" => [
-                "title",
-                "editor",
+                "title"
             ],
             "rewrite" => [
                 "slug" => "programs" // rewrite slug
