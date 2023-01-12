@@ -34,7 +34,9 @@ function university_search_results(WP_REST_Request $request)
         if (get_post_type() == "post" || get_post_type() == "page") {
             array_push($results["general_info"], [
                 "title" => get_the_title(),
-                "permalink" => get_the_permalink()
+                "permalink" => get_the_permalink(),
+                "post_type" => get_post_type(),
+                "author_name" => get_the_author(),
             ]);
         } else if (get_post_type() == "professor") {
             array_push($results["professors"], [

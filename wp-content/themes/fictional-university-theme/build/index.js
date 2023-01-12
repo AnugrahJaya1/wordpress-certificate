@@ -257,7 +257,7 @@ class Search {
                             <!-- looping -->
                             ${results.general_info.map(item => `
                             <li>
-                                <a href="${item.permalink}">${item.title}</a> ${item.type == "post" ? `by ${item.author_name}` : ""}
+                                <a href="${item.permalink}">${item.title}</a> ${item.post_type == "post" ? `by ${item.author_name}` : ""}
                             </li>`).join('')}
                         ${results.general_info.length ? "</ul>" : ""} <!--expression -->
                     </div>
