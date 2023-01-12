@@ -47,7 +47,8 @@ function university_search_results(WP_REST_Request $request)
         } else if (get_post_type() == "program") {
             array_push($results["programs"], [
                 "title" => get_the_title(),
-                "permalink" => get_the_permalink()
+                "permalink" => get_the_permalink(),
+                "id" => get_the_ID(),
             ]);
         } else if (get_post_type() == "event") {
             $event_date = new DateTime(get_field("event_date"));
@@ -73,28 +74,37 @@ function university_search_results(WP_REST_Request $request)
         }
     }
 
-    $program_relationship_query = new WP_Query([
-        "post_type" => "professor",
-        "meta_query" => [
-            [
+    if ($results["programs"]) {
+        $programs_meta_query = [
+            "relation" => "OR",
+            // loops program
+        ];
+
+        foreach ($results["programs"] as $program) {
+            array_push($programs_meta_query, [
                 "key" => "related_program",
                 "compare" => "LIKE",
-                "value" => '"109"',
-            ]
-        ]
-    ]);
+                "value" => '"' . $program["id"] . '"',
+            ]);
+        }
 
-    while ($program_relationship_query->have_posts()) {
-        $program_relationship_query->the_post();
-
-        array_push($results["professors"], [
-            "title" => get_the_title(),
-            "permalink" => get_the_permalink(),
-            "image" => get_the_post_thumbnail_url(0, "professor_landscape"), //current post,size
+        $program_relationship_query = new WP_Query([
+            "post_type" => "professor",
+            "meta_query" => $programs_meta_query
         ]);
-    }
 
-    $results["professors"] = array_values(array_unique($results["professors"], SORT_REGULAR));//remove duplicate
+        while ($program_relationship_query->have_posts()) {
+            $program_relationship_query->the_post();
+
+            array_push($results["professors"], [
+                "title" => get_the_title(),
+                "permalink" => get_the_permalink(),
+                "image" => get_the_post_thumbnail_url(0, "professor_landscape"), //current post,size
+            ]);
+        }
+
+        $results["professors"] = array_values(array_unique($results["professors"], SORT_REGULAR)); //remove duplicate
+    }
 
     return $results;
 }
