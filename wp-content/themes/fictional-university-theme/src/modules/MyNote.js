@@ -12,13 +12,14 @@ class MyNote {
     }
 
     // custom method
-    delete_note() {
+    delete_note(e) {
+        var this_note = $(e.target).parents("li");// get li as "object"
         // ajax -> u can control any req instead of get if used getJSON
         $.ajax({
             beforeSend: (xhr) => {
                 xhr.setRequestHeader("X-WP-Nonce", university_data.nonce);//target, value
             },
-            url: university_data.root_url + "/wp-json/wp/v2/note/123",
+            url: university_data.root_url + "/wp-json/wp/v2/note/"+this_note.data("id"), // can use data-id, same with li
             type: "DELETE",
             success: (response) => {
                 console.log(response)
