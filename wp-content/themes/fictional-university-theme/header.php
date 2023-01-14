@@ -38,7 +38,14 @@
                     <?php
                     if (is_user_logged_in()) {
                     ?>
-                        <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--small btn--dark-orange push-right float-left">Log out</a>
+                        <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--small btn--dark-orange push-right float-left btn--with-photo">
+                            <span class="site-header__avatar">
+                                <?php
+                                echo get_avatar(get_current_user_id(), 60); //user id/email, size
+                                ?>
+                            </span>
+                            <span class="btn__text">Log Out</span>
+                        </a>
                     <?php
                     } else {
                     ?>
