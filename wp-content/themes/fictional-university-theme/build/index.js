@@ -14,9 +14,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/HeroSlider */ "./src/modules/HeroSlider.js");
 /* harmony import */ var _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/GoogleMap */ "./src/modules/GoogleMap.js");
 /* harmony import */ var _modules_Search__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Search */ "./src/modules/Search.js");
+/* harmony import */ var _modules_MyNote__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/MyNote */ "./src/modules/MyNote.js");
 
 
 // Our modules / classes
+
 
 
 
@@ -27,6 +29,7 @@ const mobileMenu = new _modules_MobileMenu__WEBPACK_IMPORTED_MODULE_1__["default
 const heroSlider = new _modules_HeroSlider__WEBPACK_IMPORTED_MODULE_2__["default"]();
 const googleMap = new _modules_GoogleMap__WEBPACK_IMPORTED_MODULE_3__["default"]();
 const search = new _modules_Search__WEBPACK_IMPORTED_MODULE_4__["default"]();
+const myNote = new _modules_MyNote__WEBPACK_IMPORTED_MODULE_5__["default"]();
 
 /***/ }),
 
@@ -180,6 +183,52 @@ class MobileMenu {
   }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MobileMenu);
+
+/***/ }),
+
+/***/ "./src/modules/MyNote.js":
+/*!*******************************!*\
+  !*** ./src/modules/MyNote.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
+class MyNote {
+  constructor() {
+    this.delete_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".delete-note");
+    this.events();
+  }
+  events() {
+    this.delete_button.on("click", this.delete_note); //event,functions
+  }
+
+  // custom method
+  delete_note() {
+    // ajax -> u can control any req instead of get if used getJSON
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader("X-WP-Nonce", university_data.nonce); //target, value
+      },
+
+      url: university_data.root_url + "/wp-json/wp/v2/note/123",
+      type: "DELETE",
+      success: response => {
+        console.log(response);
+      },
+      // arrow function
+      error: response => {
+        console.log(response);
+      }
+    });
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNote);
 
 /***/ }),
 
