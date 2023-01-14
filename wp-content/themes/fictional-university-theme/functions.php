@@ -169,3 +169,62 @@ function university_custom_rest()
 }
 
 add_action("rest_api_init", "university_custom_rest");
+
+// redirect subscriber account out of admin and onto homepage
+
+function redirect_subs_to_front_end()
+{
+    $current_user = wp_get_current_user();
+    if (
+        count($current_user->roles) == 1 &&
+        $current_user->roles[0] == "subscriber"
+    ) {
+        wp_redirect(site_url("/"));
+        exit;
+    }
+}
+
+add_action("admin_init", "redirect_subs_to_front_end");
+
+function no_subs_admin_bar()
+{
+    $current_user = wp_get_current_user();
+    if (
+        count($current_user->roles) == 1 &&
+        $current_user->roles[0] == "subscriber"
+    ) {
+        show_admin_bar(false);
+    }
+}
+
+add_action("wp_loaded", "no_subs_admin_bar");
+
+
+// customize login screen
+function our_header_url()
+{
+    return esc_url(site_url("/"));
+}
+
+add_filter("login_headerurl", "our_header_url"); //object want change, callback function
+
+function our_login_css()
+{
+    // css
+    wp_enqueue_style("university_main_style", get_theme_file_uri("/build/style-index.css")); // nickname, location
+    wp_enqueue_style("university_extra_style", get_theme_file_uri("/build/index.css")); // nickname, location
+
+    // icon
+    wp_enqueue_style("font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); // nickname, location
+
+    // font
+    wp_enqueue_style("custom-google-fonts", "//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i"); // nickname, location
+}
+
+add_action("login_enqueue_scripts", "our_login_css");
+
+function our_login_title(){
+    return get_bloginfo("name");
+}
+
+add_filter("login_headertext","our_login_title");
