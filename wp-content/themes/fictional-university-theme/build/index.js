@@ -351,6 +351,9 @@ class Search {
     this.results_div.html("");
     setTimeout(() => this.search_field.focus(), 300);
     this.is_overlay_open = true;
+
+    // prevent default wordpress search
+    return false;
   }
   close_overlay() {
     this.search_overlay.removeClass("search-overlay--active");
