@@ -196,13 +196,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+
 class MyNote {
-  constructor() {}
-  events() {}
+  constructor() {
+    this.delete_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".delete-note");
+    this.events();
+  }
+  events() {
+    this.delete_button.on("click", this.delete_note); //event,functions
+  }
 
   // custom method
+  delete_note() {}
 }
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNote);
 
 /***/ }),
