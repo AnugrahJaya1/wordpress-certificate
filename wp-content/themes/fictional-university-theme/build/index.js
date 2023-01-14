@@ -221,6 +221,7 @@ class MyNote {
       // can use data-id, same with li
       type: "DELETE",
       success: response => {
+        this_note.slideUp(); // remove by slide animation
         console.log(response);
       },
       // arrow function
