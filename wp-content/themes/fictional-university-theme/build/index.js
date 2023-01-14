@@ -212,6 +212,10 @@ class MyNote {
   delete_note() {
     // ajax -> u can control any req instead of get if used getJSON
     jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader("X-WP-Nonce", university_data.nonce); //target, value
+      },
+
       url: university_data.root_url + "/wp-json/wp/v2/note/123",
       type: "DELETE",
       success: response => {
