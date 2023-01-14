@@ -25,7 +25,8 @@ function university_files()
 
     // output js data into html source
     wp_localize_script("university_main_script", "university_data", [
-        "root_url" => get_site_url()
+        "root_url" => get_site_url(),
+        "nonce" => wp_create_nonce("wp_rest") // create secret key for auth
     ]); // handle of name script, variable name, array of data
 }
 
@@ -223,8 +224,9 @@ function our_login_css()
 
 add_action("login_enqueue_scripts", "our_login_css");
 
-function our_login_title(){
+function our_login_title()
+{
     return get_bloginfo("name");
 }
 
-add_filter("login_headertext","our_login_title");
+add_filter("login_headertext", "our_login_title");
