@@ -22,6 +22,8 @@ page_banner([
         echo "<h2 class='headline headline--small-plus'>No results match that search.</h2>";
     }
 
+    // load search form
+    get_search_form();
     ?>
 </div>
 
