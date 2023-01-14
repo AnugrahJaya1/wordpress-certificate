@@ -76,15 +76,18 @@ while (have_posts()) {
 
         <div class="generic-content">
             <!-- html form -->
-            <form method="get" action="
+            <form class="search-form" method="get" action="
             <?php
             // security best practice if u echo site url
             // need wrap in esc_url
             echo esc_url(site_url("/"));
             ?>
             ">
-                <input type="search" name="s" id="">
-                <input type="submit" value="Search">
+                <label class="headline headline--medium" for="s">Perform a New Search:</label>
+                <div class="search-form-row">
+                    <input class="s" type="search" name="s" id="s" placeholder="What are you looking for?">
+                    <input class="search-submit" type="submit" value="Search">
+                </div>
             </form>
         </div>
     </div>
