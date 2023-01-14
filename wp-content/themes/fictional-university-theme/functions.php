@@ -198,3 +198,12 @@ function no_subs_admin_bar()
 }
 
 add_action("wp_loaded", "no_subs_admin_bar");
+
+
+// customize login screen
+function our_header_url()
+{
+    return esc_url(site_url("/"));
+}
+
+add_filter("login_headerurl", "our_header_url");//object want change, callback function
