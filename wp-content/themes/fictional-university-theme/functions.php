@@ -185,3 +185,16 @@ function redirect_subs_to_front_end()
 }
 
 add_action("admin_init", "redirect_subs_to_front_end");
+
+function no_subs_admin_bar()
+{
+    $current_user = wp_get_current_user();
+    if (
+        count($current_user->roles) == 1 &&
+        $current_user->roles[0] == "subscriber"
+    ) {
+        show_admin_bar(false);
+    }
+}
+
+add_action("wp_loaded", "no_subs_admin_bar");
