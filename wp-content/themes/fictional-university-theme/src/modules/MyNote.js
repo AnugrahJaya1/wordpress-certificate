@@ -3,12 +3,20 @@ import $ from "jquery";
 class MyNote {
     constructor() {
         this.delete_button = $(".delete-note");
+        this.edit_button = $(".edit-note");
 
         this.events();
     }
 
     events() {
         this.delete_button.on("click", this.delete_note);//event,functions
+        this.edit_button.on("click", this.edit_note);//event,functions
+    }
+
+    edit_note(e){
+        var this_note = $(e.target).parents("li");// get li as "object"
+        this_note.find(".note-title-field, .note-body-field").removeAttr("readonly").addClass("note-active-field");
+        this_note.find(".update-note").addClass("update-note--visible");
     }
 
     // custom method
