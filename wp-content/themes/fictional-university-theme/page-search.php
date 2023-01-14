@@ -76,7 +76,7 @@ while (have_posts()) {
 
         <div class="generic-content">
             <!-- html form -->
-            <form action="
+            <form method="get" action="
             <?php
             // security best practice if u echo site url
             // need wrap in esc_url
