@@ -58,6 +58,8 @@ class Custom_Post_Type
     {
         // add event post type
         register_post_type("event", [
+            "capability_type" => "event", // add capability (not use post capability)
+            "map_meta_cap" => true, // required permission
             "supports" => [
                 "title",
                 "editor",
@@ -82,8 +84,10 @@ class Custom_Post_Type
 
     function program_post_type()
     {
-        // add event post type
+        // add program post type
         register_post_type("program", [
+            "capability_type" => "program", // add capability (not use post capability)
+            "map_meta_cap" => true, // required permission
             "supports" => [
                 "title"
             ],
@@ -106,8 +110,10 @@ class Custom_Post_Type
 
     function professor_post_type()
     {
-        // add event post type
+        // add  professor post type
         register_post_type("professor", [
+            "capability_type" => "professor", // add capability (not use post capability)
+            "map_meta_cap" => true, // required permission
             "supports" => [
                 "title",
                 "editor",
@@ -130,6 +136,8 @@ class Custom_Post_Type
     {
         // add campus post type
         register_post_type("campus", [
+            "capability_type" => "campus", // add capability (not use post capability)
+            "map_meta_cap" => true, // required permission
             "supports" => [
                 "title",
                 "editor",
