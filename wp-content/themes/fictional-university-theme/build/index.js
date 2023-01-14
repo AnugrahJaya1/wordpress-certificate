@@ -209,7 +209,20 @@ class MyNote {
   }
 
   // custom method
-  delete_note() {}
+  delete_note() {
+    // ajax -> u can control any req instead of get if used getJSON
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      url: university_data.root_url + "/wp-json/wp/v2/note/123",
+      type: "DELETE",
+      success: response => {
+        console.log(response);
+      },
+      // arrow function
+      error: response => {
+        console.log(response);
+      }
+    });
+  }
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MyNote);
 
