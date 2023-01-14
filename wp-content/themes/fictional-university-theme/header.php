@@ -38,6 +38,9 @@
                     <?php
                     if (is_user_logged_in()) {
                     ?>
+                        <a href="<?php echo esc_url(site_url("/my-notes")); ?>" class="btn btn--small btn--dark-orange push-right float-left">
+                        My Notes
+                        </a>
                         <a href="<?php echo esc_url(wp_login_url()); ?>" class="btn btn--small btn--dark-orange push-right float-left btn--with-photo">
                             <span class="site-header__avatar">
                                 <?php
