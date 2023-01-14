@@ -179,8 +179,9 @@ function redirect_subs_to_front_end()
         count($current_user->roles) == 1 &&
         $current_user->roles[0] == "subscriber"
     ) {
-    wp_redirect("/");
-    exit;
+        wp_redirect(site_url("/"));
+        exit;
     }
 }
+
 add_action("admin_init", "redirect_subs_to_front_end");
