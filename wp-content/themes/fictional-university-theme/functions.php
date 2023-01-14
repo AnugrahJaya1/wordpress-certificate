@@ -169,3 +169,18 @@ function university_custom_rest()
 }
 
 add_action("rest_api_init", "university_custom_rest");
+
+// redirect subscriber account out of admin and onto homepage
+
+function redirect_subs_to_front_end()
+{
+    $current_user = wp_get_current_user();
+    if (
+        count($current_user->roles) == 1 &&
+        $current_user->roles[0] == "subscriber"
+    ) {
+    wp_redirect("/");
+    exit;
+    }
+}
+add_action("admin_init", "redirect_subs_to_front_end");
