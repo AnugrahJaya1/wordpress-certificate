@@ -9,17 +9,19 @@ page_banner([
 <!-- content -->
 <div class="container container--narrow page-section">
     <?php
-    while (have_posts()) {
-        // get post
-        the_post(); // keep track what post we use
+    if (have_posts()) {
+        while (have_posts()) {
+            // get post
+            the_post(); // keep track what post we use
 
-        get_template_part("/template-parts/content", get_post_type());
-    ?>
-        
-    <?php
+            get_template_part("/template-parts/content", get_post_type());
+        }
+        //  add pagination
+        echo paginate_links();
+    }else{
+        echo "<h2 class='headline headline--small-plus'>No results match that search.</h2>";
     }
-    //  add pagination
-    echo paginate_links();
+
     ?>
 </div>
 
