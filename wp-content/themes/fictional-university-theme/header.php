@@ -49,8 +49,8 @@
                     <?php
                     } else {
                     ?>
-                        <a href="<?php echo esc_url(site_url("/wp-login.php")); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
-                        <a href="<?php echo esc_url(site_url("/wp-signup.php")); ?>" class="btn btn--small btn--dark-orange push-right float-left">Sign Up</a>
+                        <a href="<?php wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
+                        <a href="<?php wp_registration_url(); ?>" class="btn btn--small btn--dark-orange push-right float-left">Sign Up</a>
                     <?php
                     }
                     ?>
