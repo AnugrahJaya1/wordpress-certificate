@@ -35,6 +35,8 @@ class Custom_Post_Type
         add_action("init", [$this, "professor_post_type"]);
 
         add_action("init", [$this, "campus_post_type"]);
+
+        add_action("init", [$this, "note_post_type"]);
     }
 
     /**
@@ -157,6 +159,28 @@ class Custom_Post_Type
                 "singular_name" => "Campus" // Text of singular event
             ],
             "menu_icon" => "dashicons-location-alt"
+        ]); // name of post type, argument
+    }
+
+    function note_post_type()
+    {
+        // add note post type
+        register_post_type("note", [
+            "supports" => [
+                "title",
+                "editor",
+            ],
+            "public" => false, // show in admin nav bar,
+            "show_ui" => true,
+            'show_in_rest' => true,
+            "labels" => [
+                "name" => "Notes", // name showed in admin nav bar
+                "add_new_item" => "Add New Note", // Text when add new item
+                "edit_item" => "Edit Note", // Text when edit item
+                "all_items" => "All Notes", // Text of all note
+                "singular_name" => "note" // Text of singular event
+            ],
+            "menu_icon" => "dashicons-welcome-write-blog"
         ]); // name of post type, argument
     }
 }
