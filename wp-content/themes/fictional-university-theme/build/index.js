@@ -203,11 +203,13 @@ class MyNote {
   constructor() {
     this.delete_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".delete-note");
     this.edit_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".edit-note");
+    this.update_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".update-note");
     this.events();
   }
   events() {
     this.delete_button.on("click", this.delete_note); //event,functions
     this.edit_button.on("click", this.edit_note.bind(this)); //event,functions
+    this.update_button.on("click", this.update_note.bind(this)); //event,functions
   }
 
   edit_note(e) {
@@ -232,6 +234,33 @@ class MyNote {
     this_note.find(".note-title-field, .note-body-field").attr("readonly", "readonly").removeClass("note-active-field");
     this_note.find(".update-note").removeClass("update-note--visible");
     this_note.data("state", "cancel");
+  }
+  update_note(e) {
+    var this_note = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parents("li"); // get li as "object"
+
+    var updated_post = {
+      "title": this_note.find(".note-title-field").val(),
+      "content": this_note.find(".note-body-field").val()
+    };
+    // ajax -> u can control any req instead of get if used getJSON
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader("X-WP-Nonce", university_data.nonce); //target, value
+      },
+
+      url: university_data.root_url + "/wp-json/wp/v2/note/" + this_note.data("id"),
+      // can use data-id, same with li
+      type: "POST",
+      data: updated_post,
+      success: response => {
+        this.make_note_readonly(this_note);
+        console.log(response);
+      },
+      // arrow function
+      error: response => {
+        console.log(response);
+      }
+    });
   }
 
   // custom method
