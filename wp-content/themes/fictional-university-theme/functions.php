@@ -222,3 +222,9 @@ function our_login_css()
 }
 
 add_action("login_enqueue_scripts", "our_login_css");
+
+function our_login_title(){
+    return get_bloginfo("name");
+}
+
+add_filter("login_headertext","our_login_title");
