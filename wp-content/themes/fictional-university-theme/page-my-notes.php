@@ -37,8 +37,8 @@ while (have_posts()) {
             while ($user_notes->have_posts()) {
                 $user_notes->the_post();
             ?>
-                <li data-id="<?php the_ID()?>">
-                    <input readonly type="text" class="note-title-field" value="<?php echo esc_attr(get_the_title()); ?>">
+                <li data-id="<?php the_ID() ?>">
+                    <input readonly type="text" class="note-title-field" value="<?php echo str_replace("Private: ", "", esc_attr(get_the_title())); ?>">
                     <span class="edit-note">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Edit
