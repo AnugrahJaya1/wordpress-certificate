@@ -16,7 +16,7 @@ class MyNote {
         var new_post = {
             "title": $(".new-note-title").val(),
             "content": $(".new-note-body").val(),
-            "status": "publish"
+            "status": "private"
         }
         // ajax -> u can control any req instead of get if used getJSON
         $.ajax({
