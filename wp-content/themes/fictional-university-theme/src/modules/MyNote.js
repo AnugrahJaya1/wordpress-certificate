@@ -52,6 +52,9 @@ class MyNote {
                 console.log(response)
             },// arrow function
             error: (response) => {
+                if (response.responseText == "You have reached your note limit.") {
+                    $(".note-limit-message").addClass("active");
+                }
                 console.log(response)
             }
         });
