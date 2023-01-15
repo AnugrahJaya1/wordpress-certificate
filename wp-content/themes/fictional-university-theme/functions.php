@@ -230,3 +230,15 @@ function our_login_title()
 }
 
 add_filter("login_headertext", "our_login_title");
+
+// Force note post to be private
+
+function make_note_private($data)
+{
+    if ($data["post_type"] == "note" && $data["post_status"] != "trash") {
+        $data["post_status"] = "private";
+    }
+    return $data;
+}
+
+add_filter("wp_insert_post_data", "make_note_private");
