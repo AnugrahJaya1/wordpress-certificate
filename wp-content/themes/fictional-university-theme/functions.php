@@ -167,6 +167,12 @@ function university_custom_rest()
             return get_the_author();
         }
     ]); // post type, new field, array
+
+    register_rest_field("note", "user_note_count", [
+        "get_callback" => function () {
+            return count_user_posts( get_current_user_id(), "note");
+        }
+    ]); // post type, new field, array
 }
 
 add_action("rest_api_init", "university_custom_rest");
@@ -233,18 +239,24 @@ add_filter("login_headertext", "our_login_title");
 
 // Force note post to be private
 
-function make_note_private($data)
+function make_note_private($data, $postarr)
 {
     // remove html in content
-    if($data["post_type"] == "note"){
+    if ($data["post_type"] == "note") {
+        // limit post per user
+        if (count_user_posts(get_current_user_id(), "note") > 5-1 && !$postarr["ID"]) { //id,post type, check id if existed
+            die("You have reached your note limit.");
+        }
+
+        //remove html
         $data["post_title"] = sanitize_text_field($data["post_title"]);
         $data["post_content"] = sanitize_textarea_field($data["post_content"]);
     }
-    
+
     if ($data["post_type"] == "note" && $data["post_status"] != "trash") {
         $data["post_status"] = "private";
     }
     return $data;
 }
 
-add_filter("wp_insert_post_data", "make_note_private");
+add_filter("wp_insert_post_data", "make_note_private", 10, 2);//hook, function, prior, params
