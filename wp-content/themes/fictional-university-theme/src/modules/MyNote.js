@@ -126,6 +126,9 @@ class MyNote {
             success: (response) => {
                 this_note.slideUp();// remove by slide animation
                 console.log(response)
+                if (response.user_note_count < 5) {
+                    $(".note-limit-message").removeClass("active");
+                }
             },// arrow function
             error: (response) => {
                 console.log(response)

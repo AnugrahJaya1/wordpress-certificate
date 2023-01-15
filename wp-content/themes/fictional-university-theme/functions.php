@@ -167,6 +167,12 @@ function university_custom_rest()
             return get_the_author();
         }
     ]); // post type, new field, array
+
+    register_rest_field("note", "user_note_count", [
+        "get_callback" => function () {
+            return count_user_posts( get_current_user_id(), "note");
+        }
+    ]); // post type, new field, array
 }
 
 add_action("rest_api_init", "university_custom_rest");
