@@ -201,17 +201,61 @@ __webpack_require__.r(__webpack_exports__);
 
 class MyNote {
   constructor() {
-    this.delete_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".delete-note");
-    this.edit_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".edit-note");
-    this.update_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".update-note");
     this.events();
   }
   events() {
-    this.delete_button.on("click", this.delete_note); //event,functions
-    this.edit_button.on("click", this.edit_note.bind(this)); //event,functions
-    this.update_button.on("click", this.update_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".delete-note", this.delete_note); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".edit-note", this.edit_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".update-note", this.update_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".submit-note").on("click", this.create_note.bind(this)); //event,functions
   }
 
+  create_note(e) {
+    var new_post = {
+      "title": jquery__WEBPACK_IMPORTED_MODULE_0___default()(".new-note-title").val(),
+      "content": jquery__WEBPACK_IMPORTED_MODULE_0___default()(".new-note-body").val(),
+      "status": "publish"
+    };
+    // ajax -> u can control any req instead of get if used getJSON
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().ajax({
+      beforeSend: xhr => {
+        xhr.setRequestHeader("X-WP-Nonce", university_data.nonce); //target, value
+      },
+
+      url: university_data.root_url + "/wp-json/wp/v2/note/",
+      // can use data-id, same with li
+      type: "POST",
+      data: new_post,
+      success: response => {
+        // remove string
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(".new-note-title, .new-note-body").val("");
+        // show in UI
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(`
+                <li data-id="${response.id}">
+                    <input readonly type="text" class="note-title-field" value="${response.title.raw}">
+                    <span class="edit-note">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Edit
+                    </span>
+                    <span class="delete-note">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        Delete
+                    </span>
+                    <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+                    <span class="update-note btn btn--blue btn--small">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        Save
+                    </span>
+                </li>
+                `).prependTo("#my-notes").hide().slideDown();
+        console.log(response);
+      },
+      // arrow function
+      error: response => {
+        console.log(response);
+      }
+    });
+  }
   edit_note(e) {
     var this_note = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).parents("li"); // get li as "object"
 
