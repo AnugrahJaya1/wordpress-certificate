@@ -233,12 +233,12 @@ add_filter("login_headertext", "our_login_title");
 
 // Force note post to be private
 
-function make_note_private($data)
+function make_note_private($data, $postarr)
 {
     // remove html in content
     if ($data["post_type"] == "note") {
         // limit post per user
-        if (count_user_posts(get_current_user_id(), "note") > 5-1) { //id,post type
+        if (count_user_posts(get_current_user_id(), "note") > 5-1 && !$postarr["ID"]) { //id,post type, check id if existed
             die("You have reached your note limit.");
         }
 
@@ -253,4 +253,4 @@ function make_note_private($data)
     return $data;
 }
 
-add_filter("wp_insert_post_data", "make_note_private");
+add_filter("wp_insert_post_data", "make_note_private", 10, 2);//hook, function, prior, params
