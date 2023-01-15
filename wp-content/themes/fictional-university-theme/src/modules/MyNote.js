@@ -2,19 +2,14 @@ import $ from "jquery";
 
 class MyNote {
     constructor() {
-        this.delete_button = $(".delete-note");
-        this.edit_button = $(".edit-note");
-        this.update_button = $(".update-note");
-        this.create_button = $(".submit-note");
-
         this.events();
     }
 
     events() {
-        this.delete_button.on("click", this.delete_note);//event,functions
-        this.edit_button.on("click", this.edit_note.bind(this));//event,functions
-        this.update_button.on("click", this.update_note.bind(this));//event,functions
-        this.create_button.on("click", this.create_note.bind(this));//event,functions
+        $("#my-notes").on("click", ".delete-note", this.delete_note);//event,functions
+        $("#my-notes").on("click", ".edit-note", this.edit_note.bind(this));//event,functions
+        $("#my-notes").on("click", ".update-note", this.update_note.bind(this));//event,functions
+        $(".submit-note").on("click", this.create_note.bind(this));//event,functions
     }
 
     create_note(e) {

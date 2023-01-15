@@ -201,17 +201,13 @@ __webpack_require__.r(__webpack_exports__);
 
 class MyNote {
   constructor() {
-    this.delete_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".delete-note");
-    this.edit_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".edit-note");
-    this.update_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".update-note");
-    this.create_button = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".submit-note");
     this.events();
   }
   events() {
-    this.delete_button.on("click", this.delete_note); //event,functions
-    this.edit_button.on("click", this.edit_note.bind(this)); //event,functions
-    this.update_button.on("click", this.update_note.bind(this)); //event,functions
-    this.create_button.on("click", this.create_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".delete-note", this.delete_note); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".edit-note", this.edit_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()("#my-notes").on("click", ".update-note", this.update_note.bind(this)); //event,functions
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(".submit-note").on("click", this.create_note.bind(this)); //event,functions
   }
 
   create_note(e) {
