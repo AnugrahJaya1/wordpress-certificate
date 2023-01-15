@@ -234,7 +234,24 @@ class MyNote {
         // remove string
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(".new-note-title, .new-note-body").val("");
         // show in UI
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()("<li>Test</li>").prependTo("#my-notes").hide().slideDown();
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(`
+                <li data-id="${response.id}">
+                    <input readonly type="text" class="note-title-field" value="${response.title.raw}">
+                    <span class="edit-note">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                        Edit
+                    </span>
+                    <span class="delete-note">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        Delete
+                    </span>
+                    <textarea readonly class="note-body-field">${response.content.raw}</textarea>
+                    <span class="update-note btn btn--blue btn--small">
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        Save
+                    </span>
+                </li>
+                `).prependTo("#my-notes").hide().slideDown();
         console.log(response);
       },
       // arrow function
