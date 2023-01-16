@@ -37,6 +37,8 @@ class Custom_Post_Type
         add_action("init", [$this, "campus_post_type"]);
 
         add_action("init", [$this, "note_post_type"]);
+
+        add_action("init", [$this, "like_post_type"]);
     }
 
     /**
@@ -183,6 +185,24 @@ class Custom_Post_Type
                 "singular_name" => "note" // Text of singular event
             ],
             "menu_icon" => "dashicons-welcome-write-blog"
+        ]); // name of post type, argument
+    }
+
+    function like_post_type()
+    {
+        // add like post type
+        register_post_type("like", [
+            "supports" => ["title"],
+            "public" => false, // show in admin nav bar,
+            "show_ui" => true,
+            "labels" => [
+                "name" => "Likes", // name showed in admin nav bar
+                "add_new_item" => "Add New Like", // Text when add new item
+                "edit_item" => "Edit Like", // Text when edit item
+                "all_items" => "All Likes", // Text of all like
+                "singular_name" => "like" // Text of singular event
+            ],
+            "menu_icon" => "dashicons-heart"
         ]); // name of post type, argument
     }
 }
