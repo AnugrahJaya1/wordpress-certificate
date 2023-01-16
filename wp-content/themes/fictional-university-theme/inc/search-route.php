@@ -6,7 +6,7 @@ function university_register_search()
         "university/v1", // name space
         "search", // route
         [
-            "method" => WP_REST_Server::READABLE, // make universal
+            "methods" => WP_REST_Server::READABLE, // make universal
             "callback" => "university_search_results",
             'permission_callback' => '__return_true'
         ]
