@@ -10,8 +10,10 @@ class Like {
     }
 
     //custom function
-    on_click_dispatcher() {
-        var status = $(".like-box").data("exists");
+    on_click_dispatcher(e) {
+        var current_like_box = $(e.target).closest(".like-box");
+
+        var status = current_like_box.data("exists");
         if (status == "yes") {
             this.delete_like();
         }else{

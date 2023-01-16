@@ -182,8 +182,9 @@ class Like {
   }
 
   //custom function
-  on_click_dispatcher() {
-    var status = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".like-box").data("exists");
+  on_click_dispatcher(e) {
+    var current_like_box = jquery__WEBPACK_IMPORTED_MODULE_0___default()(e.target).closest(".like-box");
+    var status = current_like_box.data("exists");
     if (status == "yes") {
       this.delete_like();
     } else {
