@@ -34,8 +34,27 @@ while (have_posts()) {
                                 ]
                             ]
                         ]);
+
+                        $exist_status = "no";
+
+                        // only get data if current user liked professor
+                        $exist_query = new WP_Query([
+                            "author" => get_current_user_id(),
+                            "post_type" => "like",
+                            "meta_query" => [
+                                [
+                                    "key" => "liked_professor_id",
+                                    "compare" => "=",
+                                    "value" => get_the_ID()
+                                ]
+                            ]
+                        ]);
+
+                        if($exist_query->found_posts){
+                            $exist_status="yes";
+                        }
                     ?>
-                    <span class="like-box">
+                    <span class="like-box" data-exists="<?php echo $exist_status;?>">
                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         <span class="like-count">
