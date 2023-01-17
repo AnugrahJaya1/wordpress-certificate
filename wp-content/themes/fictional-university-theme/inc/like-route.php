@@ -23,11 +23,18 @@ function university_like_routes()
     );
 }
 
-function create_like(){
-    return "create";
+function create_like()
+{
+    wp_insert_post([
+        "post_type" => "like",
+        "post_status" => "publish",
+        "post_title" => "Test",
+        "post_content" => "Test"
+    ]);
 }
 
-function delete_like(){
+function delete_like()
+{
     return "delete";
 }
 
