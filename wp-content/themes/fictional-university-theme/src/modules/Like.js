@@ -15,16 +15,19 @@ class Like {
 
         var status = current_like_box.data("exists");
         if (status == "yes") {
-            this.delete_like();
+            this.delete_like(current_like_box);
         } else {
-            this.create_like();
+            this.create_like(current_like_box);
         }
     }
 
-    create_like() {
+    create_like(current_like_box) {
         $.ajax({
             url: university_data.root_url + "/wp-json/university/v1/manage-like",
             type: "POST",
+            data: {
+                "professor_id" : current_like_box.data("id"),
+            },
             success: (response) => {
                 console.log(response);
             },
@@ -34,7 +37,7 @@ class Like {
         });
     }
 
-    delete_like() {
+    delete_like(current_like_box) {
         $.ajax({
             url: university_data.root_url + "/wp-json/university/v1/manage-like",
             type: "DELETE",
