@@ -42,7 +42,7 @@ function create_like($data)
         ]);
 
         // already not like professor
-        if($exist_query->found_posts == 0){
+        if ($exist_query->found_posts == 0 && get_post_type($professor_id) == "professor") {
             return wp_insert_post([
                 "post_type" => "like",
                 "post_status" => "publish",
@@ -51,11 +51,9 @@ function create_like($data)
                     "liked_professor_id" => $professor_id
                 ]
             ]);
-        }else{
-            die("You already liked this professor");
+        } else {
+            die("Invalid professor id");
         }
-
-        
     } else {
         die("Only logged in users can create a like.");
     }
