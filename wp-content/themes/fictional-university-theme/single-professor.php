@@ -10,7 +10,7 @@ while (have_posts()) {
     page_banner();
 ?>
     <!-- HTML mode -->
-    
+
 
     <div class="container container--narrow page-section">
         <div class="generic-content">
@@ -24,19 +24,20 @@ while (have_posts()) {
 
                 <div class="two-third">
                     <?php
-                        $like_count = new WP_Query([
-                            "post_type" => "like",
-                            "meta_query" => [
-                                [
-                                    "key" => "liked_professor_id",
-                                    "compare" => "=",
-                                    "value" => get_the_ID()
-                                ]
+                    $like_count = new WP_Query([
+                        "post_type" => "like",
+                        "meta_query" => [
+                            [
+                                "key" => "liked_professor_id",
+                                "compare" => "=",
+                                "value" => get_the_ID()
                             ]
-                        ]);
+                        ]
+                    ]);
 
-                        $exist_status = "no";
+                    $exist_status = "no";
 
+                    if (is_user_logged_in()) {
                         // only get data if current user liked professor
                         $exist_query = new WP_Query([
                             "author" => get_current_user_id(),
@@ -50,16 +51,18 @@ while (have_posts()) {
                             ]
                         ]);
 
-                        if($exist_query->found_posts){
-                            $exist_status="yes";
+                        if ($exist_query->found_posts) {
+                            $exist_status = "yes";
                         }
+                    }
+
                     ?>
-                    <span class="like-box" data-id="<?php the_ID();?>" data-exists="<?php echo $exist_status;?>">
+                    <span class="like-box" data-id="<?php the_ID(); ?>" data-exists="<?php echo $exist_status; ?>">
                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         <span class="like-count">
                             <?php
-                                echo $like_count->found_posts;
+                            echo $like_count->found_posts;
                             ?>
                         </span>
                     </span>
