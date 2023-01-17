@@ -25,17 +25,21 @@ function university_like_routes()
 
 function create_like($data)
 {
-    // get data from js request
-    $professor_id = sanitize_text_field($data["professor_id"]);
-    
-    wp_insert_post([
-        "post_type" => "like",
-        "post_status" => "publish",
-        "post_title" => "Test",
-        "meta_input" => [
-            "liked_professor_id" => $professor_id
-        ]
-    ]);
+    if (is_user_logged_in()) {
+        // get data from js request
+        $professor_id = sanitize_text_field($data["professor_id"]);
+
+        return wp_insert_post([
+            "post_type" => "like",
+            "post_status" => "publish",
+            "post_title" => "Test",
+            "meta_input" => [
+                "liked_professor_id" => $professor_id
+            ]
+        ]);
+    } else {
+        die("Only logged in users can create a like.");
+    }
 }
 
 function delete_like()
