@@ -57,7 +57,7 @@ while (have_posts()) {
                     }
 
                     ?>
-                    <span class="like-box" data-id="<?php the_ID(); ?>" data-exists="<?php echo $exist_status; ?>">
+                    <span class="like-box" data-like="<?php if(isset($exist_query->posts[0]->ID)) echo $exist_query->posts[0]->ID?>" data-id="<?php the_ID(); ?>" data-exists="<?php echo $exist_status; ?>">
                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         <span class="like-count">
