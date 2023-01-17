@@ -29,14 +29,33 @@ function create_like($data)
         // get data from js request
         $professor_id = sanitize_text_field($data["professor_id"]);
 
-        return wp_insert_post([
+        $exist_query = new WP_Query([
+            "author" => get_current_user_id(),
             "post_type" => "like",
-            "post_status" => "publish",
-            "post_title" => "Test",
-            "meta_input" => [
-                "liked_professor_id" => $professor_id
+            "meta_query" => [
+                [
+                    "key" => "liked_professor_id",
+                    "compare" => "=",
+                    "value" => $professor_id
+                ]
             ]
         ]);
+
+        // already not like professor
+        if($exist_query->found_posts == 0){
+            return wp_insert_post([
+                "post_type" => "like",
+                "post_status" => "publish",
+                "post_title" => "Test",
+                "meta_input" => [
+                    "liked_professor_id" => $professor_id
+                ]
+            ]);
+        }else{
+            die("You already liked this professor");
+        }
+
+        
     } else {
         die("Only logged in users can create a like.");
     }
