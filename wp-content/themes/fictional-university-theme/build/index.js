@@ -203,6 +203,11 @@ class Like {
         "professor_id": current_like_box.data("id")
       },
       success: response => {
+        // increment like count
+        current_like_box.attr("data-exists", "yes");
+        var like_count = parseInt(current_like_box.find(".like-count").html(), 10); //value, base
+        like_count++;
+        current_like_box.find(".like-count").html(like_count);
         console.log(response);
       },
       error: response => {
