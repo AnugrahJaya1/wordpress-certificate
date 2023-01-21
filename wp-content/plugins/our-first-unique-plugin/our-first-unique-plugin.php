@@ -34,14 +34,14 @@ class WordCountAndTimePlugin
             <h1>Word Count Settings</h1>
             <form action="options.php" method="POST">
                 <?php
-                    // fix issue failed when save
-                    settings_fields("word_count_plugin");
+                // fix issue failed when save
+                settings_fields("word_count_plugin");
 
-                    // call function from our custom setting (HTML)
-                    do_settings_sections("word-count-settings-page");
+                // call function from our custom setting (HTML)
+                do_settings_sections("word-count-settings-page");
 
-                    //submit wp button
-                    submit_button();
+                //submit wp button
+                submit_button();
                 ?>
             </form>
         </div>
@@ -79,10 +79,10 @@ class WordCountAndTimePlugin
     function location_HTML()
     {
     ?>
-    <select name="wcp_location">
-        <option value="0">Beginning of post</option>
-        <option value="1">End of post</option>
-    </select>
+        <select name="wcp_location">
+            <option value="0" <?php selected(get_option("wcp_location"), "0") ?>>Beginning of post</option>
+            <option value="1" <?php selected(get_option("wcp_location"), "1") ?>>End of post</option>
+        </select>
 <?php
     }
 
