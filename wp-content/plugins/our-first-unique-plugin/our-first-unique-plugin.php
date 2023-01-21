@@ -37,6 +37,14 @@ class WordCountAndTimePlugin
     }
 
     function settings(){
+        // build html for setting
+        add_settings_field(
+            "wcp_location", //name
+            "Display Location", // HTML label
+            array($this, "location_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section" // section/field
+        );
         // add custom setting
         register_setting(
             "word_count_plugin", // name of group
