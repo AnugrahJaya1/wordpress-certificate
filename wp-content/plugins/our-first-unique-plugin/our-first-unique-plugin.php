@@ -34,14 +34,14 @@ class WordCountAndTimePlugin
             <h1>Word Count Settings</h1>
             <form action="options.php" method="POST">
                 <?php
-                    // fix issue failed when save
-                    settings_fields("word_count_plugin");
+                // fix issue failed when save
+                settings_fields("word_count_plugin");
 
-                    // call function from our custom setting (HTML)
-                    do_settings_sections("word-count-settings-page");
+                // call function from our custom setting (HTML)
+                do_settings_sections("word-count-settings-page");
 
-                    //submit wp button
-                    submit_button();
+                //submit wp button
+                submit_button();
                 ?>
             </form>
         </div>
@@ -57,6 +57,8 @@ class WordCountAndTimePlugin
             null, // html content
             "word-count-settings-page", // page slug
         );
+
+        // DISPLAY LOCATION
         // build html for setting
         add_settings_field(
             "wcp_location", //name
@@ -70,55 +72,162 @@ class WordCountAndTimePlugin
             "word_count_plugin", // name of group
             "wcp_location", // specific setting
             [
-                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "sanitize_callback" => array($this, "sanitize_location"), //sanitize,
                 "default" => "0" // default 0-> beg, 1 end
             ] // array
         );
+
+        // HEADLINE
+        // build html for setting
+        add_settings_field(
+            "wcp_headline", //name
+            "Headline Text", // HTML label
+            array($this, "headline_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section" // section/field
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_headline", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "Post Statistics" // default
+            ] // array
+        );
+
+        // Word Count
+        // build html for setting
+        add_settings_field(
+            "wcp_word_count", //name
+            "Word Count", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_word_count") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_word_count", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
+            ] // array
+        );
+
+        // Char Count
+        // build html for setting
+        add_settings_field(
+            "wcp_char_count", //name
+            "Character Count", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_char_count") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_char_count", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
+            ] // array
+        );
+
+        // Read Time
+        // build html for setting
+        add_settings_field(
+            "wcp_read_time", //name
+            "Read Time", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_read_time") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_read_time", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
+            ] // array
+        );
+    }
+
+    function sanitize_location($input)
+    {
+        if ($input != "0" && $input != "1") {
+            // add error message
+            add_settings_error(
+                "wcp_location", // name of option
+                "wcp_location_error", // slug
+                "Display location must be either beginning or end of post.", // error message
+            );
+
+            return get_option("wcp_location");
+        }
+        return $input;
     }
 
     function location_HTML()
     {
     ?>
-    <select name="wcp_location">
-        <option value="0">Beginning of post</option>
-        <option value="1">End of post</option>
-    </select>
-<?php
+        <select name="wcp_location">
+            <option value="0" <?php selected(get_option("wcp_location"), "0") ?>>Beginning of post</option>
+            <option value="1" <?php selected(get_option("wcp_location"), "1") ?>>End of post</option>
+        </select>
+    <?php
     }
 
-    /**
-     * Add menu page
-     * Flush rewrite rules
-     */
-    function activate()
+    function headline_HTML()
     {
-        flush_rewrite_rules();
+    ?>
+        <input type="text" name="wcp_headline" value="<?php echo esc_attr(get_option('wcp_headline')); ?>">
+    <?php
     }
 
-    /**
-     * Flush rewrite rules
-     */
-    function deactivate()
+    function checkbox_HTML($args)
     {
-        flush_rewrite_rules();
-    }
-}
+    ?>
+        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> <?php
+                                                                                                                                }
 
-if (class_exists("WordCountAndTimePlugin")) {
-    // initialize class
-    $word_count = new WordCountAndTimePlugin();
-}
+                                                                                                                                /**
+                                                                                                                                 * Add menu page
+                                                                                                                                 * Flush rewrite rules
+                                                                                                                                 */
+                                                                                                                                function activate()
+                                                                                                                                {
+                                                                                                                                    flush_rewrite_rules();
+                                                                                                                                }
 
-/**
- * Activation
- * @param __FILE__ : this file
- * @param array (class, function)
- */
-register_activation_hook(__FILE__, array($word_count, 'activate'));
+                                                                                                                                /**
+                                                                                                                                 * Flush rewrite rules
+                                                                                                                                 */
+                                                                                                                                function deactivate()
+                                                                                                                                {
+                                                                                                                                    flush_rewrite_rules();
+                                                                                                                                }
+                                                                                                                            }
 
-/**
- * Deactivation
- * @param __FILE__ : this file
- * @param array (class, function)
- */
-register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+                                                                                                                            if (class_exists("WordCountAndTimePlugin")) {
+                                                                                                                                // initialize class
+                                                                                                                                $word_count = new WordCountAndTimePlugin();
+                                                                                                                            }
+
+                                                                                                                            /**
+                                                                                                                             * Activation
+                                                                                                                             * @param __FILE__ : this file
+                                                                                                                             * @param array (class, function)
+                                                                                                                             */
+                                                                                                                            register_activation_hook(__FILE__, array($word_count, 'activate'));
+
+                                                                                                                            /**
+                                                                                                                             * Deactivation
+                                                                                                                             * @param __FILE__ : this file
+                                                                                                                             * @param array (class, function)
+                                                                                                                             */
+                                                                                                                            register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
