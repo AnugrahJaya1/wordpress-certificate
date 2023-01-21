@@ -92,7 +92,67 @@ class WordCountAndTimePlugin
             "wcp_headline", // specific setting
             [
                 "sanitize_callback" => "sanitize_text_field", //sanitize,
-                "default" => "Post Statistics" // default 0-> beg, 1 end
+                "default" => "Post Statistics" // default
+            ] // array
+        );
+
+        // Word Count
+        // build html for setting
+        add_settings_field(
+            "wcp_word_count", //name
+            "Word Count", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_word_count") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_word_count", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
+            ] // array
+        );
+
+        // Char Count
+        // build html for setting
+        add_settings_field(
+            "wcp_char_count", //name
+            "Character Count", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_char_count") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_char_count", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
+            ] // array
+        );
+
+        // Read Time
+        // build html for setting
+        add_settings_field(
+            "wcp_read_time", //name
+            "Read Time", // HTML label
+            array($this, "checkbox_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section", // section/field,
+            array("the_name" => "wcp_read_time") // args argument
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_read_time", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "1" // default 0-> beg, 1 end
             ] // array
         );
     }
@@ -110,8 +170,14 @@ class WordCountAndTimePlugin
     function headline_HTML()
     {
     ?>
-        <input type="text" name="wcp_headline" value="<?php echo esc_attr( get_option('wcp_headline') ); ?>">
-<?php
+        <input type="text" name="wcp_headline" value="<?php echo esc_attr(get_option('wcp_headline')); ?>">
+    <?php
+    }
+
+    function checkbox_HTML($args){
+    ?>
+        <input type="checkbox" name="<?php echo $args["the_name"]?>" value="1" <?php checked(get_option($args["the_name"]),"1"); ?>
+    <?php
     }
 
     /**
