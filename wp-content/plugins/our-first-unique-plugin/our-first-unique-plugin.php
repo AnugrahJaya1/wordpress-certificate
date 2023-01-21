@@ -18,6 +18,16 @@ class WordCountAndTimePlugin
         add_action("admin_init", array($this, "settings"));
 
         add_filter("the_content", array($this, "if_wrap"));
+
+        add_action("init", array($this, "languages"));
+    }
+
+    function languages(){
+        load_plugin_textdomain(
+            "wcp_domain", //domain
+            false, //deprecated
+            dirname(plugin_basename(__FILE__)."/languages") //plugin rel path
+        );
     }
 
     function admin_page()
