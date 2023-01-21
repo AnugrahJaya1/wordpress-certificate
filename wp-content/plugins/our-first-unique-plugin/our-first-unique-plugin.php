@@ -5,6 +5,8 @@
  * Description: Our First Unique Plugin
  * Version: 1.0
  * Author: Jaya
+ * Text Domain: wcp_domain
+ * Domain Path: /languages
  */
 
 class WordCountAndTimePlugin
@@ -16,13 +18,23 @@ class WordCountAndTimePlugin
         add_action("admin_init", array($this, "settings"));
 
         add_filter("the_content", array($this, "if_wrap"));
+
+        add_action("init", array($this, "languages"));
+    }
+
+    function languages(){
+        load_plugin_textdomain(
+            "wcp_domain", //domain
+            false, //deprecated
+            dirname(plugin_basename(__FILE__))."/languages" //plugin rel path
+        );
     }
 
     function admin_page()
     {
         add_options_page(
-            "Word Count Settings", //title (head)
-            "Word Count", // title (setting section)
+            __("Word Count Settings", "wcp_domain"), //title (head)
+            __("Word Count", "wcp_domain"), // title (setting section)
             "manage_options", //capability
             "word-count-settings-page", //slug
             array($this, "our_HTML") //call back
@@ -223,17 +235,17 @@ class WordCountAndTimePlugin
         }
 
         if(get_option("wcp_word_count", "1") ){
-            $html.= "This post has ". $word_count . " words. <br>";
+            $html.= __("This post has", "wcp_domain"). " " . $word_count . __("words", "wcp_domain").".<br>";
         }
 
         if(get_option("wcp_char_count", "1") ){
             $char_count = strlen(strip_tags($content));
-            $html.= "This post has ". $char_count . " characters. <br>";
+            $html.= __("This post has", "wcp_domain")." ". $char_count . " " .__("characters", "wcp_domain").".<br>";
         }
 
         if(get_option("wcp_read_time", "1") ){
             $read_time = round($word_count/255);
-            $html.= "This post will take about  ". $read_time . " minute(s) to read. <br>";
+            $html.= __("This post will take about", "wcp_domain")." ". $read_time . " " .__("minute(s) to read", "wcp_domain").".<br>";
         }
 
         $html.="</p>";
