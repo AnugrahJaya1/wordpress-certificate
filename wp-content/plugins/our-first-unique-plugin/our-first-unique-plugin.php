@@ -215,7 +215,14 @@ class WordCountAndTimePlugin
     }
 
     function create_HTML($content){
-        return $content . "halo";
+        $html = "<h3>".get_option("wcp_headline", "Post Statistics")."</h3><p>";
+        $location = get_option("wcp_location", "0");//option name, default
+
+        if($location=="0"){//beg
+            return $html . $content;
+        }
+
+        return $content . $html;
     }
 
     /**
