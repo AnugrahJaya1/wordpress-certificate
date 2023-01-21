@@ -26,7 +26,7 @@ class WordCountAndTimePlugin
         load_plugin_textdomain(
             "wcp_domain", //domain
             false, //deprecated
-            dirname(plugin_basename(__FILE__)."/languages") //plugin rel path
+            dirname(plugin_basename(__FILE__))."/languages" //plugin rel path
         );
     }
 
