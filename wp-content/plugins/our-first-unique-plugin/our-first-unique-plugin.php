@@ -14,6 +14,8 @@ class WordCountAndTimePlugin
         add_action("admin_menu", array($this, "admin_page"));
 
         add_action("admin_init", array($this, "settings"));
+
+        add_filter("the_content", array($this, "if_wrap"));
     }
 
     function admin_page()
@@ -192,42 +194,44 @@ class WordCountAndTimePlugin
     function checkbox_HTML($args)
     {
     ?>
-        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> <?php
-                                                                                                                                }
+        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> 
+    <?php                                                                                                                                
+    }
 
-                                                                                                                                /**
-                                                                                                                                 * Add menu page
-                                                                                                                                 * Flush rewrite rules
-                                                                                                                                 */
-                                                                                                                                function activate()
-                                                                                                                                {
-                                                                                                                                    flush_rewrite_rules();
-                                                                                                                                }
+    /**
+    * Add menu page
+    * Flush rewrite rules
+    */
+    function activate()
+    {
+        flush_rewrite_rules();
+    }
 
-                                                                                                                                /**
-                                                                                                                                 * Flush rewrite rules
-                                                                                                                                 */
-                                                                                                                                function deactivate()
-                                                                                                                                {
-                                                                                                                                    flush_rewrite_rules();
-                                                                                                                                }
-                                                                                                                            }
+    /**
+    * Flush rewrite rules
+    */
+    function deactivate()
+    {
+        flush_rewrite_rules();
+    }
+}
 
-                                                                                                                            if (class_exists("WordCountAndTimePlugin")) {
-                                                                                                                                // initialize class
-                                                                                                                                $word_count = new WordCountAndTimePlugin();
-                                                                                                                            }
+if (class_exists("WordCountAndTimePlugin")) {
+// initialize class
+$word_count = new WordCountAndTimePlugin();
+}
 
-                                                                                                                            /**
-                                                                                                                             * Activation
-                                                                                                                             * @param __FILE__ : this file
-                                                                                                                             * @param array (class, function)
-                                                                                                                             */
-                                                                                                                            register_activation_hook(__FILE__, array($word_count, 'activate'));
+/**
+* Activation
+* @param __FILE__ : this file
+* @param array (class, function)
+*/
+register_activation_hook(__FILE__, array($word_count, 'activate'));
 
-                                                                                                                            /**
-                                                                                                                             * Deactivation
-                                                                                                                             * @param __FILE__ : this file
-                                                                                                                             * @param array (class, function)
-                                                                                                                             */
-                                                                                                                            register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+/**
+* Deactivation
+* @param __FILE__ : this file
+* @param array (class, function)
+*/
+register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+                                                                                                                                
