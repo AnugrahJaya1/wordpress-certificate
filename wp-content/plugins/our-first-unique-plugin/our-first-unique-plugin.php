@@ -72,7 +72,7 @@ class WordCountAndTimePlugin
             "word_count_plugin", // name of group
             "wcp_location", // specific setting
             [
-                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "sanitize_callback" => array($this, "sanitize_location"), //sanitize,
                 "default" => "0" // default 0-> beg, 1 end
             ] // array
         );
@@ -157,6 +157,21 @@ class WordCountAndTimePlugin
         );
     }
 
+    function sanitize_location($input)
+    {
+        if ($input != "0" && $input != "1") {
+            // add error message
+            add_settings_error(
+                "wcp_location", // name of option
+                "wcp_location_error", // slug
+                "Display location must be either beginning or end of post.", // error message
+            );
+
+            return get_option("wcp_location");
+        }
+        return $input;
+    }
+
     function location_HTML()
     {
     ?>
@@ -174,45 +189,45 @@ class WordCountAndTimePlugin
     <?php
     }
 
-    function checkbox_HTML($args){
+    function checkbox_HTML($args)
+    {
     ?>
-        <input type="checkbox" name="<?php echo $args["the_name"]?>" value="1" <?php checked(get_option($args["the_name"]),"1"); ?>
-    <?php
-    }
+        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> <?php
+                                                                                                                                }
 
-    /**
-     * Add menu page
-     * Flush rewrite rules
-     */
-    function activate()
-    {
-        flush_rewrite_rules();
-    }
+                                                                                                                                /**
+                                                                                                                                 * Add menu page
+                                                                                                                                 * Flush rewrite rules
+                                                                                                                                 */
+                                                                                                                                function activate()
+                                                                                                                                {
+                                                                                                                                    flush_rewrite_rules();
+                                                                                                                                }
 
-    /**
-     * Flush rewrite rules
-     */
-    function deactivate()
-    {
-        flush_rewrite_rules();
-    }
-}
+                                                                                                                                /**
+                                                                                                                                 * Flush rewrite rules
+                                                                                                                                 */
+                                                                                                                                function deactivate()
+                                                                                                                                {
+                                                                                                                                    flush_rewrite_rules();
+                                                                                                                                }
+                                                                                                                            }
 
-if (class_exists("WordCountAndTimePlugin")) {
-    // initialize class
-    $word_count = new WordCountAndTimePlugin();
-}
+                                                                                                                            if (class_exists("WordCountAndTimePlugin")) {
+                                                                                                                                // initialize class
+                                                                                                                                $word_count = new WordCountAndTimePlugin();
+                                                                                                                            }
 
-/**
- * Activation
- * @param __FILE__ : this file
- * @param array (class, function)
- */
-register_activation_hook(__FILE__, array($word_count, 'activate'));
+                                                                                                                            /**
+                                                                                                                             * Activation
+                                                                                                                             * @param __FILE__ : this file
+                                                                                                                             * @param array (class, function)
+                                                                                                                             */
+                                                                                                                            register_activation_hook(__FILE__, array($word_count, 'activate'));
 
-/**
- * Deactivation
- * @param __FILE__ : this file
- * @param array (class, function)
- */
-register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+                                                                                                                            /**
+                                                                                                                             * Deactivation
+                                                                                                                             * @param __FILE__ : this file
+                                                                                                                             * @param array (class, function)
+                                                                                                                             */
+                                                                                                                            register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
