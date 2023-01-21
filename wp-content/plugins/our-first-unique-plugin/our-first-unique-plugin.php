@@ -198,6 +198,26 @@ class WordCountAndTimePlugin
     <?php                                                                                                                                
     }
 
+    function if_wrap($content){
+        if(
+            (is_main_query() && is_single())
+            &&
+            (get_option("wcp_word_count", "1") OR
+            get_option("wcp_char_count", "1") OR
+            get_option("wcp_read_time", "1")
+            )    
+        )
+        {//single page
+            return $this->create_HTML($content);
+        }
+
+        return $content;
+    }
+
+    function create_HTML($content){
+        return $content . "halo";
+    }
+
     /**
     * Add menu page
     * Flush rewrite rules
