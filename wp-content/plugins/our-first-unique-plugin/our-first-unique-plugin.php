@@ -12,6 +12,8 @@ class WordCountAndTimePlugin
     function __construct()
     {
         add_action("admin_menu", array($this, "admin_page"));
+
+        add_action("admin_init", array($this, "settings"));
     }
 
     function admin_page()
@@ -30,7 +32,57 @@ class WordCountAndTimePlugin
 ?>
         <div class="wrap">
             <h1>Word Count Settings</h1>
+            <form action="options.php" method="POST">
+                <?php
+                    // fix issue failed when save
+                    settings_fields("word_count_plugin");
+
+                    // call function from our custom setting (HTML)
+                    do_settings_sections("word-count-settings-page");
+
+                    //submit wp button
+                    submit_button();
+                ?>
+            </form>
         </div>
+    <?php
+    }
+
+    function settings()
+    {
+        // settings section
+        add_settings_section(
+            "wcp_first_section", // name of section
+            null, // title of section
+            null, // html content
+            "word-count-settings-page", // page slug
+        );
+        // build html for setting
+        add_settings_field(
+            "wcp_location", //name
+            "Display Location", // HTML label
+            array($this, "location_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section" // section/field
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_location", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "0" // default 0-> beg, 1 end
+            ] // array
+        );
+    }
+
+    function location_HTML()
+    {
+    ?>
+    <select name="wcp_location">
+        <option value="0">Beginning of post</option>
+        <option value="1">End of post</option>
+    </select>
 <?php
     }
 
