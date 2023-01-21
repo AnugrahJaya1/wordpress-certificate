@@ -32,8 +32,17 @@ class WordCountAndTimePlugin
 ?>
         <div class="wrap">
             <h1>Word Count Settings</h1>
+            <form action="options.php" method="POST">
+                <?php
+                    // call function from our custom setting (HTML)
+                    do_settings_sections("word-count-settings-page");
+
+                    //submit wp button
+                    submit_button();
+                ?>
+            </form>
         </div>
-<?php
+    <?php
     }
 
     function settings()
@@ -62,6 +71,16 @@ class WordCountAndTimePlugin
                 "default" => "0" // default 0-> beg, 1 end
             ] // array
         );
+    }
+
+    function location_HTML()
+    {
+    ?>
+    <select name="wcp_location">
+        <option value="0">Beginning of post</option>
+        <option value="1">End of post</option>
+    </select>
+<?php
     }
 
     /**
