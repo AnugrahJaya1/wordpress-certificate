@@ -34,6 +34,9 @@ class WordCountAndTimePlugin
             <h1>Word Count Settings</h1>
             <form action="options.php" method="POST">
                 <?php
+                    // fix issue failed when save
+                    settings_fields("word_count_plugin");
+
                     // call function from our custom setting (HTML)
                     do_settings_sections("word-count-settings-page");
 
