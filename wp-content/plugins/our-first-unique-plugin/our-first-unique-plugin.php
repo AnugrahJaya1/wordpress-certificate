@@ -12,6 +12,8 @@ class WordCountAndTimePlugin
     function __construct()
     {
         add_action("admin_menu", array($this, "admin_page"));
+        
+        add_action("admin_init", array($this, "settings"));
     }
 
     function admin_page()
@@ -32,6 +34,18 @@ class WordCountAndTimePlugin
             <h1>Word Count Settings</h1>
         </div>
 <?php
+    }
+
+    function settings(){
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_location", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field",//sanitize,
+                "default" => "0" // default 0-> beg, 1 end
+            ] // array
+        );
     }
 
     /**
