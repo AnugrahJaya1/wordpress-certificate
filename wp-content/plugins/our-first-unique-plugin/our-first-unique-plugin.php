@@ -7,17 +7,66 @@
  * Author: Jaya
  */
 
-
-function add_to_end_of_post($content)
+class WordCountAndTimePlugin
 {
-    if (
-        is_single() && // in single page
-        is_main_query()
-    ) {
-        return $content . "<p>Test</p>";
+    function __construct()
+    {
+        add_action("admin_menu", array($this, "admin_page"));
     }
 
-    return $content;
+    function admin_page()
+    {
+        add_options_page(
+            "Word Count Settings", //title (head)
+            "Word Count", // title (setting section)
+            "manage_options", //capability
+            "word-count-settings-page", //slug
+            array($this, "our_HTML") //call back
+        );
+    }
+
+    function our_HTML()
+    {
+?>
+        <div class="wrap">
+            <h1>Word Count Settings</h1>
+        </div>
+<?php
+    }
+
+    /**
+     * Add menu page
+     * Flush rewrite rules
+     */
+    function activate()
+    {
+        flush_rewrite_rules();
+    }
+
+    /**
+     * Flush rewrite rules
+     */
+    function deactivate()
+    {
+        flush_rewrite_rules();
+    }
 }
 
-add_filter("the_content", "add_to_end_of_post");
+if (class_exists("WordCountAndTimePlugin")) {
+    // initialize class
+    $word_count = new WordCountAndTimePlugin();
+}
+
+/**
+ * Activation
+ * @param __FILE__ : this file
+ * @param array (class, function)
+ */
+register_activation_hook(__FILE__, array($word_count, 'activate'));
+
+/**
+ * Deactivation
+ * @param __FILE__ : this file
+ * @param array (class, function)
+ */
+register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
