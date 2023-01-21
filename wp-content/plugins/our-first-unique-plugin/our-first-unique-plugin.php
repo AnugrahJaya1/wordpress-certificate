@@ -7,17 +7,22 @@
  * Author: Jaya
  */
 
+add_action("admin_menu", "our_plugin_settings_link");
 
-function add_to_end_of_post($content)
+function our_plugin_settings_link()
 {
-    if (
-        is_single() && // in single page
-        is_main_query()
-    ) {
-        return $content . "<p>Test</p>";
-    }
-
-    return $content;
+    add_options_page(
+        "Word Count Settings", //title (head)
+        "Word Count", // title (setting section)
+        "manage_options", //capability
+        "word-count-settings-page", //slug
+        "our_settings_page_HTML" //call back
+    );
 }
 
-add_filter("the_content", "add_to_end_of_post");
+function our_settings_page_HTML()
+{
+?>
+TEST
+<?php
+}
