@@ -14,6 +14,8 @@ class WordCountAndTimePlugin
         add_action("admin_menu", array($this, "admin_page"));
 
         add_action("admin_init", array($this, "settings"));
+
+        add_filter("the_content", array($this, "if_wrap"));
     }
 
     function admin_page()
@@ -192,42 +194,93 @@ class WordCountAndTimePlugin
     function checkbox_HTML($args)
     {
     ?>
-        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> <?php
-                                                                                                                                }
+        <input type="checkbox" name="<?php echo $args["the_name"] ?>" value="1" <?php checked(get_option($args["the_name"]), "1"); ?> 
+    <?php                                                                                                                                
+    }
 
-                                                                                                                                /**
-                                                                                                                                 * Add menu page
-                                                                                                                                 * Flush rewrite rules
-                                                                                                                                 */
-                                                                                                                                function activate()
-                                                                                                                                {
-                                                                                                                                    flush_rewrite_rules();
-                                                                                                                                }
+    function if_wrap($content){
+        if(
+            (is_main_query() && is_single())
+            &&
+            (get_option("wcp_word_count", "1") OR
+            get_option("wcp_char_count", "1") OR
+            get_option("wcp_read_time", "1")
+            )    
+        )
+        {//single page
+            return $this->create_HTML($content);
+        }
 
-                                                                                                                                /**
-                                                                                                                                 * Flush rewrite rules
-                                                                                                                                 */
-                                                                                                                                function deactivate()
-                                                                                                                                {
-                                                                                                                                    flush_rewrite_rules();
-                                                                                                                                }
-                                                                                                                            }
+        return $content;
+    }
 
-                                                                                                                            if (class_exists("WordCountAndTimePlugin")) {
-                                                                                                                                // initialize class
-                                                                                                                                $word_count = new WordCountAndTimePlugin();
-                                                                                                                            }
+    function create_HTML($content){
+        $html = "<h3>".get_option("wcp_headline", "Post Statistics")."</h3><p>";
 
-                                                                                                                            /**
-                                                                                                                             * Activation
-                                                                                                                             * @param __FILE__ : this file
-                                                                                                                             * @param array (class, function)
-                                                                                                                             */
-                                                                                                                            register_activation_hook(__FILE__, array($word_count, 'activate'));
+        // word_count
+        if(get_option("wcp_word_count", "1") || get_option("wcp_read_time", "1")){
+            $word_count = str_word_count(strip_tags($content)); //strip tag -> remove html tag
+        }
 
-                                                                                                                            /**
-                                                                                                                             * Deactivation
-                                                                                                                             * @param __FILE__ : this file
-                                                                                                                             * @param array (class, function)
-                                                                                                                             */
-                                                                                                                            register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+        if(get_option("wcp_word_count", "1") ){
+            $html.= "This post has ". $word_count . " words. <br>";
+        }
+
+        if(get_option("wcp_char_count", "1") ){
+            $char_count = strlen(strip_tags($content));
+            $html.= "This post has ". $char_count . " characters. <br>";
+        }
+
+        if(get_option("wcp_read_time", "1") ){
+            $read_time = round($word_count/255);
+            $html.= "This post will take about  ". $read_time . " minute(s) to read. <br>";
+        }
+
+        $html.="</p>";
+
+        $location = get_option("wcp_location", "0");//option name, default
+
+        if($location=="0"){//beg
+            return $html . $content;
+        }
+
+        return $content . $html;
+    }
+
+    /**
+    * Add menu page
+    * Flush rewrite rules
+    */
+    function activate()
+    {
+        flush_rewrite_rules();
+    }
+
+    /**
+    * Flush rewrite rules
+    */
+    function deactivate()
+    {
+        flush_rewrite_rules();
+    }
+}
+
+if (class_exists("WordCountAndTimePlugin")) {
+// initialize class
+$word_count = new WordCountAndTimePlugin();
+}
+
+/**
+* Activation
+* @param __FILE__ : this file
+* @param array (class, function)
+*/
+register_activation_hook(__FILE__, array($word_count, 'activate'));
+
+/**
+* Deactivation
+* @param __FILE__ : this file
+* @param array (class, function)
+*/
+register_deactivation_hook(__FILE__, array($word_count, 'deactivate'));
+                                                                                                                                
