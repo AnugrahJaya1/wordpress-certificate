@@ -216,6 +216,28 @@ class WordCountAndTimePlugin
 
     function create_HTML($content){
         $html = "<h3>".get_option("wcp_headline", "Post Statistics")."</h3><p>";
+
+        // word_count
+        if(get_option("wcp_word_count", "1") || get_option("wcp_read_time", "1")){
+            $word_count = str_word_count(strip_tags($content)); //strip tag -> remove html tag
+        }
+
+        if(get_option("wcp_word_count", "1") ){
+            $html.= "This post has ". $word_count . " words. <br>";
+        }
+
+        if(get_option("wcp_char_count", "1") ){
+            $char_count = strlen(strip_tags($content));
+            $html.= "This post has ". $char_count . " characters. <br>";
+        }
+
+        if(get_option("wcp_read_time", "1") ){
+            $read_time = round($word_count/255);
+            $html.= "This post will take about  ". $read_time . " minute(s) to read. <br>";
+        }
+
+        $html.="</p>";
+
         $location = get_option("wcp_location", "0");//option name, default
 
         if($location=="0"){//beg
