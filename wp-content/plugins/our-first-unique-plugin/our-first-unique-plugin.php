@@ -57,6 +57,8 @@ class WordCountAndTimePlugin
             null, // html content
             "word-count-settings-page", // page slug
         );
+
+        // DISPLAY LOCATION
         // build html for setting
         add_settings_field(
             "wcp_location", //name
@@ -74,6 +76,25 @@ class WordCountAndTimePlugin
                 "default" => "0" // default 0-> beg, 1 end
             ] // array
         );
+
+        // HEADLINE
+        // build html for setting
+        add_settings_field(
+            "wcp_headline", //name
+            "Headline Text", // HTML label
+            array($this, "headline_HTML"), // function -> return HTML
+            "word-count-settings-page", //page slug
+            "wcp_first_section" // section/field
+        );
+        // add custom setting
+        register_setting(
+            "word_count_plugin", // name of group
+            "wcp_headline", // specific setting
+            [
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
+                "default" => "Post Statistics" // default 0-> beg, 1 end
+            ] // array
+        );
     }
 
     function location_HTML()
@@ -83,6 +104,13 @@ class WordCountAndTimePlugin
             <option value="0" <?php selected(get_option("wcp_location"), "0") ?>>Beginning of post</option>
             <option value="1" <?php selected(get_option("wcp_location"), "1") ?>>End of post</option>
         </select>
+    <?php
+    }
+
+    function headline_HTML()
+    {
+    ?>
+        <input type="text" name="wcp_headline" value="<?php echo esc_attr( get_option('wcp_headline') ); ?>">
 <?php
     }
 
