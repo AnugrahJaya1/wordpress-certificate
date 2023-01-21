@@ -12,7 +12,7 @@ class WordCountAndTimePlugin
     function __construct()
     {
         add_action("admin_menu", array($this, "admin_page"));
-        
+
         add_action("admin_init", array($this, "settings"));
     }
 
@@ -36,7 +36,15 @@ class WordCountAndTimePlugin
 <?php
     }
 
-    function settings(){
+    function settings()
+    {
+        // settings section
+        add_settings_section(
+            "wcp_first_section", // name of section
+            null, // title of section
+            null, // html content
+            "word-count-settings-page", // page slug
+        );
         // build html for setting
         add_settings_field(
             "wcp_location", //name
@@ -50,7 +58,7 @@ class WordCountAndTimePlugin
             "word_count_plugin", // name of group
             "wcp_location", // specific setting
             [
-                "sanitize_callback" => "sanitize_text_field",//sanitize,
+                "sanitize_callback" => "sanitize_text_field", //sanitize,
                 "default" => "0" // default 0-> beg, 1 end
             ] // array
         );
