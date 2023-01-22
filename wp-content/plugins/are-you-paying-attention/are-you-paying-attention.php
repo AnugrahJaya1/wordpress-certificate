@@ -20,7 +20,7 @@ class AreYouPayingAttentionQuiz
 
     function admin_assets(){
         // load js
-        wp_enqueue_script("our_new_block_type", plugin_dir_url(__FILE__)."/wp-blocks/test.js", array("wp-blocks"));
+        wp_enqueue_script("our_new_block_type", plugin_dir_url(__FILE__)."/wp-blocks/test.js", array("wp-blocks", "wp-element")); //load array before our file
     }
 
     /**
