@@ -131,6 +131,8 @@ class OurWordFilterPlugin
             <h1>Words Filter Options</h1>
             <form action="options.php" method="POST">
                 <?php
+                    // show setting message
+                    settings_errors();
                     // add section
                     settings_fields("replacement_fields"); // group name from register setting
                     // print custom section
