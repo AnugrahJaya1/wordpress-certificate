@@ -15,12 +15,29 @@ class AreYouPayingAttentionQuiz
 {
     function __construct()
     {
-        add_action("enqueue_block_editor_assets", array($this, "admin_assets"));
+        add_action("init", array($this, "admin_assets"));
     }
 
-    function admin_assets(){
-        // load js
-        wp_enqueue_script("our_new_block_type", plugin_dir_url(__FILE__)."/build/index.js", array("wp-blocks", "wp-element")); //load array before our file
+    function admin_assets()
+    {
+        // register js
+        wp_register_script("our_new_block_type", plugin_dir_url(__FILE__) . "/build/index.js", array("wp-blocks", "wp-element")); //load array before our file
+        // register block type
+        register_block_type(
+            "our-plugin/are-paying-attention", // name space
+            [
+                "editor_script" => "our_new_block_type",
+                "render_callback" => array($this, "the_HTML") // returning html
+            ] // array of options
+        );
+    }
+
+    function the_HTML($attributes)
+    {
+        ob_start();?>
+        <h3> hallo <?php echo esc_html($attributes["sky_color"]);?></h3>
+        <?php
+        return ob_get_clean();
     }
 
     /**
