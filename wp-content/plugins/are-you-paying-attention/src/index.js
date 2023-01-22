@@ -41,11 +41,11 @@ function EditComponent(props) {
                 </FlexBlock>
                 <FlexItem>
                     <Button>
-                        <Icon icon="star-empty"></Icon>
+                        <Icon className="mark-as-correct" icon="star-empty"></Icon>
                     </Button>
                 </FlexItem>
                 <FlexItem>
-                    <Button>
+                    <Button isLink className="attention-delete">
                         Delete
                     </Button>
                 </FlexItem>
