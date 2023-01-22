@@ -116,7 +116,7 @@ class OurWordFilterPlugin
         // replace
         return str_ireplace(
             $words_filter_trimmed, // want to replace
-            "****", // replace with
+            esc_html(get_option("replacement_text"), "****"), // replace with
             $content // content
         );
     }
