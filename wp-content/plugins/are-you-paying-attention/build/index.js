@@ -150,6 +150,15 @@ function EditComponent(props) {
       question: value
     });
   }
+  function delete_answer(index_to_delete) {
+    const new_answers = props.attributes.answers.filter(function (x, index) {
+      //don't need first param
+      return index != index_to_delete; // return true if not same with index we wanna delete
+    }); // return copy
+    props.setAttributes({
+      answers: new_answers
+    });
+  }
 
   // jsx
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -181,7 +190,8 @@ function EditComponent(props) {
       icon: "star-empty"
     }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       isLink: true,
-      className: "attention-delete"
+      className: "attention-delete",
+      onClick: () => delete_answer(index)
     }, "Delete")));
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     isPrimary: true,

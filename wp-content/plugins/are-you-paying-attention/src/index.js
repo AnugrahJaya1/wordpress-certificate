@@ -26,6 +26,13 @@ function EditComponent(props) {
         props.setAttributes({ question: value });
     }
 
+    function delete_answer(index_to_delete){
+        const new_answers = props.attributes.answers.filter(function(x, index){//don't need first param
+            return index !=index_to_delete // return true if not same with index we wanna delete
+        }) // return copy
+        props.setAttributes({answers: new_answers})
+    }
+
     // jsx
     return (
         <div className="paying-attention-edit-block">
@@ -39,8 +46,8 @@ function EditComponent(props) {
                             <TextControl value={answer} onChange={new_value => {
                                 const new_answers = props.attributes.answers.concat([]) // return copy
                                 new_answers[index] = new_value
-                                props.setAttributes({answers: new_answers})
-                            }}/>
+                                props.setAttributes({ answers: new_answers })
+                            }} />
                         </FlexBlock>
                         <FlexItem>
                             <Button>
@@ -48,16 +55,16 @@ function EditComponent(props) {
                             </Button>
                         </FlexItem>
                         <FlexItem>
-                            <Button isLink className="attention-delete">
-                                Delete
-                            </Button>
-                        </FlexItem>
+                            <Button isLink className="attention-delete" onClick={() => delete_answer(index)}>
+                            Delete
+                        </Button>
+                    </FlexItem>
                     </Flex>
-                )
-            })}
-            <Button isPrimary onClick={()=>{
-                props.setAttributes({answers: props.attributes.answers.concat([""])})
-            }}>Add another answers</Button>
-        </div>
+    )
+})}
+<Button isPrimary onClick={() => {
+    props.setAttributes({ answers: props.attributes.answers.concat([""]) })
+}}>Add another answers</Button>
+        </div >
     );
 }
