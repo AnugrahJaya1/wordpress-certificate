@@ -34,7 +34,10 @@ class AreYouPayingAttentionQuiz
 
     function the_HTML($attributes)
     {
-        return "<h2>Today the sky " . $attributes["sky_color"] . " and the grass is " . $attributes["grass_color"] . ".</h2>";
+        ob_start();?>
+        <h3> hallo <?php echo esc_html($attributes["sky_color"]);?></h3>
+        <?php
+        return ob_get_clean();
     }
 
     /**
