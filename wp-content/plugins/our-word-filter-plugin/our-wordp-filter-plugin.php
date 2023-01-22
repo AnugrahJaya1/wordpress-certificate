@@ -15,6 +15,25 @@ class OurWordFilterPlugin
 {
     function __construct()
     {
+        add_action("admin_menu", array($this, "our_menu"));
+    }
+
+    function our_menu()
+    {
+        // Main menu
+        add_menu_page(
+            'Words Filter', //page_title
+            'Words Filter', //menu_title
+            'manage_options', //capability
+            'words-filter', //menu_slug
+            array($this, 'word_filter_page'), //callback_function
+            'dashicons-smiley', //icon_url
+            100, // order
+        );
+    }
+
+    function word_filter_page(){
+        
     }
 
     /**
