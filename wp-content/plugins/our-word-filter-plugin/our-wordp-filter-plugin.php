@@ -59,18 +59,47 @@ class OurWordFilterPlugin
     <div class="wrap">
         <h1>Words Filter</h1>
         <form action="" method="POST">
+            <?php
+                if(isset($_POST["just_submitted"]) && $_POST["just_submitted"]=="true"){
+                    $this->handle_form();
+                }
+            ?>
+            <input type="hidden" name="just_submitted" value="true">
+            <?php
+                wp_nonce_field(
+                    "save_filter_words", //action name
+                    "our_nonce" //name of nonce
+                );
+            ?>
             <label for="plugin_words_filter">
                 <p>
                     Enter a <strong>comma-separated</strong> list of words to filter from your site's content.
                 </p>
                 <div class="word-filter__flex-container">
-                    <textarea name="plugin_words_filter" id="plugin_words_filter" placeholder="bad, mean, awful, horrible"></textarea>
+                    <textarea name="plugin_words_filter" id="plugin_words_filter" placeholder="bad, mean, awful, horrible"><?php echo esc_textarea(get_option("plugin_words_filter"));?></textarea>
                 </div>
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
             </label>
         </form>
     </div>
     <?php
+    }
+
+    function handle_form(){
+        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_option")){// nonce, action name
+            update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
+            <div class="updated">
+                <p>Your filtered words were saved.</p>
+            </div>
+            <?php
+        }else{ ?>
+            <div class="error">
+                <p>
+                    Sorry, you don't have permission to perform that action.
+                </p>
+            </div>
+        <?php
+        }
     }
 
     function main_page_assets(){
