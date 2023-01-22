@@ -86,11 +86,20 @@ class OurWordFilterPlugin
     }
 
     function handle_form(){
-        update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
-    <div class="updated">
-        <p>Your filtered words were saved.</p>
-    </div>
+        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_option")){// nonce, action name
+            update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
+            <div class="updated">
+                <p>Your filtered words were saved.</p>
+            </div>
+            <?php
+        }else{ ?>
+            <div class="error">
+                <p>
+                    Sorry, you don't have permission to perform that action.
+                </p>
+            </div>
         <?php
+        }
     }
 
     function main_page_assets(){
