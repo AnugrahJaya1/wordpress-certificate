@@ -27,7 +27,7 @@ class OurWordFilterPlugin
             'manage_options', //capability
             'words-filter', //menu_slug
             array($this, 'word_filter_page'), //callback_function
-            plugin_dir_url(__FILE__) . "/custom.svg", //icon_url
+            plugin_dir_url(__FILE__) . "/assets/custom.svg", //icon_url
             100, // order
         ); // return hook
 
@@ -74,7 +74,7 @@ class OurWordFilterPlugin
     }
 
     function main_page_assets(){
-        wp_enqueue_style("filter_admin_css", plugin_dir_url(__FILE__)."/style.css");
+        wp_enqueue_style("filter_admin_css", plugin_dir_url(__FILE__)."/css/style.css");
     }
 
     function options_sub_page()
