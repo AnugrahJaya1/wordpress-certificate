@@ -30,9 +30,22 @@ class OurWordFilterPlugin
             'dashicons-smiley', //icon_url
             100, // order
         );
+
+        add_submenu_page(
+            "words-filter", // slug parent
+            "Word Filter Options", // page title
+            "Options", // menu title
+            'manage_options', //capability
+            "words-filter-options", //slug
+            array($this, "options_sub_page"), //callback
+        );
     }
 
     function word_filter_page(){
+        
+    }
+
+    function options_sub_page(){
         
     }
 
