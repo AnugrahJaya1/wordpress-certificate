@@ -70,7 +70,7 @@ class OurWordFilterPlugin
                     Enter a <strong>comma-separated</strong> list of words to filter from your site's content.
                 </p>
                 <div class="word-filter__flex-container">
-                    <textarea name="plugin_words_filter" id="plugin_words_filter" placeholder="bad, mean, awful, horrible"></textarea>
+                    <textarea name="plugin_words_filter" id="plugin_words_filter" placeholder="bad, mean, awful, horrible"><?php echo esc_textarea(get_option("plugin_words_filter"));?></textarea>
                 </div>
                 <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
             </label>
