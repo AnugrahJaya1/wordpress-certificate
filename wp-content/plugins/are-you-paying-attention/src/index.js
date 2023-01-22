@@ -9,8 +9,7 @@ wp.blocks.registerBlockType(
         icon: "smiley",
         category: "common",
         attributes: {
-            sky_color: { type: "string" },
-            grass_color: { type: "string" },
+            question: { type: "string" }
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -22,18 +21,14 @@ wp.blocks.registerBlockType(
 
 function EditComponent(props) {
     // wp will throw val as props
-    function update_sky_color(event) {
-        props.setAttributes({ sky_color: event.target.value });
-    }
-
-    function update_grass_color(event) {
-        props.setAttributes({ grass_color: event.target.value });
+    function update_question(value) {
+        props.setAttributes({ question: value });
     }
 
     // jsx
     return (
         <div className="paying-attention-edit-block">
-            <TextControl label="Question:" style={{ fontSize: "20px" }} />
+            <TextControl label="Question:"  value={props.attributes.question} onChange={update_question} style={{ fontSize: "20px" }}/>
             <p style={{ fontSize: "13px", margin: "20px 0 8px 0" }}>Answers:</p>
             <Flex>
                 <FlexBlock>

@@ -126,10 +126,7 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
   icon: "smiley",
   category: "common",
   attributes: {
-    sky_color: {
-      type: "string"
-    },
-    grass_color: {
+    question: {
       type: "string"
     }
   },
@@ -144,14 +141,9 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
 
 function EditComponent(props) {
   // wp will throw val as props
-  function update_sky_color(event) {
+  function update_question(value) {
     props.setAttributes({
-      sky_color: event.target.value
-    });
-  }
-  function update_grass_color(event) {
-    props.setAttributes({
-      grass_color: event.target.value
+      question: value
     });
   }
 
@@ -160,6 +152,8 @@ function EditComponent(props) {
     className: "paying-attention-edit-block"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
     label: "Question:",
+    value: props.attributes.question,
+    onChange: update_question,
     style: {
       fontSize: "20px"
     }
@@ -176,7 +170,7 @@ function EditComponent(props) {
     className: "attention-delete"
   }, "Delete"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     isPrimary: true
-  }, "Add another snswers"));
+  }, "Add another answers"));
 }
 })();
 
