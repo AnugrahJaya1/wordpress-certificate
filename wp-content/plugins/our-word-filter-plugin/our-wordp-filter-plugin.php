@@ -20,6 +20,8 @@ class OurWordFilterPlugin
         if(get_option("plugin_words_filter")){
             add_filter("the_content", array($this, "filter_logic"));
         }
+
+        add_action("admin_init", array($this, "our_settings"));
     }
 
     function our_menu()
@@ -129,10 +131,44 @@ class OurWordFilterPlugin
             <h1>Words Filter Options</h1>
             <form action="options.php" method="POST">
                 <?php
+                    // add section
+                    settings_fields("replacement_fields"); // group name from register setting
+                    // print custom section
+                    do_settings_sections("words-filter-options"); // slug name
                     submit_button();
                 ?>
             </form>
         </div>
+    <?php
+    }
+
+    function our_settings(){
+        add_settings_section(
+            "replacement-text-section" , // name of sections
+            null , //
+            null , //
+            "words-filter-options"  // slug
+        );
+
+        register_setting(
+            "replacement_fields", //option group
+            "replacement_text" // specific name
+        );
+
+        add_settings_section(
+            "replacement-text", // id
+            "Filtered Text", // filed labe
+            array($this, "replacement_field_HTML"), // callback
+            "words-filter-options", // slug
+            "replacement-text-section", // section
+        );
+    }
+
+    function replacement_field_HTML(){?>
+    <input type="text" name="replacement_text" value="<?php echo esc_attr(get_option("replacement_text"));?>">
+    <p class="description">
+        Leave blank to simply to remove the filtered words.
+    </p>
     <?php
     }
 
