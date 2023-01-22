@@ -1,4 +1,4 @@
-import {TextControl} from "@wordpress/components"
+import { TextControl, Flex, FlexBlock, FlexItem, Button, Icon } from "@wordpress/components"
 import "./index.scss"
 
 // register block type for post -> global scope
@@ -33,7 +33,23 @@ function EditComponent(props) {
     // jsx
     return (
         <div className="paying-attention-edit-block">
-           <TextControl label="Question:"/>
+            <TextControl label="Question:" />
+            <p>Answers:</p>
+            <Flex>
+                <FlexBlock>
+                    <TextControl />
+                </FlexBlock>
+                <FlexItem>
+                    <Button>
+                        <Icon icon="star-empty"></Icon>
+                    </Button>
+                </FlexItem>
+                <FlexItem>
+                    <Button>
+                        Delete
+                    </Button>
+                </FlexItem>
+            </Flex>
         </div>
     );
 }
