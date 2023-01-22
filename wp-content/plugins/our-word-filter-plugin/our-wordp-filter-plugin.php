@@ -16,6 +16,10 @@ class OurWordFilterPlugin
     function __construct()
     {
         add_action("admin_menu", array($this, "our_menu"));
+
+        if(get_option("plugin_words_filter")){
+            add_filter("the_content", array($this, "filter_logic"));
+        }
     }
 
     function our_menu()
@@ -86,7 +90,7 @@ class OurWordFilterPlugin
     }
 
     function handle_form(){
-        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_option")){// nonce, action name
+        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_options")){// nonce, action name
             update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
             <div class="updated">
                 <p>Your filtered words were saved.</p>
@@ -100,6 +104,19 @@ class OurWordFilterPlugin
             </div>
         <?php
         }
+    }
+
+    function filter_logic($content){
+        // split
+        $words_filter = explode(",", get_option("plugin_words_filter"));
+        // trim white space
+        $words_filter_trimmed = array_map("trim", $words_filter);
+        // replace
+        return str_ireplace(
+            $words_filter_trimmed, // want to replace
+            "****", // replace with
+            $content // content
+        );
     }
 
     function main_page_assets(){
