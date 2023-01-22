@@ -16,6 +16,12 @@ class OurWordFilterPlugin
     function __construct()
     {
         add_action("admin_menu", array($this, "our_menu"));
+
+        if(get_option("plugin_words_filter")){
+            add_filter("the_content", array($this, "filter_logic"));
+        }
+
+        add_action("admin_init", array($this, "our_settings"));
     }
 
     function our_menu()
@@ -86,7 +92,7 @@ class OurWordFilterPlugin
     }
 
     function handle_form(){
-        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_option")){// nonce, action name
+        if(isset($_POST["our_nonce"]) && wp_verify_nonce($_POST["our_nonce"], "save_filter_words") && current_user_can("manage_options")){// nonce, action name
             update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
             <div class="updated">
                 <p>Your filtered words were saved.</p>
@@ -102,12 +108,70 @@ class OurWordFilterPlugin
         }
     }
 
+    function filter_logic($content){
+        // split
+        $words_filter = explode(",", get_option("plugin_words_filter"));
+        // trim white space
+        $words_filter_trimmed = array_map("trim", $words_filter);
+        // replace
+        return str_ireplace(
+            $words_filter_trimmed, // want to replace
+            esc_html(get_option("replacement_text"), "****"), // replace with
+            $content // content
+        );
+    }
+
     function main_page_assets(){
         wp_enqueue_style("filter_admin_css", plugin_dir_url(__FILE__)."/css/style.css");
     }
 
     function options_sub_page()
-    {
+    {?>
+        <div class="wrap">
+            <h1>Words Filter Options</h1>
+            <form action="options.php" method="POST">
+                <?php
+                    // show setting message
+                    settings_errors();
+                    // add section
+                    settings_fields("replacement_fields"); // group name from register setting
+                    // print custom section
+                    do_settings_sections("words-filter-options"); // slug name
+                    submit_button();
+                ?>
+            </form>
+        </div>
+    <?php
+    }
+
+    function our_settings(){
+        add_settings_section(
+            "replacement-text-section" , // name of sections
+            null , //
+            null , //
+            "words-filter-options"  // slug
+        );
+
+        register_setting(
+            "replacement_fields", //option group
+            "replacement_text" // specific name
+        );
+
+        add_settings_section(
+            "replacement-text", // id
+            "Filtered Text", // filed labe
+            array($this, "replacement_field_HTML"), // callback
+            "words-filter-options", // slug
+            "replacement-text-section", // section
+        );
+    }
+
+    function replacement_field_HTML(){?>
+    <input type="text" name="replacement_text" value="<?php echo esc_attr(get_option("replacement_text"));?>">
+    <p class="description">
+        Leave blank to simply to remove the filtered words.
+    </p>
+    <?php
     }
 
     /**
