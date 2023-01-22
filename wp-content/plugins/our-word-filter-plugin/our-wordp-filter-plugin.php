@@ -59,6 +59,12 @@ class OurWordFilterPlugin
     <div class="wrap">
         <h1>Words Filter</h1>
         <form action="" method="POST">
+            <?php
+                if(isset($_POST["just_submitted"]) && $_POST["just_submitted"]=="true"){
+                    $this->handle_form();
+                }
+            ?>
+            <input type="hidden" name="just_submitted" value="true">
             <label for="plugin_words_filter">
                 <p>
                     Enter a <strong>comma-separated</strong> list of words to filter from your site's content.
@@ -71,6 +77,14 @@ class OurWordFilterPlugin
         </form>
     </div>
     <?php
+    }
+
+    function handle_form(){
+        update_option("plugin_words_filter", $_POST["plugin_words_filter"]);?>
+    <div class="updated">
+        <p>Your filtered words were saved.</p>
+    </div>
+        <?php
     }
 
     function main_page_assets(){
