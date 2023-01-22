@@ -31,6 +31,16 @@ class OurWordFilterPlugin
             100, // order
         );
 
+        // change parent name
+        add_submenu_page(
+            "words-filter", // slug parent
+            "Words Filter", // page title
+            "Word List", // menu title
+            'manage_options', //capability
+            "words-filter", //slug
+            array($this, "word_filter_page"), //callback
+        );
+
         add_submenu_page(
             "words-filter", // slug parent
             "Word Filter Options", // page title
