@@ -65,6 +65,12 @@ class OurWordFilterPlugin
                 }
             ?>
             <input type="hidden" name="just_submitted" value="true">
+            <?php
+                wp_nonce_field(
+                    "save_filter_words", //action name
+                    "our_nonce" //name of nonce
+                );
+            ?>
             <label for="plugin_words_filter">
                 <p>
                     Enter a <strong>comma-separated</strong> list of words to filter from your site's content.
