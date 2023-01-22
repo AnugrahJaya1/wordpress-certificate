@@ -51,8 +51,23 @@ class OurWordFilterPlugin
         );
     }
 
-    function word_filter_page(){
-        
+    function word_filter_page()
+    { ?>
+    <div class="wrap">
+        <h1>Words Filter</h1>
+        <form action="" method="POST">
+            <label for="plugin_words_filter">
+                <p>
+                    Enter a <strong>comma-separated</strong> list of words to filter from your site's content.
+                </p>
+                <div class="word-filter__flex-container">
+                    <textarea name="plugin_words_filter" id="plugin_words_filter" placeholder="bad, mean, awful, horrible"></textarea>
+                </div>
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+            </label>
+        </form>
+    </div>
+    <?php
     }
 
     function options_sub_page(){
