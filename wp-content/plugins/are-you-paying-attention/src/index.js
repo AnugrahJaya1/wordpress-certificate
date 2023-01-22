@@ -1,5 +1,5 @@
 import {TextControl} from "@wordpress/components"
-
+import "./index.scss"
 
 // register block type for post -> global scope
 wp.blocks.registerBlockType(
@@ -32,8 +32,8 @@ function EditComponent(props) {
 
     // jsx
     return (
-        <div>
-           <TextControl />
+        <div className="paying-attention-edit-block">
+           <TextControl label="Question:"/>
         </div>
     );
 }
