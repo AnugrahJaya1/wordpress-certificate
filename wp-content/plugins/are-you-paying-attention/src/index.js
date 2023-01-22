@@ -6,11 +6,7 @@ wp.blocks.registerBlockType(
         icon: "smiley",
         category: "common",
         edit: function () {
-            return wp.element.createElement(
-                "h3",// type
-                null,// desc element
-                "BE",// children/content
-            ); //create html within js
+            return <h3>JSX</h3>
         },// js function -> control what u see in editor 
         save: function () {
             return wp.element.createElement(
