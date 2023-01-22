@@ -122,10 +122,12 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
       type: "text",
       placeholder: "Sky Color",
+      value: props.attributes.sky_color,
       onChange: update_sky_color
     }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
       type: "text",
       placeholder: "Grass Color",
+      value: props.attributes.grass_color,
       onChange: update_grass_color
     }));
   },

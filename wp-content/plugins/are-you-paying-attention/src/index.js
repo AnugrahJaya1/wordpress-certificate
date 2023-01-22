@@ -22,8 +22,8 @@ wp.blocks.registerBlockType(
             // jsx
             return (
                 <div>
-                    <input type="text" placeholder="Sky Color" onChange={update_sky_color}></input>
-                    <input type="text" placeholder="Grass Color" onChange={update_grass_color}></input>
+                    <input type="text" placeholder="Sky Color" value={props.attributes.sky_color} onChange={update_sky_color}></input>
+                    <input type="text" placeholder="Grass Color" value={props.attributes.grass_color} onChange={update_grass_color}></input>
                 </div>
             );
         },// js function -> control what u see in editor 
