@@ -1,0 +1,1 @@
+{"version":3,"file":"index.css","mappings":";;;AAAA;EACI;EACA;EACA;EACA;AACJ,C","sources":["webpack://are-you-paying-attention/./src/index.scss"],"sourcesContent":[".paying-attention-edit-block{\r\n    padding: 20px;\r\n    border-radius: 2px;\r\n    border: 1px solid #F1F1F1;\r\n    background-color: #D6D6D6D6;\r\n}"],"names":[],"sourceRoot":""}
