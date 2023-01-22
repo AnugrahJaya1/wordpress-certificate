@@ -9,7 +9,8 @@ wp.blocks.registerBlockType(
         icon: "smiley",
         category: "common",
         attributes: {
-            question: { type: "string" }
+            question: { type: "string" },
+            answers: { type: "array", default: [""] }
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -28,23 +29,28 @@ function EditComponent(props) {
     // jsx
     return (
         <div className="paying-attention-edit-block">
-            <TextControl label="Question:"  value={props.attributes.question} onChange={update_question} style={{ fontSize: "20px" }}/>
+            <TextControl label="Question:" value={props.attributes.question} onChange={update_question} style={{ fontSize: "20px" }} />
             <p style={{ fontSize: "13px", margin: "20px 0 8px 0" }}>Answers:</p>
-            <Flex>
-                <FlexBlock>
-                    <TextControl />
-                </FlexBlock>
-                <FlexItem>
-                    <Button>
-                        <Icon className="mark-as-correct" icon="star-empty"></Icon>
-                    </Button>
-                </FlexItem>
-                <FlexItem>
-                    <Button isLink className="attention-delete">
-                        Delete
-                    </Button>
-                </FlexItem>
-            </Flex>
+            {/* make dynamic */}
+            {props.attributes.answers.map(function (answer) {
+                return (
+                    <Flex>
+                        <FlexBlock>
+                            <TextControl value={answer}/>
+                        </FlexBlock>
+                        <FlexItem>
+                            <Button>
+                                <Icon className="mark-as-correct" icon="star-empty"></Icon>
+                            </Button>
+                        </FlexItem>
+                        <FlexItem>
+                            <Button isLink className="attention-delete">
+                                Delete
+                            </Button>
+                        </FlexItem>
+                    </Flex>
+                )
+            })}
             <Button isPrimary>Add another answers</Button>
         </div>
     );
