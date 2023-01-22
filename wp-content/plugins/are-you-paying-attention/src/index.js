@@ -10,7 +10,7 @@ wp.blocks.registerBlockType(
         category: "common",
         attributes: {
             question: { type: "string" },
-            answers: { type: "array", default: [""] }
+            answers: { type: "array", default: ["1", "2"] }
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -32,11 +32,15 @@ function EditComponent(props) {
             <TextControl label="Question:" value={props.attributes.question} onChange={update_question} style={{ fontSize: "20px" }} />
             <p style={{ fontSize: "13px", margin: "20px 0 8px 0" }}>Answers:</p>
             {/* make dynamic */}
-            {props.attributes.answers.map(function (answer) {
+            {props.attributes.answers.map(function (answer, index) {
                 return (
                     <Flex>
                         <FlexBlock>
-                            <TextControl value={answer}/>
+                            <TextControl value={answer} onChange={new_value => {
+                                const new_answers = props.attributes.answers.concat([]) // return copy
+                                new_answers[index] = new_value
+                                props.setAttributes({answers: new_answers})
+                            }}/>
                         </FlexBlock>
                         <FlexItem>
                             <Button>

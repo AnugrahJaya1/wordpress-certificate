@@ -131,7 +131,7 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
     },
     answers: {
       type: "array",
-      default: [""]
+      default: ["1", "2"]
     }
   },
   edit: EditComponent,
@@ -166,9 +166,16 @@ function EditComponent(props) {
       fontSize: "13px",
       margin: "20px 0 8px 0"
     }
-  }, "Answers:"), props.attributes.answers.map(function (answer) {
+  }, "Answers:"), props.attributes.answers.map(function (answer, index) {
     return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Flex, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexBlock, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
-      value: answer
+      value: answer,
+      onChange: new_value => {
+        const new_answers = props.attributes.answers.concat([]); // return copy
+        new_answers[index] = new_value;
+        props.setAttributes({
+          answers: new_answers
+        });
+      }
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
       className: "mark-as-correct",
       icon: "star-empty"
