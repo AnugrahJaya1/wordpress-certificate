@@ -10,7 +10,7 @@ wp.blocks.registerBlockType(
         category: "common",
         attributes: {
             question: { type: "string" },
-            answers: { type: "array", default: ["1", "2"] }
+            answers: { type: "array", default: [""] }
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -55,7 +55,9 @@ function EditComponent(props) {
                     </Flex>
                 )
             })}
-            <Button isPrimary>Add another answers</Button>
+            <Button isPrimary onClick={()=>{
+                props.setAttributes({answers: props.attributes.answers.concat([""])})
+            }}>Add another answers</Button>
         </div>
     );
 }

@@ -131,7 +131,7 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
     },
     answers: {
       type: "array",
-      default: ["1", "2"]
+      default: [""]
     }
   },
   edit: EditComponent,
@@ -184,7 +184,12 @@ function EditComponent(props) {
       className: "attention-delete"
     }, "Delete")));
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
-    isPrimary: true
+    isPrimary: true,
+    onClick: () => {
+      props.setAttributes({
+        answers: props.attributes.answers.concat([""])
+      });
+    }
   }, "Add another answers"));
 }
 })();
