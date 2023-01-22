@@ -21,7 +21,7 @@ class OurWordFilterPlugin
     function our_menu()
     {
         // Main menu
-        add_menu_page(
+        $main_page_hook = add_menu_page(
             'Words Filter', //page_title
             'Words Filter', //menu_title
             'manage_options', //capability
@@ -29,7 +29,7 @@ class OurWordFilterPlugin
             array($this, 'word_filter_page'), //callback_function
             plugin_dir_url(__FILE__) . "/custom.svg", //icon_url
             100, // order
-        );
+        ); // return hook
 
         // change parent name
         add_submenu_page(
@@ -49,6 +49,9 @@ class OurWordFilterPlugin
             "words-filter-options", //slug
             array($this, "options_sub_page"), //callback
         );
+
+        // load css
+        add_action("load-{$main_page_hook}", array($this, "main_page_assets"));
     }
 
     function word_filter_page()
@@ -68,6 +71,10 @@ class OurWordFilterPlugin
         </form>
     </div>
     <?php
+    }
+
+    function main_page_assets(){
+        wp_enqueue_style("filter_admin_css", plugin_dir_url(__FILE__)."/style.css");
     }
 
     function options_sub_page()
