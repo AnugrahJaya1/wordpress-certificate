@@ -97,18 +97,44 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
   title: "Are You Paying Attention?",
   icon: "smiley",
   category: "common",
-  edit: function () {
+  attributes: {
+    sky_color: {
+      type: "string"
+    },
+    grass_color: {
+      type: "string"
+    }
+  },
+  edit: function (props) {
+    // wp will throw val as props
+    function update_sky_color(event) {
+      props.setAttributes({
+        sky_color: event.target.value
+      });
+    }
+    function update_grass_color(event) {
+      props.setAttributes({
+        grass_color: event.target.value
+      });
+    }
+
     // jsx
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "HALLO"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", {
-      style: {
-        color: "skyblue"
-      }
-    }, "WORLD"));
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      type: "text",
+      placeholder: "Sky Color",
+      value: props.attributes.sky_color,
+      onChange: update_sky_color
+    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+      type: "text",
+      placeholder: "Grass Color",
+      value: props.attributes.grass_color,
+      onChange: update_grass_color
+    }));
   },
   // js function -> control what u see in editor 
-  save: function () {
+  save: function (props) {
     // jsx
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "HALLO"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h4", null, "WORLD"));
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Today the sky is ", props.attributes.sky_color, " and the grass is ", props.attributes.grass_color, ".");
   } // js function -> what u see in public
 } // config obj
 );
