@@ -124,7 +124,16 @@ class OurWordFilterPlugin
     }
 
     function options_sub_page()
-    {
+    {?>
+        <div class="wrap">
+            <h1>Words Filter Options</h1>
+            <form action="options.php" method="POST">
+                <?php
+                    submit_button();
+                ?>
+            </form>
+        </div>
+    <?php
     }
 
     /**
