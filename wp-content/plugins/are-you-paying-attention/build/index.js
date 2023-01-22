@@ -134,7 +134,7 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
   // js function -> control what u see in editor 
   save: function (props) {
     // jsx
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Today the sky is ", props.attributes.sky_color, " and the grass is ", props.attributes.grass_color, ".");
+    return null;
   } // js function -> what u see in public
 } // config obj
 );
