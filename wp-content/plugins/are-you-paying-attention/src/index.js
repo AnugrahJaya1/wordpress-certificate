@@ -50,6 +50,7 @@ function EditComponent(props) {
                     </Button>
                 </FlexItem>
             </Flex>
+            <Button isPrimary>Add another answers</Button>
         </div>
     );
 }
