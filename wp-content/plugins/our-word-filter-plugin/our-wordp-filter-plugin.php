@@ -27,7 +27,7 @@ class OurWordFilterPlugin
             'manage_options', //capability
             'words-filter', //menu_slug
             array($this, 'word_filter_page'), //callback_function
-            'dashicons-smiley', //icon_url
+            plugin_dir_url(__FILE__)."/custom.svg", //icon_url
             100, // order
         );
 
