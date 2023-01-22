@@ -80,7 +80,7 @@ class OurWordFilterPlugin
     }
 
     function handle_form(){
-        update_option("plugin_words_filter", $_POST["plugin_words_filter"]);?>
+        update_option("plugin_words_filter", sanitize_text_field($_POST["plugin_words_filter"]));?>
     <div class="updated">
         <p>Your filtered words were saved.</p>
     </div>
