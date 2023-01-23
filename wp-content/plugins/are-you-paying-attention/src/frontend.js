@@ -37,7 +37,7 @@ function Quiz(props) {
             <p>{props.question}</p>
             <ul>
                 {props.answers.map(function (answer, index) {
-                    return <li onClick={() => handle_answer(index)}>{answer}</li>
+                    return <li onClick={is_correct == true ? undefined: () => handle_answer(index)}>{answer}</li>
                 })}
             </ul>
             <div className={"correct-message " + (is_correct == true ? "correct-message--visible" : "")}>
