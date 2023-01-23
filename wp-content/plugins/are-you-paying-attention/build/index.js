@@ -16347,6 +16347,13 @@ wp.blocks.registerBlockType("our-plugin/are-you-paying-attention",
 );
 
 function EditComponent(props) {
+  const block_props = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
+    className: "paying-attention-edit-block",
+    style: {
+      backgroundColor: props.attributes.bg_color
+    }
+  });
+
   // wp will throw val as props
   function update_question(value) {
     props.setAttributes({
@@ -16374,12 +16381,7 @@ function EditComponent(props) {
   }
 
   // jsx
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "paying-attention-edit-block",
-    style: {
-      backgroundColor: props.attributes.bg_color
-    }
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", block_props, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.AlignmentToolbar, {
     value: props.attributes.the_alignment,
     onChange: x => props.setAttributes({
       the_alignment: x
