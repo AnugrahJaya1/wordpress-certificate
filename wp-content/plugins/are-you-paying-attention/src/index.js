@@ -1,5 +1,5 @@
 import { TextControl, Flex, FlexBlock, FlexItem, Button, Icon, PanelBody, PanelRow } from "@wordpress/components"
-import { InspectorControls } from "@wordpress/block-editor"
+import { InspectorControls, BlockControls, AlignmentToolbar } from "@wordpress/block-editor"
 import { ChromePicker } from "react-color"
 import "./index.scss"
 
@@ -37,7 +37,8 @@ wp.blocks.registerBlockType(
             question: { type: "string" },
             answers: { type: "array", default: [""] },
             correct_answer: { type: "number", default: undefined },
-            bg_color: { type: "string", default: "#EBEBEB" }
+            bg_color: { type: "string", default: "#EBEBEB" },
+            the_alignment: { type: "string", default: "left" }
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -71,6 +72,9 @@ function EditComponent(props) {
     // jsx
     return (
         <div className="paying-attention-edit-block" style={{ backgroundColor: props.attributes.bg_color }}>
+            <BlockControls>
+                <AlignmentToolbar value={props.attributes.the_alignment} onChange={x => props.setAttributes({ the_alignment: x })}/>
+            </BlockControls>
             <InspectorControls>
                 <PanelBody title="Background Color" initialOpen={true}>
                     <PanelRow>
