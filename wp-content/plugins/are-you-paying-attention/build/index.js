@@ -16327,6 +16327,7 @@ wp.blocks.registerBlockType("our-plugin/are-you-paying-attention",
       default: "left"
     }
   },
+  description: "Give you audience a chance to prove their comprehension.",
   example: {
     attributes: {
       question: "What is my name?",

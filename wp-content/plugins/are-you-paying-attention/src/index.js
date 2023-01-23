@@ -40,6 +40,7 @@ wp.blocks.registerBlockType(
             bg_color: { type: "string", default: "#EBEBEB" },
             the_alignment: { type: "string", default: "left" }
         },
+        description: "Give you audience a chance to prove their comprehension.",
         example: {
             attributes: {
                 question: "What is my name?",
