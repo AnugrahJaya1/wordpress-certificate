@@ -137,10 +137,19 @@ div_to_update.forEach(function (div) {
   div.classList.remove("paying-attention-update-me");
 });
 function Quiz(props) {
+  function handle_answer(index) {
+    if (index == props.correct_answer) {
+      alert("Congrats");
+    } else {
+      alert("Sorry");
+    }
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "paying-attention-frontend"
-  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, props.question), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, props.answers.map(function (answer) {
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", null, answer);
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, props.question), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, props.answers.map(function (answer, index) {
+    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      onClick: () => handle_answer(index)
+    }, answer);
   })));
 }
 })();
