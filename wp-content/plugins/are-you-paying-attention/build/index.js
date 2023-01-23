@@ -118,8 +118,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// handle can update if correct answer set
+(function () {
+  let locked = false;
+  wp.data.subscribe(function () {
+    const results = wp.data.select("core/block-editor").getBlocks().filter(function (block) {
+      // return true will include
+      return block.name == "our-plugin/are-you-paying-attention" && block.attributes.correct_answer == undefined;
+    });
+    // if empty
+    if (results.length && locked == false) {
+      locked = true;
+      wp.data.dispatch("core/editor").lockPostSaving("no_answer");
+    }
+
+    // not empty
+    if (!results.length && locked) {
+      locked = false;
+      wp.data.dispatch("core/editor").unlockPostSaving("no_answer");
+    }
+  });
+})();
+
 // register block type for post -> global scope
-wp.blocks.registerBlockType("our-plugin/are-paying-attention",
+wp.blocks.registerBlockType("our-plugin/are-you-paying-attention",
 // sort name/var name
 {
   title: "Are You Paying Attention?",
