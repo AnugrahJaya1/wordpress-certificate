@@ -31,13 +31,6 @@ class AreYouPayingAttentionQuiz
 
     function the_HTML($attributes)
     {
-        if (!is_admin()) { // not in BE
-            // load js
-            wp_enqueue_script("attention_frontend", plugin_dir_url(__FILE__) . "build/frontend.js", array("wp-element")); //load array before our file
-            // load css
-            wp_enqueue_style("attention_frontend_css", plugin_dir_url(__FILE__) . "build/frontend.css");
-        }
-
         ob_start(); ?>
         <div class="paying-attention-update-me">
             <pre style="display: none;">
