@@ -40,6 +40,15 @@ wp.blocks.registerBlockType(
             bg_color: { type: "string", default: "#EBEBEB" },
             the_alignment: { type: "string", default: "left" }
         },
+        example: {
+            attributes: {
+                question: "What is my name?",
+                answers: ["CACICU", "CABACU"],
+                correct_answer: 0,
+                bg_color: "#EBEBEB",
+                the_alignment: "center"
+            }
+        },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
             // jsx
@@ -73,7 +82,7 @@ function EditComponent(props) {
     return (
         <div className="paying-attention-edit-block" style={{ backgroundColor: props.attributes.bg_color }}>
             <BlockControls>
-                <AlignmentToolbar value={props.attributes.the_alignment} onChange={x => props.setAttributes({ the_alignment: x })}/>
+                <AlignmentToolbar value={props.attributes.the_alignment} onChange={x => props.setAttributes({ the_alignment: x })} />
             </BlockControls>
             <InspectorControls>
                 <PanelBody title="Background Color" initialOpen={true}>

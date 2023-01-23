@@ -16327,6 +16327,15 @@ wp.blocks.registerBlockType("our-plugin/are-you-paying-attention",
       default: "left"
     }
   },
+  example: {
+    attributes: {
+      question: "What is my name?",
+      answers: ["CACICU", "CABACU"],
+      correct_answer: 0,
+      bg_color: "#EBEBEB",
+      the_alignment: "center"
+    }
+  },
   edit: EditComponent,
   // js function -> control what u see in editor 
   save: function (props) {
