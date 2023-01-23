@@ -118,8 +118,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// handle can update if correct answer set
+(function () {
+  let locked = false;
+  wp.data.subscribe(function () {
+    const results = wp.data.select("core/block-editor").getBlocks().filter(function (block) {
+      // return true will include
+      return block.name == "our-plugin/are-you-paying-attention" && block.attributes.correct_answer == undefined;
+    });
+    // if empty
+    if (results.length && locked == false) {
+      locked = true;
+      wp.data.dispatch("core/editor").lockPostSaving("no_answer");
+    }
+
+    // not empty
+    if (!results.length && locked) {
+      locked = false;
+      wp.data.dispatch("core/editor").unlockPostSaving("no_answer");
+    }
+  });
+})();
+
 // register block type for post -> global scope
-wp.blocks.registerBlockType("our-plugin/are-paying-attention",
+wp.blocks.registerBlockType("our-plugin/are-you-paying-attention",
 // sort name/var name
 {
   title: "Are You Paying Attention?",
@@ -132,6 +154,10 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
     answers: {
       type: "array",
       default: [""]
+    },
+    correct_answer: {
+      type: "number",
+      default: undefined
     }
   },
   edit: EditComponent,
@@ -157,6 +183,16 @@ function EditComponent(props) {
     }); // return copy
     props.setAttributes({
       answers: new_answers
+    });
+    if (index_to_delete == props.attributes.correct_answer) {
+      props.setAttributes({
+        correct_answer: undefined
+      });
+    }
+  }
+  function mark_as_correct(index) {
+    props.setAttributes({
+      correct_answer: index
     });
   }
 
@@ -185,9 +221,11 @@ function EditComponent(props) {
           answers: new_answers
         });
       }
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      onClick: () => mark_as_correct(index)
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
       className: "mark-as-correct",
-      icon: "star-empty"
+      icon: props.attributes.correct_answer == index ? "star-filled" : "star-empty"
     }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       isLink: true,
       className: "attention-delete",

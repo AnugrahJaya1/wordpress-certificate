@@ -26,7 +26,7 @@ class AreYouPayingAttentionQuiz
         wp_register_script("our_new_block_type", plugin_dir_url(__FILE__) . "/build/index.js", array("wp-blocks", "wp-element", "wp-editor")); //load array before our file
         // register block type
         register_block_type(
-            "our-plugin/are-paying-attention", // name space
+            "our-plugin/are-you-paying-attention", // name space
             [
                 "editor_script" => "our_new_block_type", //load js
                 "editor_style" => "quiz_edit_css", // load css
