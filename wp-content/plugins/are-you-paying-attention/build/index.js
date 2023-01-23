@@ -132,6 +132,10 @@ wp.blocks.registerBlockType("our-plugin/are-paying-attention",
     answers: {
       type: "array",
       default: [""]
+    },
+    correct_answer: {
+      type: "number",
+      default: undefined
     }
   },
   edit: EditComponent,
@@ -157,6 +161,11 @@ function EditComponent(props) {
     }); // return copy
     props.setAttributes({
       answers: new_answers
+    });
+  }
+  function mark_as_correct(index) {
+    props.setAttributes({
+      correct_answer: index
     });
   }
 
@@ -185,9 +194,11 @@ function EditComponent(props) {
           answers: new_answers
         });
       }
-    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+    })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      onClick: () => mark_as_correct(index)
+    }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Icon, {
       className: "mark-as-correct",
-      icon: "star-empty"
+      icon: props.attributes.correct_answer == index ? "star-filled" : "star-empty"
     }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.FlexItem, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
       isLink: true,
       className: "attention-delete",

@@ -10,7 +10,8 @@ wp.blocks.registerBlockType(
         category: "common",
         attributes: {
             question: { type: "string" },
-            answers: { type: "array", default: [""] }
+            answers: { type: "array", default: [""] },
+            correct_answer: {type: "number", default: undefined}
         },
         edit: EditComponent,// js function -> control what u see in editor 
         save: function (props) {
@@ -33,6 +34,10 @@ function EditComponent(props) {
         props.setAttributes({answers: new_answers})
     }
 
+    function mark_as_correct(index){
+        props.setAttributes({correct_answer: index})
+    }
+
     // jsx
     return (
         <div className="paying-attention-edit-block">
@@ -50,8 +55,8 @@ function EditComponent(props) {
                             }} />
                         </FlexBlock>
                         <FlexItem>
-                            <Button>
-                                <Icon className="mark-as-correct" icon="star-empty"></Icon>
+                            <Button onClick={() => mark_as_correct(index)}>
+                                <Icon className="mark-as-correct" icon={props.attributes.correct_answer == index ? "star-filled" : "star-empty"}></Icon>
                             </Button>
                         </FlexItem>
                         <FlexItem>
