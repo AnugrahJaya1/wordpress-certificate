@@ -32,6 +32,10 @@ function EditComponent(props) {
             return index !=index_to_delete // return true if not same with index we wanna delete
         }) // return copy
         props.setAttributes({answers: new_answers})
+
+        if(index_to_delete == props.attributes.correct_answer){
+            props.setAttributes({correct_answer: undefined})
+        }
     }
 
     function mark_as_correct(index){

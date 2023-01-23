@@ -162,6 +162,11 @@ function EditComponent(props) {
     props.setAttributes({
       answers: new_answers
     });
+    if (index_to_delete == props.attributes.correct_answer) {
+      props.setAttributes({
+        correct_answer: undefined
+      });
+    }
   }
   function mark_as_correct(index) {
     props.setAttributes({
