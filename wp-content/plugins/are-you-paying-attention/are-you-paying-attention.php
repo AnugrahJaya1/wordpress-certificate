@@ -20,16 +20,10 @@ class AreYouPayingAttentionQuiz
 
     function admin_assets()
     {
-        // load css
-        wp_register_style("quiz_edit_css", plugin_dir_url(__FILE__) . "/build/index.css");
-        // register js
-        wp_register_script("our_new_block_type", plugin_dir_url(__FILE__) . "/build/index.js", array("wp-blocks", "wp-element", "wp-editor")); //load array before our file
         // register block type
         register_block_type(
-            "our-plugin/are-you-paying-attention", // name space
+            __DIR__, // name space
             [
-                "editor_script" => "our_new_block_type", //load js
-                "editor_style" => "quiz_edit_css", // load css
                 "render_callback" => array($this, "the_HTML") // returning html
             ] // array of options
         );
@@ -37,13 +31,6 @@ class AreYouPayingAttentionQuiz
 
     function the_HTML($attributes)
     {
-        if (!is_admin()) { // not in BE
-            // load js
-            wp_enqueue_script("attention_frontend", plugin_dir_url(__FILE__) . "build/frontend.js", array("wp-element")); //load array before our file
-            // load css
-            wp_enqueue_style("attention_frontend_css", plugin_dir_url(__FILE__) . "build/frontend.css");
-        }
-
         ob_start(); ?>
         <div class="paying-attention-update-me">
             <pre style="display: none;">
