@@ -9,6 +9,8 @@
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+require_once plugin_dir_path(__FILE__)."/inc/generate_professor_HTML.php";
+
 class FeaturedProfessor {
   function __construct() {
     add_action('init', [$this, 'on_init']);
@@ -26,7 +28,12 @@ class FeaturedProfessor {
   }
 
   function renderCallback($attributes) {
-    return '<p>We will replace this content soon.</p>';
+    if($attributes["prof_id"]){
+      wp_enqueue_style("featuredProfessorStyle");
+      return generate_professor_HTML($attributes["prof_id"]);
+    }else{
+      return NULL;
+    }
   }
 
 }
