@@ -27,7 +27,7 @@ function generate_professor_HTML($id)
                 <?php
                 $related_programs = get_field("related_program");
                 if ($related_programs) {
-                    echo "<p>Name teachers: ";
+                    echo "<p>" . get_the_title() . " teachers: ";
                     foreach ($related_programs as $key => $program) {
                         echo get_the_title($program);
                         if ($key != array_key_last($related_programs) && count($related_programs) > 1) {
