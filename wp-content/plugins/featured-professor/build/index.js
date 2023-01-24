@@ -171,6 +171,11 @@ function EditComponent(props) {
     }
     go();
   }, [props.attributes.prof_id]);
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    return () => {
+      update_the_meta();
+    };
+  }, []);
   function update_the_meta() {
     const prof_for_meta = wp.data.select("core/block-editor").getBlocks().filter(x => x.name == "ourplugin/featured-professor").map(x => x.attributes.prof_id).filter((value, index, arr) => {
       return arr.indexOf(value) == index;

@@ -32,6 +32,12 @@ function EditComponent(props) {
     go()
   }, [props.attributes.prof_id])
 
+  useEffect(() => {
+    return () => {
+      update_the_meta()
+    }
+  }, [])
+
   function update_the_meta() {
     const prof_for_meta = wp.data.select("core/block-editor")
       .getBlocks()
@@ -40,7 +46,7 @@ function EditComponent(props) {
       .filter((value, index, arr) => {
         return arr.indexOf(value) == index
       })
-    
+
     console.log(prof_for_meta)
     wp.data.dispatch("core/editor").editPost({
       meta: { featured_professor: prof_for_meta }
