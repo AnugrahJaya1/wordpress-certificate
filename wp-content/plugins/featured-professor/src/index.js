@@ -21,15 +21,17 @@ function EditComponent(props) {
   const [the_preview, set_the_preview] = useState("");
 
   useEffect(() => {
-    update_the_meta()
-    async function go() {
-      const response = await apiFetch({
-        path: `/featured-professor/v1/get-HTML?prof_id=${props.attributes.prof_id}`,
-        method: "GET"
-      })
-      set_the_preview(response)
+    if (profs.attributes.prof_id) {
+      update_the_meta()
+      async function go() {
+        const response = await apiFetch({
+          path: `/featured-professor/v1/get-HTML?prof_id=${props.attributes.prof_id}`,
+          method: "GET"
+        })
+        set_the_preview(response)
+      }
+      go()
     }
-    go()
   }, [props.attributes.prof_id])
 
   useEffect(() => {
