@@ -5,6 +5,8 @@
   Version: 1.0
   Author: Jaya
   Author URI: https://www.udemy.com/user/bradschiff/
+  Text Domain: featured-professor
+  Domain path: /languages
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -22,6 +24,9 @@ class FeaturedProfessor {
   }
 
   function on_init() {
+    // load languages
+    load_plugin_textdomain("featured-professor", false, dirname(plugin_basename(__FILE__))."/languages");
+
     register_meta("post", "featured_professor", array(
       "show_in_rest" => true, 
       "type" => "number",
