@@ -17,7 +17,7 @@ get_header(); ?>
 
 <div class="container container--narrow page-section">
 
-  <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo $pet->get_count() ?></strong> results (showing the first <?php echo count($pet->get_pets()); ?>).</p>
+  <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo number_format($pet->get_count()); ?></strong> results (showing the first <?php echo count($pet->get_pets()); ?>).</p>
 
   <?php
   if (current_user_can("administrator")) { ?>
@@ -26,7 +26,7 @@ get_header(); ?>
         Enter just name for a new pet. Its species, weight, and other details will be randomly generated.
       </p>
       <!-- will use as action name in BE -->
-      <input type="hidden" name="action" value="create_pet"> 
+      <input type="hidden" name="action" value="create_pet">
       <input type="text" name="incoming_pet_name" placeholder="name...">
       <button>
         Add Pet
@@ -45,6 +45,11 @@ get_header(); ?>
       <th>Hobby</th>
       <th>Favorite Color</th>
       <th>Favorite Food</th>
+      <?php
+      if (current_user_can("administrator")) {
+        echo "<th>Delete</th>";
+      }
+      ?>
     </tr>
     <?php
     foreach ($pet->get_pets() as $pet) { ?>
@@ -56,6 +61,18 @@ get_header(); ?>
         <td><?php echo $pet->fav_hobby; ?></td>
         <td><?php echo $pet->fav_color; ?></td>
         <td><?php echo $pet->fav_food; ?></td>
+        <?php
+        if (current_user_can("administrator")) { ?>
+          <td style="text-align: center;">
+            <form action="<?php echo esc_url(admin_url("admin-post.php")) ?>" method="POST">
+            <input type="hidden" name="action" value="delete_pet">
+            <input type="hidden" name="id_to_delete" value="<?php echo $pet->id?>">
+            <button class="delete-pet-button">X</button>
+            </form>
+          </td>
+        <?php
+        }
+        ?>
       </tr>
     <?php
     }
