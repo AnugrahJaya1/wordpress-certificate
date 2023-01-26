@@ -9,12 +9,20 @@ get_header(); ?>
     <div class="page-banner__intro">
       <p>Providing forever homes one search at a time.</p>
     </div>
-  </div>  
+  </div>
 </div>
 
 <div class="container container--narrow page-section">
 
-  <p>This page took <strong><?php echo timer_stop();?></strong> seconds to prepare. Found <strong>x</strong> results (showing the first x).</p>
+  <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong>x</strong> results (showing the first x).</p>
+
+  <?php
+  global $wpdb;
+  $table_name = $wpdb->prefix . "pets";
+  $query =  $wpdb->prepare("SELECT * FROM $table_name LIMIT 100", "*");
+  $pets = $wpdb->get_results($query);
+
+  ?>
 
   <table class="pet-adoption-table">
     <tr>
@@ -26,17 +34,22 @@ get_header(); ?>
       <th>Favorite Color</th>
       <th>Favorite Food</th>
     </tr>
-    <tr>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-      <td>-</td>
-    </tr>
+    <?php
+    foreach ($pets as $pet) { ?>
+      <tr>
+        <td><?php echo $pet->pet_name; ?></td>
+        <td><?php echo $pet->species; ?></td>
+        <td><?php echo $pet->pet_weight; ?></td>
+        <td><?php echo $pet->birth_year; ?></td>
+        <td><?php echo $pet->fav_hobby; ?></td>
+        <td><?php echo $pet->fav_color; ?></td>
+        <td><?php echo $pet->fav_food; ?></td>
+      </tr>
+    <?php
+    }
+    ?>
   </table>
-  
+
 </div>
 
 <?php get_footer(); ?>
