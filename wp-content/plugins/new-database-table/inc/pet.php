@@ -2,25 +2,40 @@
 
 class Pet
 {
+    private $table_name,$args, $placeholders;
     function __construct()
     {
+        global $wpdb;
+        $this->table_name = $wpdb->prefix . "pets";
+
+        $this->args = $this->get_args();
+        $this->placeholders = $this->create_placeholders($this->args);
     }
 
     function get_pets()
     {
         global $wpdb;
-        $table_name = $wpdb->prefix . "pets";
 
-        $args = $this->get_args();
-        $placeholders = $this->create_placeholders($args);
-
-        $query = "SELECT * FROM $table_name";
-        $query .= $this->create_where_text($args);
+        $query = "SELECT * FROM $this->table_name";
+        $query .= $this->create_where_text($this->args);
         $query .= " LIMIT 100";
 
-        $pets = $wpdb->get_results($wpdb->prepare($query, $placeholders));
+        $pets = $wpdb->get_results($wpdb->prepare($query, $this->placeholders));
 
         return $pets;
+    }
+
+    function get_count()
+    {
+        global $wpdb;
+
+        $query = "SELECT COUNT(*) FROM $this->table_name";
+        $query .= $this->create_where_text($this->args);
+        $query .= " LIMIT 100";
+
+        $count = $wpdb->get_var($wpdb->prepare($query, $this->placeholders));
+
+        return $count;
     }
 
     function get_args()
