@@ -103,10 +103,11 @@ class PetAdoptionTablePlugin
       $pet["pet_name"] = sanitize_text_field($_POST["incoming_pet_name"]);
       global $wpdb;
       $wpdb->insert($this->table_name, $pet);
-      wp_redirect(site_url("/pet-adoption"));
+      wp_safe_redirect(site_url("/pet-adoption"));
     } else {
-      wp_redirect(site_url());
+      wp_safe_redirect(site_url());
     }
+    exit;
   }
 
   function delete_pet()
@@ -115,10 +116,11 @@ class PetAdoptionTablePlugin
       $id = sanitize_text_field($_POST["id_to_delete"]);
       global $wpdb;
       $wpdb->delete($this->table_name, array("id" => $id));
-      wp_redirect(site_url("/pet-adoption"));
+      wp_safe_redirect(site_url("/pet-adoption"));
     } else {
-      wp_redirect(site_url());
+      wp_safe_redirect(site_url());
     }
+    exit;
   }
 }
 
