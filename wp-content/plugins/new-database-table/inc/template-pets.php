@@ -17,7 +17,24 @@ get_header(); ?>
 
 <div class="container container--narrow page-section">
 
-  <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo $pet->get_count()?></strong> results (showing the first <?php echo count($pet->get_pets());?>).</p>
+  <p>This page took <strong><?php echo timer_stop(); ?></strong> seconds to prepare. Found <strong><?php echo $pet->get_count() ?></strong> results (showing the first <?php echo count($pet->get_pets()); ?>).</p>
+
+  <?php
+  if (current_user_can("administrator")) { ?>
+    <form action="<?php echo esc_url(admin_url("admin-post.php")) ?>" class="create-pet-form" method="POST">
+      <p>
+        Enter just name for a new pet. Its species, weight, and other details will be randomly generated.
+      </p>
+      <!-- will use as action name in BE -->
+      <input type="hidden" name="action" value="create_pet"> 
+      <input type="text" name="incoming_pet_name" placeholder="name...">
+      <button>
+        Add Pet
+      </button>
+    </form>
+  <?php
+  }
+  ?>
 
   <table class="pet-adoption-table">
     <tr>
