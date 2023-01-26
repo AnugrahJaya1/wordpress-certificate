@@ -19,7 +19,7 @@ class PetAdoptionTablePlugin {
     $this->table_name = $wpdb->prefix."pets";
 
     add_action('activate_new-database-table/new-database-table.php', array($this, 'onActivate')); // run when activate plugin
-    add_action('admin_head', array($this, 'onAdminRefresh'));
+    // add_action('admin_head', array($this, 'populateFast'));
     add_action('wp_enqueue_scripts', array($this, 'loadAssets'));
     add_filter('template_include', array($this, 'loadTemplate'), 99);
   }
@@ -42,7 +42,9 @@ class PetAdoptionTablePlugin {
   }
 
   function onAdminRefresh() {
-    
+    global $wpdb;
+
+    $wpdb->insert($this->table_name, generatePet());
   }
 
   function loadAssets() {
@@ -59,11 +61,11 @@ class PetAdoptionTablePlugin {
   }
 
   function populateFast() {
-    $query = "INSERT INTO $this->tablename (`species`, `birthyear`, `petweight`, `favfood`, `favhobby`, `favcolor`, `petname`) VALUES ";
-    $numberofpets = 100000;
+    $query = "INSERT INTO $this->table_name (`species`, `birth_year`, `pet_weight`, `fav_food`, `fav_hobby`, `fav_color`, `pet_name`) VALUES ";
+    $numberofpets = 1000;
     for ($i = 0; $i < $numberofpets; $i++) {
       $pet = generatePet();
-      $query .= "('{$pet['species']}', {$pet['birthyear']}, {$pet['petweight']}, '{$pet['favfood']}', '{$pet['favhobby']}', '{$pet['favcolor']}', '{$pet['petname']}')";
+      $query .= "('{$pet['species']}', {$pet['birth_year']}, {$pet['pet_weight']}, '{$pet['fav_food']}', '{$pet['fav_hobby']}', '{$pet['fav_color']}', '{$pet['pet_name']}')";
       if ($i != $numberofpets - 1) {
         $query .= ", ";
       }

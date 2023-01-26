@@ -12,12 +12,12 @@ function generatePet() {
   $combined_name = $adjectives[array_rand($adjectives, 1)] . " " . $names[array_rand($names, 1)] . " " . $suffix[array_rand($suffix, 1)];
 
   return array(
-    'birthyear' => rand(2006, 2021),
-    'petweight' => rand(1, 100),
-    'petname' => trim($combined_name),
+    'birth_year' => rand(2006, 2021),
+    'pet_weight' => rand(1, 100),
+    'pet_name' => trim($combined_name),
     'species' => $species[array_rand($species, 1)],
-    'favcolor' => $colors[array_rand($colors, 1)],
-    'favfood' => $foods[array_rand($foods, 1)],
-    'favhobby' => $hobbies[array_rand($hobbies, 1)]
+    'fav_color' => $colors[array_rand($colors, 1)],
+    'fav_food' => $foods[array_rand($foods, 1)],
+    'fav_hobby' => $hobbies[array_rand($hobbies, 1)]
   );
 }
