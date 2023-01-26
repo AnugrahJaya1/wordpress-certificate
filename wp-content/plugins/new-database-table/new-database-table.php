@@ -11,15 +11,34 @@ if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 require_once plugin_dir_path(__FILE__) . 'inc/generatePet.php';
 
 class PetAdoptionTablePlugin {
+  private $charset, $table_name;
+
   function __construct() {
-    add_action('activate_new-database-table/new-database-table.php', array($this, 'onActivate'));
+    global $wpdb;
+    $this->charset =  $wpdb->get_charset_collate();
+    $this->table_name = $wpdb->prefix."pets";
+
+    add_action('activate_new-database-table/new-database-table.php', array($this, 'onActivate')); // run when activate plugin
     add_action('admin_head', array($this, 'onAdminRefresh'));
     add_action('wp_enqueue_scripts', array($this, 'loadAssets'));
     add_filter('template_include', array($this, 'loadTemplate'), 99);
   }
 
   function onActivate() {
-
+    // load php file
+    require_once(ABSPATH."/wp-admin/includes/upgrade.php");
+    // create new table
+    dbDelta("CREATE TABLE $this->table_name (
+      id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+      birth_year smallint(5) NOT NULL DEFAULT 0,
+      pet_weight smallint(5) NOT NULL DEFAULT 0,
+      fav_food varchar(60) NOT NULL DEFAULT '',
+      fav_hobby varchar(60) NOT NULL DEFAULT '',
+      fav_color varchar(60) NOT NULL DEFAULT '',
+      pet_name varchar(60) NOT NULL DEFAULT '',
+      species varchar(60) NOT NULL DEFAULT '',
+      PRIMARY KEY (id)
+    ) $this->charset;"); // make it dynamic
   }
 
   function onAdminRefresh() {
