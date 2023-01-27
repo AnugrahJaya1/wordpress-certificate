@@ -55,6 +55,14 @@ function university_features()
 
     // add footer menu 2
     register_nav_menu("footer-menu-location-two", "Footer Menu Location Two"); // location/slug, name
+
+    // block type
+    add_theme_support("editor-styles");  
+    add_editor_style(array(
+        "https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i",
+        "build/style-index.css",
+        "build/index.css"
+    ));
 }
 
 add_action("after_setup_theme", "university_features");
