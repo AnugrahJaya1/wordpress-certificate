@@ -171,7 +171,7 @@ function university_custom_rest()
 
     register_rest_field("note", "user_note_count", [
         "get_callback" => function () {
-            return count_user_posts( get_current_user_id(), "note");
+            return count_user_posts(get_current_user_id(), "note");
         }
     ]); // post type, new field, array
 }
@@ -245,7 +245,7 @@ function make_note_private($data, $postarr)
     // remove html in content
     if ($data["post_type"] == "note") {
         // limit post per user
-        if (count_user_posts(get_current_user_id(), "note") > 5-1 && !$postarr["ID"]) { //id,post type, check id if existed
+        if (count_user_posts(get_current_user_id(), "note") > 5 - 1 && !$postarr["ID"]) { //id,post type, check id if existed
             die("You have reached your note limit.");
         }
 
@@ -260,12 +260,33 @@ function make_note_private($data, $postarr)
     return $data;
 }
 
-add_filter("wp_insert_post_data", "make_note_private", 10, 2);//hook, function, prior, params
+add_filter("wp_insert_post_data", "make_note_private", 10, 2); //hook, function, prior, params
 
-function ignore_certain_files($exclude_filters){
-    $exclude_filters [] = "themes/fictional-university-themes/node_modules";
+function ignore_certain_files($exclude_filters)
+{
+    $exclude_filters[] = "themes/fictional-university-themes/node_modules";
 
     return $exclude_filters;
-}   
+}
 
-add_filter("ai1wm_exclude_content_from_export","ignore_certain_files");
+add_filter("ai1wm_exclude_content_from_export", "ignore_certain_files");
+
+function banner_block()
+{
+    wp_register_script(
+        "bannerBlockScript", //name
+        get_stylesheet_directory_uri() . "/build/banner.js", // dir
+        array("wp-blocks", "wp-editor") // array
+    );
+
+    register_block_type(
+        "ourblocktheme/banner", //name
+        array(
+            "editor_script" => "bannerBlockScript"
+        )
+    );
+}
+
+add_action("init", "banner_block");
+
+

@@ -90,22 +90,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
 
-wp.blocks.registerBlockTye("our-block-theme/banner",
-//name
-{
+wp.blocks.registerBlockType("ourblocktheme/banner", {
   title: "Banner",
   edit: EditComponent,
   save: SaveComponent
-} // object
-);
-
+});
 function EditComponent() {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "page-banner"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "page-banner__bg-image",
     style: {
-      backgroundImage: "url('/wp-content/fictional-block-theme/images/library-hero.jpg')"
+      backgroundImage: "url('/wp-content/themes/fictional-block-theme/images/library-hero.jpg')"
     }
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "page-banner__content container t-center c-white"
