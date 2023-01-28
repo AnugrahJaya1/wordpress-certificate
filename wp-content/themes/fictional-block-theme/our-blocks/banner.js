@@ -14,7 +14,7 @@ registerBlockType(
         attributes: {
             align: { type: "string", default: "full" },
             imageID: { type: "number" },
-            imageURL: { type: "string" }
+            imageURL: { type: "string", default: banner.fallback_image }
         },
         edit: EditComponent,
         save: SaveComponent

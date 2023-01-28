@@ -281,11 +281,12 @@ add_filter("ai1wm_exclude_content_from_export", "ignore_certain_files");
 
 class JSXBlock
 {
-    private $name, $render_callback;
-    function __construct($name, $render_callback = null)
+    private $name, $render_callback, $data;
+    function __construct($name, $render_callback = null, $data = null)
     {
         $this->name = $name;
         $this->render_callback = $render_callback;
+        $this->data = $data;
         add_action("init", array($this, "on_init"));
     }
 
@@ -304,6 +305,10 @@ class JSXBlock
             array("wp-blocks", "wp-editor") // array
         );
 
+        if (isset($this->data)) {
+            wp_localize_script($this->name, $this->name, $this->data);
+        }
+
         $our_args = array(
             "editor_script" => $this->name
         );
@@ -319,6 +324,6 @@ class JSXBlock
     }
 }
 
-new JSXBlock("banner", true);
+new JSXBlock("banner", true, ["fallback_image" => get_theme_file_uri("/images/library-hero.jpg")]);
 new JSXBlock("generic-heading");
 new JSXBlock("generic-button");

@@ -157,7 +157,8 @@ __webpack_require__.r(__webpack_exports__);
       type: "number"
     },
     imageURL: {
-      type: "string"
+      type: "string",
+      default: banner.fallback_image
     }
   },
   edit: EditComponent,
