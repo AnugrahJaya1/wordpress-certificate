@@ -281,11 +281,19 @@ add_filter("ai1wm_exclude_content_from_export", "ignore_certain_files");
 
 class JSXBlock
 {
-    private $name;
-    function __construct($name)
+    private $name, $render_callback;
+    function __construct($name, $render_callback = null)
     {
         $this->name = $name;
+        $this->render_callback = $render_callback;
         add_action("init", array($this, "on_init"));
+    }
+
+    function our_render_callback($attributes, $content)
+    {
+        ob_start();
+        require get_theme_file_path("/our-blocks/{$this->name}.php");
+        return ob_get_clean();
     }
 
     function on_init()
@@ -296,15 +304,21 @@ class JSXBlock
             array("wp-blocks", "wp-editor") // array
         );
 
+        $our_args = array(
+            "editor_script" => $this->name
+        );
+
+        if ($this->render_callback) {
+            $our_args["render_callback"] = array($this, "our_render_callback");
+        }
+
         register_block_type(
             "ourblocktheme/{$this->name}", //name
-            array(
-                "editor_script" => $this->name
-            )
+            $our_args
         );
     }
 }
 
-new JSXBlock("banner");
+new JSXBlock("banner", true);
 new JSXBlock("generic-heading");
 new JSXBlock("generic-button");
