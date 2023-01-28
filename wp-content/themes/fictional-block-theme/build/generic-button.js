@@ -167,7 +167,7 @@ function EditComponent(props) {
   }, "Small"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     allowedFormats: [],
     tagName: "a",
-    className: `btn btn--${props.attributes.size}`,
+    className: `btn btn--${props.attributes.size} btn--blue`,
     value: props.attributes.text,
     onChange: handleTextChange
   }));
@@ -175,7 +175,7 @@ function EditComponent(props) {
 function SaveComponent(props) {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: "#",
-    className: `btn btn--${props.attributes.size}`
+    className: `btn btn--${props.attributes.size} btn--blue`
   }, props.attributes.text);
 }
 })();

@@ -35,13 +35,13 @@ function EditComponent(props) {
                     </ToolbarButton>
                 </ToolbarGroup>
             </BlockControls>
-            <RichText allowedFormats={[]} tagName="a" className={`btn btn--${props.attributes.size}`} value={props.attributes.text} onChange={handleTextChange} />
+            <RichText allowedFormats={[]} tagName="a" className={`btn btn--${props.attributes.size} btn--blue`} value={props.attributes.text} onChange={handleTextChange} />
         </>
     )
 }
 
 function SaveComponent(props) {
-    return <a href="#" className={`btn btn--${props.attributes.size}`}>
+    return <a href="#" className={`btn btn--${props.attributes.size} btn--blue`}>
         {props.attributes.text}
     </a>
 }
