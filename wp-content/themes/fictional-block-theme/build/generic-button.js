@@ -283,7 +283,8 @@ function EditComponent(props) {
     value: props.attributes.text,
     onChange: handleTextChange
   }), isLinkPickerVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
-    position: "middle center"
+    position: "middle center",
+    onFocusOutside: () => setIsLinkPickerVisible(false)
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.__experimentalLinkControl, {
     settings: [],
     value: props.attributes.linkObject,
