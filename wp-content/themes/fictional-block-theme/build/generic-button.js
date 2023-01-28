@@ -184,7 +184,10 @@ __webpack_require__.r(__webpack_exports__);
       default: "large"
     },
     linkObject: {
-      type: "object"
+      type: "object",
+      default: {
+        url: ""
+      }
     }
   },
   edit: EditComponent,
