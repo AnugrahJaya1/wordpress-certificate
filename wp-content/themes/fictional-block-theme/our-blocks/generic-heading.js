@@ -40,8 +40,17 @@ function EditComponent(props) {
     )
 }
 
-function SaveComponent() {
-    return (
-        <div>AS</div>
-    )
+function SaveComponent(props) {
+    function create_tag_name() {
+        switch (props.attributes.size) {
+            case "large":
+                return "h1";
+            case "medium":
+                return "h2";
+            case "small":
+                return "h3";
+        }
+    }
+
+    return <RichText.Content tagName={create_tag_name()} value={props.attributes.text} className={`headline headline--${props.attributes.size}`} />
 }

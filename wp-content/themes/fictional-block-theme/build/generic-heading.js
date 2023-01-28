@@ -172,8 +172,22 @@ function EditComponent(props) {
     onChange: handleTextChange
   }));
 }
-function SaveComponent() {
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "AS");
+function SaveComponent(props) {
+  function create_tag_name() {
+    switch (props.attributes.size) {
+      case "large":
+        return "h1";
+      case "medium":
+        return "h2";
+      case "small":
+        return "h3";
+    }
+  }
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText.Content, {
+    tagName: create_tag_name(),
+    value: props.attributes.text,
+    className: `headline headline--${props.attributes.size}`
+  });
 }
 })();
 
