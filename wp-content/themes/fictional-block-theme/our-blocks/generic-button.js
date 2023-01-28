@@ -1,6 +1,7 @@
 import { registerBlockType } from "@wordpress/blocks"
 import { RichText, BlockControls } from "@wordpress/block-editor"
 import { ToolbarGroup, ToolbarButton } from "@wordpress/components"
+import { link } from "@wordpress/icons"
 
 registerBlockType(
     "ourblocktheme/generic-button",
@@ -20,9 +21,16 @@ function EditComponent(props) {
         props.setAttributes({ text: x })
     }
 
+    function buttonHandler(){
+
+    }
+
     return (
         <>
             <BlockControls>
+                <ToolbarGroup>
+                    <ToolbarButton onClick={buttonHandler} icon={link}/>
+                </ToolbarGroup>
                 <ToolbarGroup>
                     <ToolbarButton isPressed={props.attributes.size == "large"} onClick={() => props.setAttributes({ size: "large" })}>
                         Large
