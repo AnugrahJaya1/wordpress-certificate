@@ -157,7 +157,8 @@ __webpack_require__.r(__webpack_exports__);
       type: "number"
     },
     imageURL: {
-      type: "string"
+      type: "string",
+      default: banner.fallback_image
     }
   },
   edit: EditComponent,
@@ -165,16 +166,18 @@ __webpack_require__.r(__webpack_exports__);
 });
 function EditComponent(props) {
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    async function go() {
-      const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
-        path: `/wp/v2/media/${props.attributes.imageID}`,
-        method: "GET"
-      });
-      props.setAttributes({
-        imageURL: response.media_details.sizes.page_banner.source_url
-      });
+    if (props.attributes.imageID) {
+      async function go() {
+        const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_4___default()({
+          path: `/wp/v2/media/${props.attributes.imageID}`,
+          method: "GET"
+        });
+        props.setAttributes({
+          imageURL: response.media_details.sizes.page_banner.source_url
+        });
+      }
+      go();
     }
-    go();
   }, [props.attributes.imageID]);
   function onFileSelect(image) {
     props.setAttributes({
