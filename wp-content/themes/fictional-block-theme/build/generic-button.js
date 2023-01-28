@@ -190,7 +190,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     colorName: {
-      type: "string"
+      type: "string",
+      default: "blue"
     }
   },
   edit: EditComponent,
@@ -221,9 +222,15 @@ function EditComponent(props) {
     name: "dark-orange",
     color: "#F95738"
   }];
+  const currentColorValue = ourColors.filter(color => {
+    return color.name == props.attributes.colorName;
+  })[0].color;
   function handleColorChange(colorCode) {
+    const {
+      name
+    } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.getColorObjectByColorValue)(ourColors, colorCode);
     props.setAttributes({
-      colorName: colorCode
+      colorName: name
     });
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
@@ -249,12 +256,12 @@ function EditComponent(props) {
     initialOpen: true
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
     colors: ourColors,
-    value: props.attributes.colorName,
+    value: currentColorValue,
     onChange: handleColorChange
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     allowedFormats: [],
     tagName: "a",
-    className: `btn btn--${props.attributes.size} btn--blue`,
+    className: `btn btn--${props.attributes.size} btn--${props.attributes.colorName}`,
     value: props.attributes.text,
     onChange: handleTextChange
   }), isLinkPickerVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
@@ -275,7 +282,7 @@ function EditComponent(props) {
 function SaveComponent(props) {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: props.attributes.linkObject.url,
-    className: `btn btn--${props.attributes.size} btn--blue`
+    className: `btn btn--${props.attributes.size} btn--${props.attributes.colorName}`
   }, props.attributes.text);
 }
 })();
