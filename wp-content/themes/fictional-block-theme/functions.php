@@ -311,6 +311,7 @@ class PlaceholderBlock
 }
 
 new PlaceholderBlock("events-and-blogs");
+new PlaceholderBlock("header");
 
 class JSXBlock
 {
