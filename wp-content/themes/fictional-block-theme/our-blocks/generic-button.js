@@ -3,6 +3,7 @@ import { RichText, BlockControls, __experimentalLinkControl as LinkControl, Insp
 import { ToolbarGroup, ToolbarButton, Popover, Button, PanelBody, PanelRow, ColorPalette } from "@wordpress/components"
 import { link } from "@wordpress/icons"
 import { useState } from "@wordpress/element"
+import ourColors from "../inc/our-colors"
 
 registerBlockType(
     "ourblocktheme/generic-button",
@@ -33,12 +34,6 @@ function EditComponent(props) {
     function handleLinkControl(newLink) {
         props.setAttributes({ linkObject: newLink })
     }
-
-    const ourColors = [
-        { name: "blue", color: "#0D3B66" },
-        { name: "orange", color: "#EE964B" },
-        { name: "dark-orange", color: "#F95738" }
-    ]
 
     const currentColorValue = ourColors.filter(color => {
         return color.name == props.attributes.colorName

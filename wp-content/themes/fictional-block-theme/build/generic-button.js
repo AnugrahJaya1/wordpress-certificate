@@ -33,6 +33,30 @@ const link = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_
 
 /***/ }),
 
+/***/ "./inc/our-colors.js":
+/*!***************************!*\
+  !*** ./inc/our-colors.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const ourColors = [{
+  name: "blue",
+  color: "#0D3B66"
+}, {
+  name: "orange",
+  color: "#EE964B"
+}, {
+  name: "dark-orange",
+  color: "#F95738"
+}];
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ourColors);
+
+/***/ }),
+
 /***/ "@wordpress/block-editor":
 /*!*************************************!*\
   !*** external ["wp","blockEditor"] ***!
@@ -166,7 +190,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/link.js");
+/* harmony import */ var _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/icons */ "./node_modules/@wordpress/icons/build-module/library/link.js");
+/* harmony import */ var _inc_our_colors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../inc/our-colors */ "./inc/our-colors.js");
+
 
 
 
@@ -212,30 +238,20 @@ function EditComponent(props) {
       linkObject: newLink
     });
   }
-  const ourColors = [{
-    name: "blue",
-    color: "#0D3B66"
-  }, {
-    name: "orange",
-    color: "#EE964B"
-  }, {
-    name: "dark-orange",
-    color: "#F95738"
-  }];
-  const currentColorValue = ourColors.filter(color => {
+  const currentColorValue = _inc_our_colors__WEBPACK_IMPORTED_MODULE_4__["default"].filter(color => {
     return color.name == props.attributes.colorName;
   })[0].color;
   function handleColorChange(colorCode) {
     const {
       name
-    } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.getColorObjectByColorValue)(ourColors, colorCode);
+    } = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.getColorObjectByColorValue)(_inc_our_colors__WEBPACK_IMPORTED_MODULE_4__["default"], colorCode);
     props.setAttributes({
       colorName: name
     });
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     onClick: buttonHandler,
-    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"]
+    icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_5__["default"]
   })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     isPressed: props.attributes.size == "large",
     onClick: () => props.setAttributes({
@@ -257,7 +273,7 @@ function EditComponent(props) {
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
     disableCustomColors: true,
     clearable: false,
-    colors: ourColors,
+    colors: _inc_our_colors__WEBPACK_IMPORTED_MODULE_4__["default"],
     value: currentColorValue,
     onChange: handleColorChange
   }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
