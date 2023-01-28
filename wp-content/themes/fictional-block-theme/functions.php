@@ -312,6 +312,7 @@ class PlaceholderBlock
 
 new PlaceholderBlock("events-and-blogs");
 new PlaceholderBlock("header");
+new PlaceholderBlock("footer");
 
 class JSXBlock
 {
