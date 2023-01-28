@@ -5,7 +5,7 @@ wp.blocks.registerBlockType(
         edit: function () {
             return wp.element.createElement(
                 "div",
-                null,
+                {className: "our-place-holder-block"},
                 "Events and Blogs Placeholder"
             )
         },
