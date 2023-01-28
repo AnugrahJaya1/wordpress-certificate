@@ -2,7 +2,7 @@
     "version": 2,
     "styles": {
         "blocks": {
-            "core/button":{
+            "core/button": {
                 "color": {
                     "text": "#FFFFFF",
                     "background": "var(--wp--preset--color--primary)"
@@ -11,6 +11,16 @@
         }
     },
     "settings": {
+        "blocks": {
+            "core/button": {
+                "border": {
+                    "color": false,
+                    "radius": false,
+                    "style": false,
+                    "width": false
+                }
+            }
+        },
         "color": {
             "palette": [
                 {
