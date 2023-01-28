@@ -57,7 +57,7 @@ function university_features()
     register_nav_menu("footer-menu-location-two", "Footer Menu Location Two"); // location/slug, name
 
     // block type
-    add_theme_support("editor-styles");  
+    add_theme_support("editor-styles");
     add_editor_style(array(
         "https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i",
         "build/style-index.css",
@@ -279,22 +279,31 @@ function ignore_certain_files($exclude_filters)
 
 add_filter("ai1wm_exclude_content_from_export", "ignore_certain_files");
 
-function banner_block()
+class JSXBlock
 {
-    wp_register_script(
-        "bannerBlockScript", //name
-        get_stylesheet_directory_uri() . "/build/banner.js", // dir
-        array("wp-blocks", "wp-editor") // array
-    );
+    private $name;
+    function __construct($name)
+    {
+        $this->name = $name;
+        add_action("init", array($this, "on_init"));
+    }
 
-    register_block_type(
-        "ourblocktheme/banner", //name
-        array(
-            "editor_script" => "bannerBlockScript"
-        )
-    );
+    function on_init()
+    {
+        wp_register_script(
+            $this->name, //name
+            get_stylesheet_directory_uri() . "/build/{$this->name}.js", // dir
+            array("wp-blocks", "wp-editor") // array
+        );
+
+        register_block_type(
+            "ourblocktheme/{$this->name}", //name
+            array(
+                "editor_script" => $this->name
+            )
+        );
+    }
 }
 
-add_action("init", "banner_block");
-
-
+new JSXBlock("banner");
+new JSXBlock("generic-heading");
