@@ -188,6 +188,9 @@ __webpack_require__.r(__webpack_exports__);
       default: {
         url: ""
       }
+    },
+    colorName: {
+      type: "string"
     }
   },
   edit: EditComponent,
@@ -208,6 +211,21 @@ function EditComponent(props) {
       linkObject: newLink
     });
   }
+  const ourColors = [{
+    name: "blue",
+    color: "#0D3B66"
+  }, {
+    name: "orange",
+    color: "#EE964B"
+  }, {
+    name: "dark-orange",
+    color: "#F95738"
+  }];
+  function handleColorChange(colorCode) {
+    props.setAttributes({
+      colorName: colorCode
+    });
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     onClick: buttonHandler,
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -226,7 +244,14 @@ function EditComponent(props) {
     onClick: () => props.setAttributes({
       size: "small"
     })
-  }, "Small"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+  }, "Small"))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
+    title: "Color",
+    initialOpen: true
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+    colors: ourColors,
+    value: props.attributes.colorName,
+    onChange: handleColorChange
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
     allowedFormats: [],
     tagName: "a",
     className: `btn btn--${props.attributes.size} btn--blue`,
