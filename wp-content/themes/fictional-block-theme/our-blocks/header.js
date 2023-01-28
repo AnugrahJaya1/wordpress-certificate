@@ -1,13 +1,12 @@
 wp.blocks.registerBlockType(
-    "ourblocktheme/events-and-blogs",
+    "ourblocktheme/header",
     {
-        title: "Events and Blogs",
+        title: "Fictional University Header",
         edit: function () {
             return wp.element.createElement(
                 "div",
-                {className: "our-placeholder-block"},
-                "Events and Blogs Placeholder"
-            )
+                { className: "our-placeholder-block" },
+                "Header Placeholder")
         },
         save: function () {
             return null
