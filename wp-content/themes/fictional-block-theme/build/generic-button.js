@@ -255,6 +255,8 @@ function EditComponent(props) {
     title: "Color",
     initialOpen: true
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ColorPalette, {
+    disableCustomColors: true,
+    clearable: false,
     colors: ourColors,
     value: currentColorValue,
     onChange: handleColorChange
