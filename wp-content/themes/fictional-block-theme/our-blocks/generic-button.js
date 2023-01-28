@@ -1,6 +1,6 @@
 import { registerBlockType } from "@wordpress/blocks"
-import { RichText, BlockControls } from "@wordpress/block-editor"
-import { ToolbarGroup, ToolbarButton } from "@wordpress/components"
+import { RichText, BlockControls, __experimentalLinkControl as LinkControl } from "@wordpress/block-editor"
+import { ToolbarGroup, ToolbarButton, Popover, Button } from "@wordpress/components"
 import { link } from "@wordpress/icons"
 import { useState } from "@wordpress/element"
 
@@ -10,7 +10,8 @@ registerBlockType(
         title: "Generic Button",
         attributes: {
             text: { type: "string" },
-            size: { type: "string", default: "large" }
+            size: { type: "string", default: "large" },
+            linkObject: { type: "object" }
         },
         edit: EditComponent,
         save: SaveComponent
@@ -24,15 +25,19 @@ function EditComponent(props) {
         props.setAttributes({ text: x })
     }
 
-    function buttonHandler(){
+    function buttonHandler() {
         setIsLinkPickerVisible(prev => !prev)
+    }
+
+    function handleLinkControl(newLink) {
+        props.setAttributes({ linkObject: newLink })
     }
 
     return (
         <>
             <BlockControls>
                 <ToolbarGroup>
-                    <ToolbarButton onClick={buttonHandler} icon={link}/>
+                    <ToolbarButton onClick={buttonHandler} icon={link} />
                 </ToolbarGroup>
                 <ToolbarGroup>
                     <ToolbarButton isPressed={props.attributes.size == "large"} onClick={() => props.setAttributes({ size: "large" })}>
@@ -47,6 +52,12 @@ function EditComponent(props) {
                 </ToolbarGroup>
             </BlockControls>
             <RichText allowedFormats={[]} tagName="a" className={`btn btn--${props.attributes.size} btn--blue`} value={props.attributes.text} onChange={handleTextChange} />
+            {isLinkPickerVisible && (
+                <Popover position="middle center">
+                    <LinkControl settings={[]} value={props.attributes.linkObject} onChange={handleLinkControl} />
+                    <Button variant="primary" onClick={() => setIsLinkPickerVisible(false)} style={{ display: "block", width: "100%" }}>Confirm Link</Button>
+                </Popover>
+            )}
         </>
     )
 }

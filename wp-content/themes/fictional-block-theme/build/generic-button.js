@@ -182,6 +182,9 @@ __webpack_require__.r(__webpack_exports__);
     size: {
       type: "string",
       default: "large"
+    },
+    linkObject: {
+      type: "object"
     }
   },
   edit: EditComponent,
@@ -196,6 +199,11 @@ function EditComponent(props) {
   }
   function buttonHandler() {
     setIsLinkPickerVisible(prev => !prev);
+  }
+  function handleLinkControl(newLink) {
+    props.setAttributes({
+      linkObject: newLink
+    });
   }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     onClick: buttonHandler,
@@ -221,7 +229,20 @@ function EditComponent(props) {
     className: `btn btn--${props.attributes.size} btn--blue`,
     value: props.attributes.text,
     onChange: handleTextChange
-  }));
+  }), isLinkPickerVisible && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
+    position: "middle center"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.__experimentalLinkControl, {
+    settings: [],
+    value: props.attributes.linkObject,
+    onChange: handleLinkControl
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "primary",
+    onClick: () => setIsLinkPickerVisible(false),
+    style: {
+      display: "block",
+      width: "100%"
+    }
+  }, "Confirm Link")));
 }
 function SaveComponent(props) {
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
