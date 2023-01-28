@@ -2,6 +2,7 @@ import { registerBlockType } from "@wordpress/blocks"
 import { RichText, BlockControls } from "@wordpress/block-editor"
 import { ToolbarGroup, ToolbarButton } from "@wordpress/components"
 import { link } from "@wordpress/icons"
+import { useState } from "@wordpress/element"
 
 registerBlockType(
     "ourblocktheme/generic-button",
@@ -17,12 +18,14 @@ registerBlockType(
 )
 
 function EditComponent(props) {
+    const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(false)
+
     function handleTextChange(x) {
         props.setAttributes({ text: x })
     }
 
     function buttonHandler(){
-
+        setIsLinkPickerVisible(prev => !prev)
     }
 
     return (

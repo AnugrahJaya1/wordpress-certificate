@@ -172,6 +172,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_1__.registerBlockType)("ourblocktheme/generic-button", {
   title: "Generic Button",
   attributes: {
@@ -187,12 +188,15 @@ __webpack_require__.r(__webpack_exports__);
   save: SaveComponent
 });
 function EditComponent(props) {
+  const [isLinkPickerVisible, setIsLinkPickerVisible] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   function handleTextChange(x) {
     props.setAttributes({
       text: x
     });
   }
-  function buttonHandler() {}
+  function buttonHandler() {
+    setIsLinkPickerVisible(prev => !prev);
+  }
   return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.BlockControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarGroup, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.ToolbarButton, {
     onClick: buttonHandler,
     icon: _wordpress_icons__WEBPACK_IMPORTED_MODULE_4__["default"]
