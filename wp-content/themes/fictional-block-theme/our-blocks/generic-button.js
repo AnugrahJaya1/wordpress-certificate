@@ -64,12 +64,12 @@ function EditComponent(props) {
             </BlockControls>
             <InspectorControls>
                 <PanelBody title="Color" initialOpen={true}>
-                    <ColorPalette disableCustomColors={true} clearable={false} colors={ourColors} value={currentColorValue} onChange={handleColorChange}/>
+                    <ColorPalette disableCustomColors={true} clearable={false} colors={ourColors} value={currentColorValue} onChange={handleColorChange} />
                 </PanelBody>
             </InspectorControls>
             <RichText allowedFormats={[]} tagName="a" className={`btn btn--${props.attributes.size} btn--${props.attributes.colorName}`} value={props.attributes.text} onChange={handleTextChange} />
             {isLinkPickerVisible && (
-                <Popover position="middle center">
+                <Popover position="middle center" onFocusOutside={() => setIsLinkPickerVisible(false)}>
                     <LinkControl settings={[]} value={props.attributes.linkObject} onChange={handleLinkControl} />
                     <Button variant="primary" onClick={() => setIsLinkPickerVisible(false)} style={{ display: "block", width: "100%" }}>Confirm Link</Button>
                 </Popover>
