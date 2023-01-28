@@ -24,14 +24,16 @@ registerBlockType(
 function EditComponent(props) {
     useEffect(
         function () {
-            async function go() {
-                const response = await apiFetch({
-                    path: `/wp/v2/media/${props.attributes.imageID}`,
-                    method: "GET"
-                })
-                props.setAttributes({ imageURL: response.media_details.sizes.page_banner.source_url})
+            if (props.attributes.imageID) {
+                async function go() {
+                    const response = await apiFetch({
+                        path: `/wp/v2/media/${props.attributes.imageID}`,
+                        method: "GET"
+                    })
+                    props.setAttributes({ imageURL: response.media_details.sizes.page_banner.source_url })
+                }
+                go()
             }
-            go()
         },
         [props.attributes.imageID]
     )
