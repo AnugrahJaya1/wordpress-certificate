@@ -307,3 +307,4 @@ class JSXBlock
 
 new JSXBlock("banner");
 new JSXBlock("generic-heading");
+new JSXBlock("generic-button");
