@@ -279,6 +279,39 @@ function ignore_certain_files($exclude_filters)
 
 add_filter("ai1wm_exclude_content_from_export", "ignore_certain_files");
 
+class PlaceholderBlock
+{
+    private $name;
+    function __construct($name)
+    {
+        $this->name = $name;
+        add_action('init', [$this, 'on_init']);
+    }
+
+    function our_render_callback($attributes, $content)
+    {
+        ob_start();
+        require get_theme_file_path("/our-blocks/{$this->name}.php");
+        return ob_get_clean();
+    }
+
+    function on_init()
+    {
+        wp_register_script(
+            $this->name,
+            get_stylesheet_directory_uri() . "/our-blocks/{$this->name}.js",
+            array('wp-blocks', 'wp-editor')
+        );
+
+        register_block_type("ourblocktheme/{$this->name}", array(
+            'editor_script' => $this->name,
+            'render_callback' => [$this, 'our_render_callback']
+        ));
+    }
+}
+
+new PlaceholderBlock("events-and-blogs");
+
 class JSXBlock
 {
     private $name, $render_callback, $data;
