@@ -1,4 +1,8 @@
 <?php
+if(isset($attributes["themeImage"])){
+    $attributes["imageURL"] = get_theme_file_uri("/images/").$attributes["themeImage"];
+}
+
 if (!isset($attributes["imageURL"]) || empty($attributes["imageURL"])) {
     $attributes["imageURL"] = get_theme_file_uri("/images/library-hero.jpg");
 }
