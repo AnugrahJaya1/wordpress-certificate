@@ -134,7 +134,7 @@ function page_banner($args = NULL)
     if (!$background_image_url) {
         $page_banner_background_image = get_field("page_banner_background_image");
         if ($page_banner_background_image) {
-            $background_image_url = $page_banner_background_image["sizes"]["page-banner"];
+            $background_image_url = $page_banner_background_image["sizes"]["page_banner"];
         } else {
             $background_image_url = get_theme_file_uri('/images/ocean.jpg');
         }
@@ -314,6 +314,7 @@ new PlaceholderBlock("events-and-blogs");
 new PlaceholderBlock("header");
 new PlaceholderBlock("footer");
 new PlaceholderBlock("single-post");
+new PlaceholderBlock("single-page");
 
 class JSXBlock
 {
