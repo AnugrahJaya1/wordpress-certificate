@@ -371,3 +371,16 @@ new JSXBlock("generic-heading");
 new JSXBlock("generic-button");
 new JSXBlock("slideshow", true);
 new JSXBlock("slide", true, ["theme_image_path" => get_theme_file_uri("/images/")]);
+
+function my_allowed_blocks($allowed_block_types, $editor_context)
+{
+    // on a page/post editor screen
+    if(!empty($editor_context->post)){
+        return $allowed_block_types;
+    }
+
+    // on FSE screen (Editor)
+    return array("ourblocktheme/header", "ourblocktheme/footer");
+}
+
+add_filter("allowed_block_types_all", "my_allowed_blocks", 10, 2);
