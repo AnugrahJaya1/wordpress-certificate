@@ -319,6 +319,7 @@ new PlaceholderBlock("single-program");
 new PlaceholderBlock("single-professor");
 new PlaceholderBlock("blog-index");
 new PlaceholderBlock("archive-program");
+new PlaceholderBlock("page-my-notes");
 
 class JSXBlock
 {
