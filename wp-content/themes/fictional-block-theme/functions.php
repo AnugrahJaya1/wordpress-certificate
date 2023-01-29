@@ -315,6 +315,7 @@ new PlaceholderBlock("header");
 new PlaceholderBlock("footer");
 new PlaceholderBlock("single-post");
 new PlaceholderBlock("single-page");
+new PlaceholderBlock("blog-index");
 
 class JSXBlock
 {
