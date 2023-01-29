@@ -159,12 +159,22 @@ __webpack_require__.r(__webpack_exports__);
     imageURL: {
       type: "string",
       default: banner.fallback_image
+    },
+    themeImage: {
+      type: "string"
     }
   },
   edit: EditComponent,
   save: SaveComponent
 });
 function EditComponent(props) {
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (props.attributes.themeImage) {
+      props.setAttributes({
+        imageURL: `${slide.theme_image_path}${props.attributes.themeImage}`
+      });
+    }
+  }, []);
   (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (props.attributes.imageID) {
       async function go() {
@@ -173,6 +183,7 @@ function EditComponent(props) {
           method: "GET"
         });
         props.setAttributes({
+          themeImage: "",
           imageURL: response.media_details.sizes.page_banner.source_url
         });
       }

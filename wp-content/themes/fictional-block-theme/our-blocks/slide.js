@@ -14,7 +14,8 @@ registerBlockType(
         attributes: {
             align: { type: "string", default: "full" },
             imageID: { type: "number" },
-            imageURL: { type: "string", default: banner.fallback_image }
+            imageURL: { type: "string", default: banner.fallback_image },
+            themeImage: {type: "string"}
         },
         edit: EditComponent,
         save: SaveComponent
@@ -22,6 +23,12 @@ registerBlockType(
 )
 
 function EditComponent(props) {
+    useEffect(function () {
+        if(props.attributes.themeImage){
+            props.setAttributes({imageURL: `${slide.theme_image_path}${props.attributes.themeImage}`})
+        }
+    }, [])
+
     useEffect(
         function () {
             if (props.attributes.imageID) {
@@ -30,7 +37,7 @@ function EditComponent(props) {
                         path: `/wp/v2/media/${props.attributes.imageID}`,
                         method: "GET"
                     })
-                    props.setAttributes({ imageURL: response.media_details.sizes.page_banner.source_url })
+                    props.setAttributes({ themeImage: "", imageURL: response.media_details.sizes.page_banner.source_url })
                 }
                 go()
             }
