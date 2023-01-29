@@ -363,3 +363,4 @@ new JSXBlock("banner", true, ["fallback_image" => get_theme_file_uri("/images/li
 new JSXBlock("generic-heading");
 new JSXBlock("generic-button");
 new JSXBlock("slideshow", true);
+new JSXBlock("slide", true);
